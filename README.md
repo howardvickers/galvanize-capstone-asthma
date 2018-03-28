@@ -1,3 +1,4 @@
+# galvanize-capstone-asthma
 ## Predicting Asthma Rates in Colorado by County
 
 ### Introduction
@@ -11,18 +12,21 @@ The oil and gas industry emits methane, benzene and other pollutants and the ind
 ZNA Health have generously offered support with identifying data sources and with environmental/medical questions.
 
 #### Data
-tbd
-#### Pipeline
-tbd
-#### EDA
+##### Data Overview
+All data are available online as public records, either by county or otherwise geo-located.  The data include:
+* Asthma incidence rates
+* Socio-economic data
+* Oil/gas facility locations
+* Coal power plants
+* Air quality data
+
+##### Plots (under Data section)
 tbd
 #### Models
 tbd
+#### Web App
+tbd (overview and link to website)
 #### Results
-tbd
-#### Discussion
-tbd
-#### Conclusion
 tbd
 #### References
 tbd
@@ -35,12 +39,13 @@ tbd
 #### To Do List
 1. Finalize initial data - clean and joins (1 day)
 2. EDA Charts (1 day)
-3. Finalize full data - multiple years (1 day)
-4. Develop initial model (1 day)
-5. Explore other models (1 day)
-6. Optimize model (1 day)
+3. Develop pipeline (2 days)
+5. GridSearch (2 days)
+  3. ~~Finalize full data - multiple years (1 day)~~
+  4. ~~Develop initial model (1 day)~~
+  5. ~~Explore other models (1 day)~~
+  6. ~~Optimize model (1 day)~~
 7. Further optimize model (1 day)
 8. Build in ability to vary variables (1 day)
 9. Build web app MVP (1 day)
 10. Get web app running on AWS (1 day)
-# galvanize-capstone-asthma

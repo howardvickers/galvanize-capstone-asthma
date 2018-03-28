@@ -34,8 +34,8 @@ tbd
 
 #### To Do List
 1. Finalize initial data - clean and joins (1 day)
-2. Finalize full data - multiple years (1 day)
-3. EDA Charts (1 day)
+2. EDA Charts (1 day)
+3. Finalize full data - multiple years (1 day)
 4. Develop initial model (1 day)
 5. Explore other models (1 day)
 6. Optimize model (1 day)

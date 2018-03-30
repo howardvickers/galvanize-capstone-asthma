@@ -10,7 +10,7 @@ class OilEDA(object):
         self.df = None
 
     def oil_data(self):
-        dbf = DBF('data/oil_gas_locations/oil_mar27.dbf')
+        dbf = DBF('../data/oil_gas_locations/oil_mar27.dbf')
         df = pd.DataFrame(iter(dbf))
 
         dfmin = df[['loc_id', 'fac_status', 'county']]
@@ -72,7 +72,7 @@ class AsthmaEDA(object):
         self.df_ast = None
 
     def ast_data(self):
-        df_ast = pd.read_csv('data/asthma_prevalence1.csv')
+        df_ast = pd.read_csv('../data/asthma_prevalence1.csv')
         # make column names lowercase
         df_ast.columns = map(str.lower, df_ast.columns)
         dropped = df_ast.drop(['objectid', 'fips', 'name', 'hsr', 'map_symbol','state_avg', 'hsr_symbol', 'mconfint' ], axis=1)
@@ -109,7 +109,7 @@ class SmokerEDA(object):
         pass
 
     def smoke_data(self):
-        df_smoke = pd.read_csv('data/smoking_adults.csv')
+        df_smoke = pd.read_csv('../data/smoking_adults.csv')
         df_smoke.columns = df_smoke.columns.str.lower()
         smokemin = df_smoke[['county', 'smoker']]
         smokegrouped = smokemin.groupby('county')['smoker'].mean()

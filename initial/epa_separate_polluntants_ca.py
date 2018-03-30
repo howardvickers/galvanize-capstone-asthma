@@ -2,8 +2,123 @@ import numpy as np
 import pandas as pd
 # source data: https://aqs.epa.gov/aqsweb/airdata/download_files.html
 
+# def pm2_5spec_data():
+pm2_5spec = pd.read_csv('../data/daily_88502_2017.csv')
+pm2_5spec.columns = ['st_cd', 'cnt_cd', 'site_nm', 'param_cd', 'poc', 'lat', 'lon', 'datum',
+       'param', 'duration', 'pollutant', 'date', 'units', 'event_type',
+       'obs_count', 'obs_perc', 'mean_avg', 'first_max_val', 'first_max_hour',
+       'aqi', 'method_cd', 'method', 'local_site', 'address', 'state',
+       'county', 'city', 'cbsa', 'last_change_date']
+pm2_5specca = pm2_5spec[pm2_5spec['state'] == 'California']
+pm2_5speccaslim = pm2_5specca.drop(['st_cd', 'cnt_cd', 'site_nm', 'poc', 'lat', 'lon', 'datum',
+       'param', 'duration', 'pollutant', 'date', 'event_type', 'units', 'aqi',
+       'obs_perc', 'first_max_val', 'first_max_hour', 'method_cd', 'method', 'local_site', 'address', 'state',
+       'city', 'cbsa', 'last_change_date'], axis=1)
+pm2_5speccaslim = pm2_5speccaslim.reset_index()
+pm2_5speccaslim = pm2_5speccaslim.drop(['index'], axis=1)
+pm2_5speccaslim['obs_x_mean'] = pm2_5speccaslim.apply(lambda row: row.obs_count * row.mean_avg, axis=1)
+pm2_5speccaslim.county = pm2_5speccaslim.county.str.lower()
+pm2_5speccagroupby = pm2_5speccaslim.groupby('county').sum()
+pm2_5speccagroupby = pm2_5speccagroupby.reset_index()
+pm2_5speccagroupby['new_mean'] = pm2_5speccagroupby.apply(lambda row: row.obs_x_mean / row.obs_count, axis=1)
+pm2_5speccafinal = pm2_5speccagroupby.drop(['obs_count', 'mean_avg', 'obs_x_mean', 'param_cd'], axis=1)
+pm2_5speccafinal.columns = ['county', 'pm2_5spec_mean']
+
+
+# def pm2_5non_data():
+pm2_5non = pd.read_csv('../data/daily_88502_2017.csv')
+pm2_5non.columns = ['st_cd', 'cnt_cd', 'site_nm', 'param_cd', 'poc', 'lat', 'lon', 'datum',
+       'param', 'duration', 'pollutant', 'date', 'units', 'event_type',
+       'obs_count', 'obs_perc', 'mean_avg', 'first_max_val', 'first_max_hour',
+       'aqi', 'method_cd', 'method', 'local_site', 'address', 'state',
+       'county', 'city', 'cbsa', 'last_change_date']
+pm2_5nonca = pm2_5non[pm2_5non['state'] == 'California']
+pm2_5noncaslim = pm2_5nonca.drop(['st_cd', 'cnt_cd', 'site_nm', 'poc', 'lat', 'lon', 'datum',
+       'param', 'duration', 'pollutant', 'date', 'event_type', 'units', 'aqi',
+       'obs_perc', 'first_max_val', 'first_max_hour', 'method_cd', 'method', 'local_site', 'address', 'state',
+       'city', 'cbsa', 'last_change_date'], axis=1)
+pm2_5noncaslim = pm2_5noncaslim.reset_index()
+pm2_5noncaslim = pm2_5noncaslim.drop(['index'], axis=1)
+pm2_5noncaslim['obs_x_mean'] = pm2_5noncaslim.apply(lambda row: row.obs_count * row.mean_avg, axis=1)
+pm2_5noncaslim.county = pm2_5noncaslim.county.str.lower()
+pm2_5noncagroupby = pm2_5noncaslim.groupby('county').sum()
+pm2_5noncagroupby = pm2_5noncagroupby.reset_index()
+pm2_5noncagroupby['new_mean'] = pm2_5noncagroupby.apply(lambda row: row.obs_x_mean / row.obs_count, axis=1)
+pm2_5noncafinal = pm2_5noncagroupby.drop(['obs_count', 'mean_avg', 'obs_x_mean', 'param_cd'], axis=1)
+pm2_5noncafinal.columns = ['county', 'pm2_5non_mean']
+
+
+# def pm2_5_data():
+pm2_5 = pd.read_csv('../data/daily_88101_2017.csv')
+pm2_5.columns = ['st_cd', 'cnt_cd', 'site_nm', 'param_cd', 'poc', 'lat', 'lon', 'datum',
+       'param', 'duration', 'pollutant', 'date', 'units', 'event_type',
+       'obs_count', 'obs_perc', 'mean_avg', 'first_max_val', 'first_max_hour',
+       'aqi', 'method_cd', 'method', 'local_site', 'address', 'state',
+       'county', 'city', 'cbsa', 'last_change_date']
+pm2_5ca = pm2_5[pm2_5['state'] == 'California']
+pm2_5caslim = pm2_5ca.drop(['st_cd', 'cnt_cd', 'site_nm', 'poc', 'lat', 'lon', 'datum',
+       'param', 'duration', 'pollutant', 'date', 'event_type', 'units', 'aqi',
+       'obs_perc', 'first_max_val', 'first_max_hour', 'method_cd', 'method', 'local_site', 'address', 'state',
+       'city', 'cbsa', 'last_change_date'], axis=1)
+pm2_5caslim = pm2_5caslim.reset_index()
+pm2_5caslim = pm2_5caslim.drop(['index'], axis=1)
+pm2_5caslim['obs_x_mean'] = pm2_5caslim.apply(lambda row: row.obs_count * row.mean_avg, axis=1)
+pm2_5caslim.county = pm2_5caslim.county.str.lower()
+pm2_5cagroupby = pm2_5caslim.groupby('county').sum()
+pm2_5cagroupby = pm2_5cagroupby.reset_index()
+pm2_5cagroupby['new_mean'] = pm2_5cagroupby.apply(lambda row: row.obs_x_mean / row.obs_count, axis=1)
+pm2_5cafinal = pm2_5cagroupby.drop(['obs_count', 'mean_avg', 'obs_x_mean', 'param_cd'], axis=1)
+pm2_5cafinal.columns = ['county', 'pm2_5_mean']
+
+
+# def pm10_data():
+pm10 = pd.read_csv('../data/daily_81102_2017.csv')
+pm10.columns = ['st_cd', 'cnt_cd', 'site_nm', 'param_cd', 'poc', 'lat', 'lon', 'datum',
+       'param', 'duration', 'pollutant', 'date', 'units', 'event_type',
+       'obs_count', 'obs_perc', 'mean_avg', 'first_max_val', 'first_max_hour',
+       'aqi', 'method_cd', 'method', 'local_site', 'address', 'state',
+       'county', 'city', 'cbsa', 'last_change_date']
+pm10ca = pm10[pm10['state'] == 'California']
+pm10caslim = pm10ca.drop(['st_cd', 'cnt_cd', 'site_nm', 'poc', 'lat', 'lon', 'datum',
+       'param', 'duration', 'pollutant', 'date', 'event_type', 'units', 'aqi',
+       'obs_perc', 'first_max_val', 'first_max_hour', 'method_cd', 'method', 'local_site', 'address', 'state',
+       'city', 'cbsa', 'last_change_date'], axis=1)
+pm10caslim = pm10caslim.reset_index()
+pm10caslim = pm10caslim.drop(['index'], axis=1)
+pm10caslim['obs_x_mean'] = pm10caslim.apply(lambda row: row.obs_count * row.mean_avg, axis=1)
+pm10caslim.county = pm10caslim.county.str.lower()
+pm10cagroupby = pm10caslim.groupby('county').sum()
+pm10cagroupby = pm10cagroupby.reset_index()
+pm10cagroupby['new_mean'] = pm10cagroupby.apply(lambda row: row.obs_x_mean / row.obs_count, axis=1)
+pm10cafinal = pm10cagroupby.drop(['obs_count', 'mean_avg', 'obs_x_mean', 'param_cd'], axis=1)
+pm10cafinal.columns = ['county', 'pm10_mean']
+
+
+# def lead_data():
+lead = pd.read_csv('../data/daily_LEAD_2014.csv')
+lead.columns = ['st_cd', 'cnt_cd', 'site_nm', 'param_cd', 'poc', 'lat', 'lon', 'datum',
+       'param', 'duration', 'pollutant', 'date', 'units', 'event_type',
+       'obs_count', 'obs_perc', 'mean_avg', 'first_max_val', 'first_max_hour',
+       'aqi', 'method_cd', 'method', 'local_site', 'address', 'state',
+       'county', 'city', 'cbsa', 'last_change_date']
+leadca = lead[lead['state'] == 'California']
+leadcaslim = leadca.drop(['st_cd', 'cnt_cd', 'site_nm', 'poc', 'lat', 'lon', 'datum',
+       'param', 'duration', 'pollutant', 'date', 'event_type', 'units', 'aqi',
+       'obs_perc', 'first_max_val', 'first_max_hour', 'method_cd', 'method', 'local_site', 'address', 'state',
+       'city', 'cbsa', 'last_change_date'], axis=1)
+leadcaslim = leadcaslim.reset_index()
+leadcaslim = leadcaslim.drop(['index'], axis=1)
+leadcaslim['obs_x_mean'] = leadcaslim.apply(lambda row: row.obs_count * row.mean_avg, axis=1)
+leadcaslim.county = leadcaslim.county.str.lower()
+leadcagroupby = leadcaslim.groupby('county').sum()
+leadcagroupby = leadcagroupby.reset_index()
+leadcagroupby['new_mean'] = leadcagroupby.apply(lambda row: row.obs_x_mean / row.obs_count, axis=1)
+leadcafinal = leadcagroupby.drop(['obs_count', 'mean_avg', 'obs_x_mean', 'param_cd'], axis=1)
+leadcafinal.columns = ['county', 'lead_mean']
+
+
 # def nonox_data():
-nonox = pd.read_csv('data/daily_NONOxNOy_2017.csv')
+nonox = pd.read_csv('../data/daily_NONOxNOy_2017.csv')
 nonox.columns = ['st_cd', 'cnt_cd', 'site_nm', 'param_cd', 'poc', 'lat', 'lon', 'datum',
        'param', 'duration', 'pollutant', 'date', 'units', 'event_type',
        'obs_count', 'obs_perc', 'mean_avg', 'first_max_val', 'first_max_hour',
@@ -27,7 +142,7 @@ nonoxcafinal.columns = ['county', 'nonox_mean']
 
 
 # def haps_data():
-haps = pd.read_csv('data/daily_HAPS_2017.csv')
+haps = pd.read_csv('../data/daily_HAPS_2017.csv')
 haps.columns = ['st_cd', 'cnt_cd', 'site_nm', 'param_cd', 'poc', 'lat', 'lon', 'datum',
        'param', 'duration', 'pollutant', 'date', 'units', 'event_type',
        'obs_count', 'obs_perc', 'mean_avg', 'first_max_val', 'first_max_hour',
@@ -53,7 +168,7 @@ hapscafinal.columns = ['county', 'haps_mean']
 
 # def vocs_data():
 # vocs16 = pd.read_csv('daily_VOCS_2016.csv')
-vocs = pd.read_csv('data/daily_VOCS_2017.csv')
+vocs = pd.read_csv('../data/daily_VOCS_2017.csv')
 vocs.columns = ['st_cd', 'cnt_cd', 'site_nm', 'param_cd', 'poc', 'lat', 'lon', 'datum',
        'param', 'duration', 'pollutant', 'date', 'units', 'event_type',
        'obs_count', 'obs_perc', 'mean_avg', 'first_max_val', 'first_max_hour',
@@ -76,7 +191,7 @@ vocscafinal.columns = ['county', 'vocs_mean']
 
 
 # def co_data():
-co = pd.read_csv('data/daily_42101_2017.csv')
+co = pd.read_csv('../data/daily_42101_2017.csv')
 co.columns = ['st_cd', 'cnt_cd', 'site_nm', 'param_cd', 'poc', 'lat', 'lon', 'datum',
        'param', 'duration', 'pollutant', 'date', 'units', 'event_type',
        'obs_count', 'obs_perc', 'mean_avg', 'first_max_val', 'first_max_hour',
@@ -99,7 +214,7 @@ cocafinal.columns = ['county', 'co_mean']
 
 
 # def so2_data():
-so2 = pd.read_csv('data/daily_42401_2017.csv')
+so2 = pd.read_csv('../data/daily_42401_2017.csv')
 so2.columns = ['st_cd', 'cnt_cd', 'site_nm', 'param_cd', 'poc', 'lat', 'lon', 'datum',
        'param', 'duration', 'pollutant', 'date', 'units', 'event_type',
        'obs_count', 'obs_perc', 'mean_avg', 'first_max_val', 'first_max_hour',
@@ -121,7 +236,7 @@ socafinal = socagroupby.drop(['obs_count', 'mean_avg', 'obs_x_mean', 'param_cd']
 socafinal.columns = ['county', 'so_mean']
 
 # def no2_data():
-no2 = pd.read_csv('data/daily_42602_2017.csv')
+no2 = pd.read_csv('../data/daily_42602_2017.csv')
 no2.columns = ['st_cd', 'cnt_cd', 'site_nm', 'param_cd', 'poc', 'lat', 'lon', 'datum',
        'param', 'duration', 'pollutant', 'date', 'units', 'event_type',
        'obs_count', 'obs_perc', 'mean_avg', 'first_max_val', 'first_max_hour',
@@ -143,7 +258,7 @@ nocafinal = nocagroupby.drop(['obs_count', 'mean_avg', 'obs_x_mean', 'param_cd']
 nocafinal.columns = ['county', 'no_mean']
 
 # def ozone_data():
-ozo = pd.read_csv('data/daily_44201_2017.csv')
+ozo = pd.read_csv('../data/daily_44201_2017.csv')
 ozoslim = ozo.drop(['State Code', 'County Code', 'Site Num', 'POC',
        'Latitude', 'Longitude', 'Datum', 'Sample Duration',
        'Pollutant Standard', 'Date Local', 'Units of Measure', 'Event Type',
@@ -164,7 +279,7 @@ ozocafinal = ozocagroupby.drop(['obs_count', 'mean_avg', 'obs_x_mean'], axis=1)
 ozocafinal.columns = ['county', 'ozo_mean']
 
 # def asthma_ca():
-asthmahospca = pd.read_csv('data/asthma_hospitization_ca.csv')
+asthmahospca = pd.read_csv('../data/asthma_hospitization_ca.csv')
 asthmahospca.columns = ['year', 'zip', 'age', 'visits', 'asthma_rate', 'fips', 'county']
 asthmahospca = asthmahospca.drop(['zip', 'age', 'visits', 'fips'], axis=1)
 asthmahospca2015 = asthmahospca[asthmahospca['year']==2015]
@@ -184,3 +299,9 @@ asozonocoso_ca                 = asozonoco_ca.merge(socafinal, how="left", on="c
 asozonocosovocs_ca             = asozonocoso_ca.merge(vocscafinal, how="left", on="county")
 asozonocosovocshaps_ca         = asozonocosovocs_ca.merge(hapscafinal, how="left", on="county")
 asozonocosovocshapsnonox_ca    = asozonocosovocshaps_ca.merge(nonoxcafinal, how="left", on="county")
+
+asozonocosovocshapsnonoxlead_ca                         = asozonocosovocshaps_ca.merge(leadcafinal, how="left", on="county")
+asozonocosovocshapsnonoxpm10_ca                         = asozonocosovocshapsnonoxlead_ca.merge(pm10cafinal, how="left", on="county")
+asozonocosovocshapsnonoxpm10pm2_5_ca                    = asozonocosovocshapsnonoxpm10_ca.merge(pm2_5cafinal, how="left", on="county")
+asozonocosovocshapsnonoxpm10pm2_5pm2_5non_ca            = asozonocosovocshapsnonoxpm10pm2_5_ca.merge(pm2_5noncafinal, how="left", on="county")
+asozonocosovocshapsnonoxpm10pm2_5pm2_5nonpm2_5spec_ca   = asozonocosovocshapsnonoxpm10pm2_5pm2_5non_ca.merge(pm2_5speccafinal, how="left", on="county")

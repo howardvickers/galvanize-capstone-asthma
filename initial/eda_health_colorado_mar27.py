@@ -5,11 +5,11 @@ from pandas.plotting import scatter_matrix
 # source data: http://www.countyhealthrankings.org/rankings/data/CO
 
 # read in excel file
-xls = pd.ExcelFile('data/colorado_health_rankings_county_2017.xls')
+xls = pd.ExcelFile('../data/colorado_health_rankings_county_2017.xls')
 # select tab with data and create new df
 df1 = pd.read_excel(xls, 'Ranked Measure Data')
 # save df to csv file
-df1.to_csv('data/co_health_rank_2017.csv')
+df1.to_csv('../data/co_health_rank_2017.csv')
 
 
 # get: adult smoking, adult obesity, uninsured, PCP (doctors) rate, high school graduation, unemployment, income inequality, air pollution,

@@ -283,7 +283,7 @@ asozonocoso_co                 = asozonoco_co.merge(socofinal, how="left", on="c
 asozonocosovocs_co             = asozonocoso_co.merge(vocscofinal, how="left", on="county")
 asozonocosovocshaps_co         = asozonocosovocs_co.merge(hapscofinal, how="left", on="county")
 asozonocosovocshapsnonox_co    = asozonocosovocshaps_co.merge(nonoxcofinal, how="left", on="county")
-
+ 
 asozonocosovocshapsnonoxlead_co                         = asozonocosovocshaps_co.merge(leadcafinal, how="left", on="county")
 asozonocosovocshapsnonoxpm10_co                         = asozonocosovocshapsnonoxlead_co.merge(pm10cafinal, how="left", on="county")
 asozonocosovocshapsnonoxpm10pm2_5_co                    = asozonocosovocshapsnonoxpm10_co.merge(pm2_5cafinal, how="left", on="county")

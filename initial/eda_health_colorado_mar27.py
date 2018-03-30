@@ -44,7 +44,7 @@ scasthma = nine_asthma[['asthma_rate', 'smoke_adult', 'obese_adult', 'uninsured'
 scatter_matrix(scasthma, figsize=(8,8), diagonal='kde')
 
 
-
+ 
     def bootstrapping():
         pass
         # for i in range(0, 500):

@@ -97,7 +97,7 @@ class AsthmaEDA(object):
         # convert asthma_rate column to float
         asthma.asthma_rate = asthma.asthma_rate.astype(float)
 
-
+ 
         # groupby in order to almalgamate duplicates of counties
         asthma = asthma.groupby('county').mean()
         # change index to colunm ('county') and add index

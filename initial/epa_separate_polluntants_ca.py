@@ -290,7 +290,7 @@ asthmahospca2015 = asthmahospca2015.drop('index', axis=1)
 asthmahospca2015 = asthmahospca2015.groupby('county').mean()
 asthmahospca2015 = asthmahospca2015.reset_index()
 asthmaca = asthmahospca2015
-
+ 
 # def merge_all():
 asozo_ca                       = asthmaca.merge(ozocafinal, how="left", on="county")
 asozono_ca                     = asozo_ca.merge(nocafinal, how="left", on="county")

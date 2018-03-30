@@ -13,10 +13,10 @@ df1.to_csv('../data/co_health_rank_2017.csv')
 
 
 # get: adult smoking, adult obesity, uninsured, PCP (doctors) rate, high school graduation, unemployment, income inequality, air pollution,
-df1_multicols = df1.iloc[:, [24,28,60,65,98,108,119,138]]
+df1multicols = df1.iloc[:, [1,2,24,28,60,65,98,108,119,138]]
 # change column names
-new_names = ['smoke_adult', 'obese_adult', 'uninsured', 'pcp', 'high_sch_grad', 'unemployment', 'income_ineq', 'air_poll_partic']
-df1_multicols.columns = new_names
+new_names = ['state', 'county','smoke_adult', 'obese_adult', 'uninsured', 'pcp', 'high_sch_grad', 'unemployment', 'income_ineq', 'air_poll_partic']
+df1multicols.columns = new_names
 
 
 # remove multi-indexes (first)
@@ -44,7 +44,7 @@ scasthma = nine_asthma[['asthma_rate', 'smoke_adult', 'obese_adult', 'uninsured'
 scatter_matrix(scasthma, figsize=(8,8), diagonal='kde')
 
 
- 
+
     def bootstrapping():
         pass
         # for i in range(0, 500):

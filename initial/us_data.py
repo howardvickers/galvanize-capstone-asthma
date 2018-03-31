@@ -27,6 +27,6 @@ def get_data():
     hi.county = hi.county.str.lower()
     hi.state = hi.state.str.lower()
 
-    cocanj = hi[(hi['state'] == 'colorado') | (hi['state'] == 'california') | (hi['state'] == 'new jersey')]
+    cocanjfl = hi[(hi['state'] == 'colorado') | (hi['state'] == 'california') | (hi['state'] == 'new jersey') | (hi['state'] == 'florida')]
 
-    return cocanj
+    return cocanjfl

@@ -28,6 +28,15 @@ res = model.fit()
 print(res.summary())
 
 
+socio_pol_nazero_coca = data.fillna(0)
+no_counties = socio_pol_nazero_coca.drop(['county', 'state'], axis=1)
+X = no_counties.drop('asthma_rate', axis=1)
+X = no_counties.drop(['asthma_rate', 'ozo_mean','unemployment','uninsured','pcp','pm2_5_mean','pm2_5non_mean','pm2_5spec_mean','air_poll_partic','income_ineq','so_mean', 'no_mean', 'lead_mean', 'high_sch_grad', 'obese_adult'], axis=1)
+y = no_counties.asthma_rate
+X = sm.add_constant(X)
+model = sm.OLS(y, X)
+res = model.fit()
+print(res.summary())
 
 # dropna gives r2 of ... didn't work because no data left after dropping nans!
 # join_coca_drop = join_coca.drop(['so_mean', 'no_mean'], axis=1)

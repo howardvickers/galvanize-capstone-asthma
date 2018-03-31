@@ -267,12 +267,15 @@ ozocofinal = ozocogroupby.drop(['obs_count', 'mean_avg', 'obs_x_mean'], axis=1)
 ozocofinal.columns = ['county', 'ozo_mean']
 
 # def asthma_co():
+# https://data-cdphe.opendata.arcgis.com/datasets/asthma-hospitalization-rate-counties
 asthmahospco = pd.read_csv('../data/asthma_hospitization_co.csv')
 asthmahospco.columns = asthmahospco.columns.str.lower()
 asthmahospco = asthmahospco.drop(['objectid', 'county_fips', 'l95ci', 'u95ci',
        'stateadjrate', 'sl95ci', 'su95ci', 'display'], axis=1)
 asthmahospco.county_name = asthmahospco.county_name.str.lower()
 asthmahospco.columns = ['county', 'asthma_rate']
+asthmahospco['asthma_rate']= asthmahospco.apply(lambda row: row.asthma_rate / 10, axis=1)
+
 asthmaco = asthmahospco
 
 # def merge_all():
@@ -283,7 +286,7 @@ asozonocoso_co                 = asozonoco_co.merge(socofinal, how="left", on="c
 asozonocosovocs_co             = asozonocoso_co.merge(vocscofinal, how="left", on="county")
 asozonocosovocshaps_co         = asozonocosovocs_co.merge(hapscofinal, how="left", on="county")
 asozonocosovocshapsnonox_co    = asozonocosovocshaps_co.merge(nonoxcofinal, how="left", on="county")
- 
+
 asozonocosovocshapsnonoxlead_co                         = asozonocosovocshaps_co.merge(leadcafinal, how="left", on="county")
 asozonocosovocshapsnonoxpm10_co                         = asozonocosovocshapsnonoxlead_co.merge(pm10cafinal, how="left", on="county")
 asozonocosovocshapsnonoxpm10pm2_5_co                    = asozonocosovocshapsnonoxpm10_co.merge(pm2_5cafinal, how="left", on="county")

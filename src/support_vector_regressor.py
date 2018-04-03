@@ -46,7 +46,7 @@ def sup_vec_regress(data):
     #                     ]
 
     hyperparameters = { 'svr__kernel': ['linear', 'rbf'],
-                        'srv__C': [0.1, 1, 10, 100, 1000]
+                        'svr__C': [0.1, 1, 10, 100, 1000]
                         }
 
 

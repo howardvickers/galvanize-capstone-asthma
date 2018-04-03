@@ -14,16 +14,25 @@ ZNA Health have generously offered support with identifying data sources and wit
 #### Data
 ##### Data Overview
 All data are available online as public records, either by county or otherwise geo-located.  The data include:
-* Asthma incidence rates
-* Socio-economic data
-* Oil/gas facility locations
-* Coal power plants
-* Air quality data
+* Asthma hospitalization rates for each state:
+  * California: [data.chhs.ca.gov](https://data.chhs.ca.gov/dataset/asthma-ed-visit-rates-lghc-indicator-07)
+  * Colorado: [data-cdphe.opendata.arcgis.com](https://data-cdphe.opendata.arcgis.com/datasets/asthma-hospitalization-rate-counties)
+  * Florida: [flhealthcharts.com](http://www.flhealthcharts.com/charts/OtherIndicators/NonVitalIndDataViewer.aspx?cid=0341)
+  * New Jersey: [state.nj.us](https://www26.state.nj.us/doh-shad/indicator/view/NJASTHMAHOSP.countyAAR.html)
+* Socio-economic data:  [countyhealthrankings.org](http://www.countyhealthrankings.org/rankings/data)
+* Air quality data: [epa.gov](https://aqs.epa.gov/aqsweb/airdata/download_files.html)
+* ~~Oil/gas facility locations~~
+* ~~Coal power plants~~
 
 ##### Plots (under Data section)
 tbd
 #### Models
-tbd
+* Linear Regression
+* Lasso & Ridge
+* Random Forest
+* Support Vector Regression
+* KNN Regression
+
 #### Web App
 tbd (overview and link to website)
 #### Results

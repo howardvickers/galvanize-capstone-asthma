@@ -2,19 +2,18 @@ import numpy as np
 import pandas as pd
 from sklearn.cross_validation import train_test_split
 from sklearn.preprocessing import StandardScaler
-from sklearn.ensemble import RandomForestRegressor
+from sklearn.svm import SVR
 from sklearn.pipeline import make_pipeline
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import mean_squared_error, r2_score
+
+from sklearn.metrics import classification_report
+from sklearn.utils import shuffle
 
 def eval_model(model, X_test, y_test):
     ypred = model.predict(X_test)
     MAPE = 100 * np.mean(abs(ypred - y_test) / y_test)
     accuracy = 100 - MAPE
-    print('MAPE:', MAPE)
-    print('abs(ypred - y_test):', abs(ypred - y_test))
-    print('y_test:', y_test)
-    print('$'*20)
     print('Model Performance Indicators')
     print('Average Error: {:0.3f} degrees.'.format(np.mean(abs(ypred - y_test))))
     print('Accuracy = {:0.3f}%.'.format(accuracy))
@@ -22,7 +21,7 @@ def eval_model(model, X_test, y_test):
     return accuracy
 
 
-def rand_forest(data):
+def sup_vec_regress(data):
     data_nas = data.fillna(0)
     no_counties = data_nas.drop(['county', 'state'], axis=1)
     X = no_counties.drop('asthma_rate', axis=1)
@@ -36,16 +35,24 @@ def rand_forest(data):
 
     # data preprocessing (removing mean and scaling to unit variance with StandardScaler)
     pipeline = make_pipeline(StandardScaler(),
-                             RandomForestRegressor())
+                             SVR())
 
     # hyperparameters to tune
-    hyperparameters = { 'randomforestregressor__max_features' : ['auto', 'sqrt', 'log2'],
-                        'randomforestregressor__max_depth': [None, 20, 10, 5, 2],
-                        'randomforestregressor__bootstrap': [True],
-                        'randomforestregressor__min_samples_leaf': [3, 4, 5],
-                        'randomforestregressor__min_samples_split': [8, 10, 12],
-                        'randomforestregressor__n_estimators': [100, 200, 300]
-                        }
+    # hyperparameters = { 'svr__max_features' : ['auto', 'sqrt', 'log2'],
+    #                     'randomforestregressor__max_depth': [None, 20, 10, 5, 2],
+    #                     'randomforestregressor__bootstrap': [True],
+    #                     'randomforestregressor__min_samples_leaf': [3, 4, 5],
+    #                     'randomforestregressor__min_samples_split': [8, 10, 12],
+    #                     'randomforestregressor__n_estimators': [100, 200, 300]
+    #                     }
+
+    hyperparameters =  [{'kernel': ['rbf'],
+                        'gamma': [1e-4, 1e-3, 0.01, 0.1, 0.2, 0.5],
+                        'C': [1, 10, 100, 1000]},
+                        {'kernel': ['linear'],
+                        'C': [1, 10, 100, 1000]}
+                        ]
+
 
     # tune model via pipeline
     clf = GridSearchCV(pipeline, hyperparameters, cv=3)
@@ -68,5 +75,5 @@ if __name__ == '__main__':
     # get data
     from combine_data import join_data as data
     data = data()
-    # run random forest model
-    rand_forest(data)
+    # run suport vector regression model
+    sup_vec_regress(data)

@@ -2,7 +2,13 @@ import numpy as np
 import pandas as pd
 
 
-def join_data(colorado, california, newjersey,florida, socio_economic):
+def join_data():
+    from co_data import get_data as colorado
+    from ca_data import get_data as california
+    from nj_data import get_data as newjersey
+    from fl_data import get_data as florida
+    from us_data import get_data as socio_economic
+
     # def combine_tables():
     table1 = colorado()
     table2 = california()
@@ -21,9 +27,4 @@ def join_data(colorado, california, newjersey,florida, socio_economic):
 
 
 if __name__ == '__main__':
-    from co_data import get_data as colorado
-    from ca_data import get_data as california
-    from nj_data import get_data as newjersey
-    from fl_data import get_data as florida
-    from us_data import get_data as socio_economic
-    join_data(colorado, california, newjersey,florida, socio_economic)
+    join_data()

@@ -9,11 +9,13 @@ from sklearn.metrics import mean_squared_error, r2_score
 
 def eval_model(model, X_test, y_test):
     ypred = model.predict(X_test)
-    MAPE = 100 * np.mean(abs(ypred - y_test) / y_test)
+    MAPE = 100 * np.mean(abs(ypred - y_test) / (y_test+.001)) # added 0.001 to prevent zeros
     accuracy = 100 - MAPE
     print('MAPE:', MAPE)
     print('abs(ypred - y_test):', abs(ypred - y_test))
     print('y_test:', y_test)
+    print('y_test mean:', np.mean(y_test))
+    print('abs(ypred - y_test) mean:', np.mean(abs(ypred - y_test)))
     print('$'*20)
     print('Model Performance Indicators')
     print('Average Error: {:0.3f} degrees.'.format(np.mean(abs(ypred - y_test))))
@@ -38,7 +40,7 @@ def rand_forest(data):
     pipeline = make_pipeline(StandardScaler(),
                              RandomForestRegressor())
 
-    # hyperparameters to tune
+    # set hyperparameters
     hyperparameters = { 'randomforestregressor__max_features' : ['auto', 'sqrt', 'log2'],
                         'randomforestregressor__max_depth': [None, 20, 10, 5, 2],
                         'randomforestregressor__bootstrap': [True],

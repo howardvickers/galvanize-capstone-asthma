@@ -12,7 +12,7 @@ from sklearn.utils import shuffle
 
 def eval_model(model, X_test, y_test):
     ypred = model.predict(X_test)
-    MAPE = 100 * np.mean(abs(ypred - y_test) / y_test)
+    MAPE = 100 * np.mean(abs(ypred - y_test) / (y_test+.001)) # added 0.001 to prevent zeros
     accuracy = 100 - MAPE
     print('Model Performance Indicators')
     print('Average Error: {:0.3f} degrees.'.format(np.mean(abs(ypred - y_test))))
@@ -37,7 +37,7 @@ def knn_regress(data):
     pipeline = make_pipeline(StandardScaler(),
                              KNeighborsRegressor())
 
-    # hyperparameters to tune
+    # set hyperparameters
     hyperparameters = { 'kneighborsregressor__n_neighbors' : [5, 3],
                         'kneighborsregressor__weights': ['uniform', 'distance'],
                        }

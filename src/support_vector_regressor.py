@@ -12,7 +12,7 @@ from sklearn.utils import shuffle
 
 def eval_model(model, X_test, y_test):
     ypred = model.predict(X_test)
-    MAPE = 100 * np.mean(abs(ypred - y_test) / y_test)
+    MAPE = 100 * np.mean(abs(ypred - y_test) / (y_test+.001)) # added 0.001 to prevent zeros
     accuracy = 100 - MAPE
     print('Model Performance Indicators')
     print('Average Error: {:0.3f} degrees.'.format(np.mean(abs(ypred - y_test))))
@@ -37,21 +37,17 @@ def sup_vec_regress(data):
     pipeline = make_pipeline(StandardScaler(),
                              SVR())
 
-    # hyperparameters to tune
-    # hyperparameters = { 'svr__max_features' : ['auto', 'sqrt', 'log2'],
-    #                     'randomforestregressor__max_depth': [None, 20, 10, 5, 2],
-    #                     'randomforestregressor__bootstrap': [True],
-    #                     'randomforestregressor__min_samples_leaf': [3, 4, 5],
-    #                     'randomforestregressor__min_samples_split': [8, 10, 12],
-    #                     'randomforestregressor__n_estimators': [100, 200, 300]
-    #                     }
+    # set hyperparameters
+    # hyperparameters =  [{'kernel': ['rbf'],
+    #                     'gamma': [1e-4, 1e-3, 0.01, 0.1, 0.2, 0.5],
+    #                     'C': [0.1, 1, 10, 100, 1000]},
+    #                     {'kernel': ['linear'],
+    #                     'C': [1, 10, 100, 1000]}
+    #                     ]
 
-    hyperparameters =  [{'kernel': ['rbf'],
-                        'gamma': [1e-4, 1e-3, 0.01, 0.1, 0.2, 0.5],
-                        'C': [1, 10, 100, 1000]},
-                        {'kernel': ['linear'],
-                        'C': [1, 10, 100, 1000]}
-                        ]
+    hyperparameters = { 'svr__kernel': ['linear', 'rbf'],
+                        'srv__C': [0.1, 1, 10, 100, 1000]
+                        }
 
 
     # tune model via pipeline

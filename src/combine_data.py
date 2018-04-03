@@ -22,7 +22,8 @@ def join_data():
 
     socio_pollute = socioecon.merge(join_cocanjfl, how="left", on="county")
 
-    print(socio_pollute.head())
+    print('socio_pollute.head():', socio_pollute.head())
+    print('states in data:', socio_pollute.state.unique())
     return socio_pollute
 
 

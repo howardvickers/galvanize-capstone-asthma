@@ -19,6 +19,8 @@ def eval_model(model, X_test, y_test):
     print('Accuracy = {:0.3f}%.'.format(accuracy))
     print('ypred:', ypred)
     print('y_test:', y_test)
+    print('ypred - y_test:', ypred-y_test)
+    print('(ypred - y_test)/y_test:', (ypred-y_test)/y_test)
 
     return accuracy
 

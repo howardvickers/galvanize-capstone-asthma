@@ -17,7 +17,7 @@ def eval_model(model, X_test, y_test):
     print('Model Performance Indicators')
     print('Average Error: {:0.3f} degrees.'.format(np.mean(abs(ypred - y_test))))
     print('Accuracy = {:0.3f}%.'.format(accuracy))
-
+    print('ypred:', ypred)
     return accuracy
 
 

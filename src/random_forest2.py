@@ -2,14 +2,10 @@ import numpy as np
 import pandas as pd
 from sklearn.cross_validation import train_test_split
 from sklearn.preprocessing import StandardScaler
-from sklearn.svm import SVR
+from sklearn.ensemble import RandomForestRegressor
 from sklearn.pipeline import make_pipeline
 from sklearn.model_selection import GridSearchCV
 from sklearn.metrics import mean_squared_error, r2_score
-from math import sqrt
-
-from sklearn.metrics import classification_report
-from sklearn.utils import shuffle
 
 def calc_rmse(yhat, y):
     return np.sqrt(((yhat-y)**2).mean())
@@ -45,13 +41,13 @@ def eval_model(model, X_train, y_train, X_test, y_test):
     return accuracy
 
 
-def sup_vec_regress(data):
+
+def rand_forest(data):
     # drop problematic row with zero for asthma_rate
     # data = data.drop([171])
-    data_nas = data.fillna(0)
+    data_nas = data.fillna(-1)
     no_counties = data_nas.drop(['county', 'state'], axis=1)
     # X = no_counties.drop('asthma_rate', axis=1)
-    # X = no_counties.drop(['asthma_rate', 'ozo_mean','unemployment','uninsured','pcp','pm2_5_mean','pm2_5non_mean','pm2_5spec_mean','air_poll_partic','income_ineq', 'high_sch_grad', 'obese_adult'], axis=1)
     X = no_counties.drop(['asthma_rate', 'pm2_5_mean','pm10_mean','haps_mean','no_mean','vocs_mean','pm2_5non_mean','co_mean','pm2_5spec_mean','so_mean', 'lead_mean','income_ineq', 'high_sch_grad', 'obese_adult'], axis=1)
     y = no_counties.asthma_rate
 
@@ -62,24 +58,27 @@ def sup_vec_regress(data):
 
     # data preprocessing (removing mean and scaling to unit variance with StandardScaler)
     pipeline = make_pipeline(StandardScaler(),
-                             SVR())
+                             RandomForestRegressor())
 
     # set hyperparameters
-    # hyperparameters =  [{'kernel': ['rbf'],
-    #                     'gamma': [1e-4, 1e-3, 0.01, 0.1, 0.2, 0.5],
-    #                     'C': [0.1, 1, 10, 100, 1000]},
-    #                     {'kernel': ['linear'],
-    #                     'C': [1, 10, 100, 1000]}
-    #                     ]
-
-    hyperparameters = { 'svr__kernel': ['linear', 'rbf'],
-                        'svr__C': [0.1, 1, 5, 10, 20, 50, 100, 1000]
+    hyperparameters = { 'randomforestregressor__max_features' : ['auto', 'sqrt', 'log2'],
+                        'randomforestregressor__max_depth': [None, 5, 2],
+                        'randomforestregressor__bootstrap': [True],
+                        'randomforestregressor__min_samples_leaf': [3, 4, 5],
+                        'randomforestregressor__min_samples_split': [10, 12, 15],
+                        'randomforestregressor__n_estimators': [10, 50, 100, 150]
                         }
 
-    # cv =                {2, 3, 5, 10}
+    # hyperparameters = { 'randomforestregressor__max_features' : ['auto'],
+    #                     'randomforestregressor__max_depth': [None, 5, 2],
+    #                     'randomforestregressor__bootstrap': [True],
+    #                     'randomforestregressor__min_samples_leaf': [4],
+    #                     'randomforestregressor__min_samples_split': [10],
+    #                     'randomforestregressor__n_estimators': [200]
+    #                     }
 
     # tune model via pipeline
-    clf = GridSearchCV(pipeline, hyperparameters, cv=5)
+    clf = GridSearchCV(pipeline, hyperparameters, cv=3)
 
     clf.fit(X_train, y_train)
 
@@ -88,7 +87,6 @@ def sup_vec_regress(data):
     # print('feature importances:', clf.feature_importances_)
     print ('r2 score:',r2_score(y_test, pred))
     print ('mse:',mean_squared_error(y_test, pred))
-    print('Rmse:', np.sqrt(mean_squared_error(y_test, pred)))
     print('*'*20)
     print('best params:',clf.best_params_)
     print('best grid:', clf.best_estimator_)
@@ -96,10 +94,14 @@ def sup_vec_regress(data):
     eval_model(clf.best_estimator_, X_train, y_train, X_test, y_test)
     print('#'*20)
 
+    # print('pipeline.steps[1]', pipeline.steps[1])
+    # print('pipeline.steps[1][1].feature_importances_', pipeline.steps[1][1].feature_importances_)
+    # print('pipeline.steps[0][1].get_feature_names()', pipeline.steps[0][1].get_feature_names())
+
 
 if __name__ == '__main__':
     # get data
     from combine_data import join_data as data
     data = data()
-    # run suport vector regression model
-    sup_vec_regress(data)
+    # run random forest model
+    rand_forest(data)

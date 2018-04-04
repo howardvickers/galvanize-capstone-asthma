@@ -59,11 +59,10 @@ def make_df(name, file, state, pollutant):
     df['new_mean'] = df.apply(lambda row: row.obs_x_mean / row.obs_count, axis=1)
     df = df.drop(columns_to_drop2, axis=1)
     df.columns = ['county', '{}_mean'.format(pollutant)]
-    # k+'{}'.format(state_code) = df
     return df
 
 def asthma_ca():
-# https://data.chhs.ca.gov/dataset/asthma-emergency-department-visit-rates-by-zip-code
+    # https://data.chhs.ca.gov/dataset/asthma-emergency-department-visit-rates-by-zip-code
     asthma_ca_drop_lst = ['zip', 'age', 'visits', 'fips']
     df = pd.read_csv('../data/asthma_hospitization_ca.csv')
     df.columns = ['year', 'zip', 'age', 'visits', 'asthma_rate', 'fips', 'county']
@@ -92,10 +91,8 @@ def asthma_co():
 def asthma_fl():
     # http://www.flhealthcharts.com/charts/OtherIndicators/NonVitalIndDataViewer.aspx?cid=9755
     df = pd.read_csv('../data/asthma_hospitization_fl.csv')
-    # remove any zeros from 'asthma_rate' column
-    df['asthma_rate']= df.apply(lambda row: row.asthma_rate +.01, axis=1)
-    # convert rate to per 10,000 (from per 100,000)
-    df['asthma_rate']= df.apply(lambda row: row.asthma_rate / 10, axis=1)
+    df['asthma_rate']= df.apply(lambda row: row.asthma_rate +.01, axis=1) # remove any zeros from 'asthma_rate' column
+    df['asthma_rate']= df.apply(lambda row: row.asthma_rate / 10, axis=1) # convert rate to per 10,000 (from per 100,000)
     df = df.drop('Unnamed: 0', axis=1)
     return df
 

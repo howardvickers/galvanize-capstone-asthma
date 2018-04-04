@@ -27,11 +27,15 @@ All data are available online as public records, either by county or otherwise g
 
 ##### Plots (under Data section)
 tbd
+
+##### Data Challenges
+comments about NaNs and sparse data.
+
 #### Models
 * Linear Regression
 * Lasso & Ridge
 * Random Forest
-* Boosting 
+* Boosting
 * Support Vector Regression
 * KNN Regression
 

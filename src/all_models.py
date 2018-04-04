@@ -1,6 +1,6 @@
 import numpy as np
 import pandas as pd
-import os 
+import os
 import statsmodels.api as sm
 from sklearn.cross_validation import train_test_split
 from sklearn.preprocessing import StandardScaler
@@ -11,8 +11,6 @@ from sklearn.linear_model import LinearRegression as LR
 from sklearn.ensemble import RandomForestRegressor as RFR
 from sklearn.neighbors import KNeighborsRegressor as KNR
 from sklearn.svm import SVR as SVR
-
-
 
 
 def calc_rmse(yhat, y):
@@ -92,8 +90,6 @@ def all_regress(data):
         clf = GridSearchCV(pipeline, hyperparameters, cv=3) # cv=3 is same as cv=None (default)
 
         clf.fit(X_train, y_train)
-
-
 
         # evaluate models with test data
         pred = clf.predict(X_test)

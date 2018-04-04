@@ -10,8 +10,6 @@ def get_data():
     xls = pd.ExcelFile('../data/2017CountyHealthRankingsData.xls')
     # select tab with data and create new df
     df = pd.read_excel(xls, 'Ranked Measure Data')
-    # save df to csv file
-    # df.to_csv('../data/health_rank_2017.csv')
     # get: state, county, adult smoking, adult obesity, uninsured, PCP (doctors) rate, high school graduation, unemployment, income inequality, air pollution,
     df = df.iloc[:, [1,2,27,31,63,68,95,105,116,135]]
     # change column names
@@ -37,4 +35,4 @@ def get_data():
     cocanj = dfc[(dfc['state'] == 'colorado') | (dfc['state'] == 'california') | (dfc['state'] == 'new jersey') ]
     coca = dfc[(dfc['state'] == 'colorado') | (dfc['state'] == 'california') ]
 
-    return coca 
+    return coca

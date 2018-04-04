@@ -85,6 +85,7 @@ def rand_forest(data):
     # evaluate models with test data
     pred = clf.predict(X_test)
     # print('feature importances:', clf.feature_importances_)
+    print('best_estimator_.feature importances:', clf.best_estimator_.feature_importances_)
     print ('r2 score:',r2_score(y_test, pred))
     print ('mse:',mean_squared_error(y_test, pred))
     print('*'*20)

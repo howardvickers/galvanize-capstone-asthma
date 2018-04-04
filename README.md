@@ -1,5 +1,5 @@
 # galvanize-capstone-asthma
-## Predicting Asthma Rates in Colorado by County
+## A Breath of Fresh Air: Predicting Asthma Rates with Data Science
 
 ### Introduction
 #### Overview & Purpose				

@@ -31,6 +31,7 @@ tbd
 * Linear Regression
 * Lasso & Ridge
 * Random Forest
+* Boosting 
 * Support Vector Regression
 * KNN Regression
 

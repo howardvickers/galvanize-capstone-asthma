@@ -40,8 +40,8 @@ comments about NaNs and sparse data.
 * Support Vector Regression
 * KNN Regression
 ##### Code
-Links to code
-Brief comments about structure 
+* Links to code
+* Brief comments about structure 
 
 #### Web App
 tbd (overview and link to website)

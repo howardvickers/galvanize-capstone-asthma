@@ -31,13 +31,17 @@ tbd
 ##### Data Challenges
 comments about NaNs and sparse data.
 
-#### Models
+#### Models & Code
+##### Models
 * Linear Regression
 * Lasso & Ridge
 * Random Forest
 * Boosting
 * Support Vector Regression
 * KNN Regression
+##### Code
+Links to code
+Brief comments about structure 
 
 #### Web App
 tbd (overview and link to website)

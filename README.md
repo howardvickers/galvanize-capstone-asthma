@@ -1,6 +1,5 @@
-# galvanize-capstone-asthma
-## A Breath of Fresh Air: Predicting Asthma Rates with Data Science
-### Machine learning algorithms are used to determine the drivers of asthma hospitalization rates and power a tool to predict asthma rates at a county level.
+# A Breath of Fresh Air: Predicting Asthma Rates with Data Science
+## Machine learning algorithms are used to determine the drivers of asthma hospitalization rates and power a tool to predict asthma rates at a county level.
 
 ### Introduction
 #### Overview & Purpose				
@@ -41,7 +40,7 @@ comments about NaNs and sparse data.
 * KNN Regression
 ##### Code
 * Links to code
-* Brief comments about structure 
+* Brief comments about structure
 
 #### Web App
 tbd (overview and link to website)

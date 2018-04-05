@@ -11,7 +11,8 @@ from sklearn.linear_model import LinearRegression as LR
 from sklearn.ensemble import RandomForestRegressor as RFR
 from sklearn.neighbors import KNeighborsRegressor as KNR
 from sklearn.svm import SVR as SVR
-
+from sklearn.linear_model import ElasticNet as EN
+from sklearn.ensemble import GradientBoostingRegressor as GBR
 
 def calc_rmse(yhat, y):
     return np.sqrt(((yhat-y)**2).mean())
@@ -66,18 +67,28 @@ def all_regress(data):
                                 'randomforestregressor__max_depth': [None, 5],
                                 'randomforestregressor__bootstrap': [True],
                                 'randomforestregressor__min_samples_leaf': [ 5],
-                                'randomforestregressor__min_samples_split': [10],                                    'randomforestregressor__n_estimators': [10, 50, 100, 150]
+                                'randomforestregressor__min_samples_split': [10],
+                                },
+                        GBR : { 'gradientboostingregressor__n_estimators' :     [500],
+                                'gradientboostingregressor__max_depth':         [None, 5],
+                                'gradientboostingregressor__min_samples_split': [2],
+                                'gradientboostingregressor__learning_rate':     [0.01, 0.1],
+                                'gradientboostingregressor__loss':              ['ls'],
                                 },
                         KNR : { 'kneighborsregressor__n_neighbors' : [10],
                                 'kneighborsregressor__weights': ['uniform', ],
                                 },
                         SVR : { 'svr__kernel': ['linear'],
                                 'svr__C': [10]
+                                },
+                        EN : { 'elasticnet__alpha': [1,0.1,0.01,0.001,0.0001,0], # equivalent to lambda; alpha=0 means no regularization, ie linear regression
+                                'elasticnet__l1_ratio': [0, 0.2, 0.4, 0.5, 0.6, 0.8, 1] # l1=1 means L1 penalty, ie Lasso (not L2/Ridge)
                                 }
                         }
 
-    # add boosting and elasticnet
-    models = [LR, RFR, KNR, SVR]
+    # models = [LR, RFR, GBR, KNR, SVR, EN]
+    models = [GBR, EN]
+    best_params_dict = {}
     for model in models:
 
         # data preprocessing (removing mean and scaling to unit variance with StandardScaler)
@@ -102,24 +113,31 @@ def all_regress(data):
         print('^'*20)
         eval_model(clf.best_estimator_, X_train, y_train, X_test, y_test)
         print('#'*20)
+        best_params_dict[model] = clf.best_params_
 
     X_train = sm.add_constant(X_train)
     model = sm.OLS(y_train, X_train)
     results = model.fit()
     print(results.summary())
 
+    # 
+
 if __name__ == '__main__':
     csv_file_path = '../data/the_data_file.csv'
-    if os.path.exists(csv_file_path):
-        print("Data file found, loading data...")
-        with open(csv_file_path, "r") as f:
-            data = pd.read_csv(f)
 
-    else:
-        print("Data file not found, assembling dataset...")
-        from combine_data import join_data as data
-        # from data import join_data as data
-        data = data()
-        data.to_csv(csv_file_path)
+    # if os.path.exists(csv_file_path):
+    #     print("Data file found, loading data...")
+    #     with open(csv_file_path, "r") as f:
+    #         data = pd.read_csv(f)
+    #
+    # else:
+    #     print("Data file not found, assembling dataset...")
+    #     # from combine_data import join_data as data
+    #     from data import join_data as data
+    #     data = data()
+    #     data.to_csv(csv_file_path)
+    from data import join_data as data
+    data = data()
+    data.to_csv(csv_file_path)
 
     all_regress(data)

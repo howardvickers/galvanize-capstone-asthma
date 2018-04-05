@@ -39,7 +39,7 @@ states_codes = {    'California': 'ca',
 # ****************** CREATE INITIAL DATASETS ******************
 def all_socio_econ_data():
     # source data: http://www.countyhealthrankings.org/rankings/data
-    xls = pd.ExcelFile('../data/2017CountyHealthRankingsData.xls')
+    xls = pd.ExcelFile('../data/2016CountyHealthRankingsData.xls')
     df = pd.read_excel(xls, 'Ranked Measure Data') # select tab with data
     df = df.iloc[:, [1,2,27,31,63,68,95,105,116,135]] # get: state, county, adult smoking, adult obesity, uninsured, PCP (doctors) rate, high school graduation, unemployment, income inequality, air pollution,
     df.columns = ['state', 'county','smoke_adult', 'obese_adult', 'uninsured', 'pcp', 'high_sch_grad', 'unemployment', 'income_ineq', 'air_poll_partic']
@@ -56,6 +56,7 @@ def all_socio_econ_data():
 
 def asthma_ca():
     # https://data.chhs.ca.gov/dataset/asthma-emergency-department-visit-rates-by-zip-code
+    # asthma rate quoted as per 10,000 people
     asthma_ca_drop_lst = ['zip', 'age', 'visits', 'fips']
     df = pd.read_csv('../data/asthma_hospitization_ca.csv')
     df.columns = ['year', 'zip', 'age', 'visits', 'asthma_rate', 'fips', 'county']
@@ -67,10 +68,16 @@ def asthma_ca():
     df = df.drop('index', axis=1)
     df = df.groupby('county').mean()
     df = df.reset_index()
-    return df # this is asthma data for this state
+
+    fips = make_fips_df()[make_fips_df()['state']=='california']
+    fips = fips.drop(['state'], axis=1)
+    asthma_fips = df.merge(fips, how="left", on="county")
+    asthma_fips = asthma_fips.drop(['county'], axis=1)
+    return df, asthma_fips # this is asthma data for this state
 
 def asthma_co():
     # https://data-cdphe.opendata.arcgis.com/datasets/asthma-hospitalization-rate-counties
+    # asthma rate quoted as per 100,000 people
     asthma_co_drop_lst = [  'objectid', 'county_fips', 'l95ci', 'u95ci',
                             'stateadjrate', 'sl95ci', 'su95ci', 'display']
     df = pd.read_csv('../data/asthma_hospitization_co.csv')
@@ -79,21 +86,59 @@ def asthma_co():
     df.county_name = df.county_name.str.lower()
     df.columns = ['county', 'asthma_rate']
     df['asthma_rate']= df.apply(lambda row: row.asthma_rate / 10, axis=1)
-    return df # this is asthma data for this state
+
+    fips = make_fips_df()[make_fips_df()['state']=='colorado']
+    fips = fips.drop(['state'], axis=1)
+    asthma_fips = df.merge(fips, how="left", on="county")
+    asthma_fips = asthma_fips.drop(['county'], axis=1)
+    return df, asthma_fips # this is asthma data for this state
 
 def asthma_fl():
     # http://www.flhealthcharts.com/charts/OtherIndicators/NonVitalIndDataViewer.aspx?cid=9755
+    # asthma rate quoted as per 100,000 people
     df = pd.read_csv('../data/asthma_hospitization_fl.csv')
     df['asthma_rate']= df.apply(lambda row: row.asthma_rate +.01, axis=1) # remove any zeros from 'asthma_rate' column
     df['asthma_rate']= df.apply(lambda row: row.asthma_rate / 10, axis=1) # convert rate to per 10,000 (from per 100,000)
     df = df.drop('Unnamed: 0', axis=1)
-    return df # this is asthma data for this state
+
+    fips = make_fips_df()[make_fips_df()['state']=='florida']
+    fips = fips.drop(['state'], axis=1)
+    asthma_fips = df.merge(fips, how="left", on="county")
+    asthma_fips = asthma_fips.drop(['county'], axis=1)
+    return df, asthma_fips # this is asthma data for this state
 
 def asthma_nj():
-    # https://data-cdphe.opendata.arcgis.com/datasets/asthma-hospitalization-rate-counties
+    # https://www26.state.nj.us/doh-shad/indicator/view/NJASTHMAHOSP.stateAAR.html
+    # asthma rate quoted as per 10,000 people
     df = pd.read_csv('../data/asthma_hospitization_nj.csv')
     df.county = df.county.str.lower()
-    return df # this is asthma data for this state
+
+    fips = make_fips_df()[make_fips_df()['state']=='new jersey']
+    fips = fips.drop(['state'], axis=1)
+    asthma_fips = df.merge(fips, how="left", on="county")
+    asthma_fips = asthma_fips.drop(['county'], axis=1)
+    return df, asthma_fips # this is asthma data for this state
+
+def make_fips_df():
+    fips = pd.ExcelFile('../data/fips.xls')
+    fips = pd.read_excel(fips)
+    fips.columns = ['state', 'county', 'fips_state', 'fips_county']
+    fips = fips.iloc[1:,:]
+    fips.reset_index(level=0, drop=True, inplace=True)
+    fips['fips'] = fips.fips_state + fips.fips_county
+    fips = fips.drop(['fips_state', 'fips_county'], axis=1)
+    fips.state = fips.state.str.lower()
+    fips.county = fips.county.str.lower()
+    return fips
+
+def make_fips_dicts(state, code):
+    # for state, code in states_codes.items():
+    df = 'fips_{}'.format(code)
+    df = make_fips_df()
+    df = df[df['state']==state]
+    d = 'fips_dict_{}'.format(code)
+    d = df.set_index('county').to_dict()['fips']
+    return d
 
 # ****************** ASSEMBLE DATASETS ******************
 def choose_states():
@@ -129,10 +174,10 @@ def make_pollutant_df(file, state_name, pollutant):
 
 
 def join_side_by_side(state):
-    asthma_datasets = { 'California'    :   asthma_ca(),
-                        'Colorado'      :   asthma_co(),
-                        'Florida'       :   asthma_fl(),
-                        'New Jersey'    :   asthma_nj()
+    asthma_datasets = { 'California'    :   asthma_ca()[0],
+                        'Colorado'      :   asthma_co()[0],
+                        'Florida'       :   asthma_fl()[0],
+                        'New Jersey'    :   asthma_nj()[0]
                         }
 
     df = asthma_datasets[state]

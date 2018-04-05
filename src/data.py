@@ -154,6 +154,7 @@ def populate_epa_state(state_name, state_code):
     for pollutant, filename in epa_raw.items():
         dfname = '{}_{}'.format(pollutant, state_code)
         epa_state[dfname] = make_pollutant_df(filename, state_name, pollutant)
+    # print('populate_epa_state:', epa_state)
     return epa_state # this is dictionary with epa pollutants for this state
 
 def make_pollutant_df(file, state_name, pollutant):
@@ -170,6 +171,7 @@ def make_pollutant_df(file, state_name, pollutant):
     df['new_mean'] = df.apply(lambda row: row.obs_x_mean / row.obs_count, axis=1)
     df = df.drop(columns_to_drop2, axis=1)
     df.columns = ['county', '{}_mean'.format(pollutant)]
+    print('make_pollutant_df:', df.columns)
     return df # this is a dataframe for a pollutant for a given state
 
 
@@ -183,6 +185,7 @@ def join_side_by_side(state):
     df = asthma_datasets[state]
     for name, dataset in populate_epa_state(state, states_codes[state]).items():
         df = df.merge(dataset, how="left", on="county")
+    print('join_side_by_side:', df.columns)
     return df # this is a dataframe with asthma and pollutant data for given state
 
 def get_each_state_data(state):
@@ -195,6 +198,7 @@ def get_each_state_data(state):
 
     # join socio-economic and asthma and pollutant data into one df
     df = asthma_pollutants.merge(state_socio_econ_data, how="left", on="county")
+    print('get_each_state_data:', df.columns)
     return df # this is all the data for this state
 
 def join_data():
@@ -204,6 +208,8 @@ def join_data():
     df = pd.concat(list_of_each_states_data)
     df = df.reset_index()
     df = df.drop(['index'], axis=1)
+    print('join_data:', df.columns)
+
     return df # this is all the data stacked for the chosen states
 
 if __name__ == '__main__':

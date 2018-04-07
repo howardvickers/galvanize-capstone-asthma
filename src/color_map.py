@@ -8,34 +8,13 @@ from data import asthma_fl
 from data import asthma_nj
 
 
-
-
-# Read in asthma rates
-# nj = asthma_nj()[1]
-# d = nj.set_index('fips').to_dict()['asthma_rate']
-
-# ca = asthma_ca()[1]
-# d = ca.set_index('fips').to_dict()['asthma_rate']
-
+ 
 co = asthma_co()[1]
 d = co.set_index('fips').to_dict()['asthma_rate']
 
 
-# fl = asthma_fl()[1]
-# d = fl.set_index('fips').to_dict()['asthma_rate']
-
-#
-# reader = csv.reader(open('unemployment09.csv'), delimiter=",")
-# for row in reader:
-#     try:
-#         fips = asthma_nj()[1]['fips']
-#         rate = asthma_nj()[1]['asthma_rate']
-#         asthma[fips] = rate
-#     except:
-#         pass
-
 # Load the SVG map
-svg = open('../data/counties.svg', 'r').read()
+svg = open('../data/colorado_election.svg', 'r').read()
 
 # Load into Beautiful Soup
 soup = BeautifulSoup(svg, selfClosingTags=['defs','sodipodi:namedview'])
@@ -86,4 +65,9 @@ for p in paths:
         p['style'] = path_style + color
 
 # Output map
-print (soup.prettify())
+mymap = soup.prettify()
+print(type(mymap))
+
+open('static/images/colorado_asthma.svg', 'w').write(mymap)
+
+# print (soup.prettify())

@@ -48,6 +48,7 @@ def eval_model(model, X_train, y_train, X_test, y_test):
     rmse_train  = calc_rmse(ytrainpred, y_train)
 
     print('Model Performance Indicators')
+    print('Model:', model)
     print('MAE: {:0.3f}'.format(mae))
     print('MAPE: {:0.3f}'.format(mape))
     print('Accuracy = {:0.3f}%'.format(accuracy))
@@ -62,7 +63,7 @@ def eval_model(model, X_train, y_train, X_test, y_test):
 
 def all_regress(data):
     # drop problematic row with zero for asthma_rate
-    # data = data.drop([171])
+    data = data.drop([141, 142, 149, 153, 158])
     # replacing nans with zeros
     data_nas = data.fillna(0)
     no_counties = data_nas.drop(['county', 'state'], axis=1)
@@ -81,37 +82,44 @@ def all_regress(data):
     print('y_test.shape', y_test.shape)
 
     hyperpara_dict = {  LR  : {}, # use defaults only
-                        RFR : { 'randomforestregressor__max_features' : ['auto' ],
-                                'randomforestregressor__max_depth': [None, 5],
-                                'randomforestregressor__bootstrap': [True],
-                                'randomforestregressor__min_samples_leaf': [ 5],
-                                'randomforestregressor__min_samples_split': [10],
+                        RFR : { 'randomforestregressor__max_features' : ['auto', 'sqrt'],
+                                'randomforestregressor__max_depth': [10, 20, 30, 50, 80, 100, None],
+                                'randomforestregressor__bootstrap': [True, False],
+                                'randomforestregressor__min_samples_leaf': [1, 2, 4, 10],
+                                'randomforestregressor__min_samples_split': [2, 5, 10],
+                                'randomforestregressor__n_estimators': [100, 200, 500, 1000, 1500, 2000],
                                 },
-                        GBR : { 'gradientboostingregressor__n_estimators' :     [500],
-                                'gradientboostingregressor__max_depth':         [None, 5],
-                                'gradientboostingregressor__min_samples_split': [2],
-                                'gradientboostingregressor__learning_rate':     [0.01, 0.1],
+                        GBR : { 'gradientboostingregressor__n_estimators' :     [600, 700, 800],
+                                'gradientboostingregressor__max_depth':         [3, 4, 5],
+                                'gradientboostingregressor__min_samples_split': [10],
+                                'gradientboostingregressor__learning_rate':     [ 0.05, 0.1],
                                 'gradientboostingregressor__loss':              ['ls'],
                                 },
-                        KNR : { 'kneighborsregressor__n_neighbors' : [10],
-                                'kneighborsregressor__weights': ['uniform', ],
+                        KNR : { 'kneighborsregressor__n_neighbors' : [1, 2, 3, 4, 5, 6, 10],
+                                'kneighborsregressor__weights': ['uniform', 'distance'],
                                 },
-                        SVR : { 'svr__kernel': ['linear'],
-                                'svr__C': [10]
+                        SVR : { 'svr__kernel': ['linear', 'poly', 'sigmoid', 'rbf'],
+                                'svr__C': [0.5, 5, 10, 15, 20, 50, 100, 200, 300, 500, 1000],
+                                'svr__epsilon': [0.1, 1.5, 2, 5, 10, 30, 50],
                                 },
-                        EN : { 'elasticnet__alpha': [1,0.1,0.01,0.001,0.0001,0], # equivalent to lambda; alpha=0 means no regularization, ie linear regression
-                                'elasticnet__l1_ratio': [0, 0.2, 0.4, 0.5, 0.6, 0.8, 1] # l1=1 means L1 penalty, ie Lasso (not L2/Ridge)
+                        EN : { 'elasticnet__alpha': [1,0.1,0.01,0.001], # equivalent to lambda; alpha=0 means no regularization, ie linear regression
+                                'elasticnet__l1_ratio': [0.5, 0.7, 0.8, 0.9, 1], # l1=1 means L1 penalty, ie Lasso (not L2/Ridge)
+                                'elasticnet__max_iter': [10000],
                                 }
                         }
 
     # models = [LR, RFR, GBR, KNR, SVR, EN]
-    models = [RFR]
+    models = [GBR]
     mod_dict = {RFR:'rfr'}
     best_params_dict = {}
     for model, tag in mod_dict.items():
         print('MODEL '*12)
         print(model)
         print(tag)
+
+    print('y_train zeros:', y_train[y_train==0])
+    print('y_test zeros:', y_test[y_test==0])
+    for model in models:
 
         # data preprocessing (removing mean and scaling to unit variance with StandardScaler)
         pipeline = make_pipeline(   StandardScaler(),
@@ -128,18 +136,18 @@ def all_regress(data):
         pred = clf.predict(X_test)
         # print ('r2 score:',r2_score(y_test, pred))
         # print ('mse:',mean_squared_error(y_test, pred))
-        # print('*'*20)
-        # print('best params:',clf.best_params_)
-        # print('best grid:', clf.best_estimator_)
-        # print('^'*20)
+        print('*'*20)
+        print('best params:',clf.best_params_)
+        print('best grid:', clf.best_estimator_)
+        print('^'*20)
         eval_model(clf.best_estimator_, X_train, y_train, X_test, y_test)
         # print('#'*20)
 
-        best_params_dict[tag] = clf.best_params_
-    print('BEST PARAMS '*10)
-
-    print('best_params_dict', best_params_dict)
-    print('END PARAMS '*10)
+    #     best_params_dict[tag] = clf.best_params_
+    # print('BEST PARAMS '*10)
+    #
+    # print('best_params_dict', best_params_dict)
+    # print('END PARAMS '*10)
 
 
 
@@ -164,47 +172,28 @@ def all_regress(data):
 
     # plt.style.use('bmh')
     # plt.style.use('seaborn-deep')
-    # plt.style.use('seaborn-dark-palette')
+    plt.style.use('seaborn-dark-palette')
     # plt.style.use('seaborn-notebook')
     # plt.style.use('seaborn-pastel')
     # plt.style.use('ggplot')
 
-    fig = plt.figure()
-    plt.axis([0, 0.4, 0, 1])
+    # fig = plt.figure()
+    # plt.axis([0, 0.4, 0, 1])
     plt.barh(range(len(names)), imps, align='center')
     plt.yticks(range(len(names)), names)
     plt.xlabel('Relative Importance of Features', fontsize=18)
     plt.ylabel('Features', fontsize=18)
     plt.title('Which Factors Drive Asthma Rates?', fontsize=24)
-    top_five_imps = []
-    for name in names:
-        top_five_imps.append(name+'/n')
-    t = top_five_imps[0:4][0]
-
-    plt.text(.05, .75, t, ha='left',
-    bbox=dict(boxstyle="round",
-                   ec=(1., 0.5, 0.5),
-                   fc=(1., 0.8, 0.8),
-                   ),
-
-                   wrap=True, fontsize=20)
-    # plt.text(6, 5, t, ha='left', rotation=15, wrap=True)
-    # plt.text(5, 5, t, ha='right', rotation=-15, wrap=True)
-    # plt.text(5, 10, t, fontsize=18, style='oblique', ha='center',
-    #          va='top', wrap=True)
-    # plt.text(3, 4, t, family='serif', style='italic', ha='right', wrap=True)
-    # plt.text(-1, 0, t, ha='left', rotation=-15, wrap=True)
-
 
     plt.tight_layout()
     plt.show()
-    plt.savefig('feat_imps.png')
+    plt.savefig('../saved_images/feat_imps.png')
 
 
     X_train = sm.add_constant(X_train)
     model = sm.OLS(y_train, X_train)
     results = model.fit()
-    # print(results.summary())
+    print(results.summary())
 
 
 if __name__ == '__main__':

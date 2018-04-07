@@ -1,0 +1,313 @@
+{% extends "bootstrap/base.html" %}
+
+{% block head %}
+<head>
+      <!-- meta tags not used in this project -->
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <!-- Page title -->
+      <title>Fraud Detection - Case Study</title>
+      <!-- Latest compiled and minified CSS -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+      <!-- Optional theme -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+      <!-- Latest compiled and minified JavaScript -->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+      <!-- favicon is in static folder; href points to a "variable" defined by curly braces. -->
+      <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+      <!-- Custom styles in main.css -->
+      <!-- main.css is in static folder; href points to a "variable" defined by curly braces. -->
+      <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
+      <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+</head>
+
+ {% endblock %}
+
+{% block content %}
+
+<div class="container">
+    </br>
+    <ul class="nav nav-tabs">
+        <li role="presentation" class="active"><a href="#">Home</a></li>
+        <li role="presentation"><a href="/live">Live</a></li>
+        <li role="presentation"><a href="/database">Dashboard</a></li>
+    </ul>
+    <div class="page-header">
+        <h1>Fraud Detection <small>Case Study</small></h1>
+        </br>
+
+        <div class="row">
+            <div class="col-xs-12">
+
+              <div class="thumbnail">
+                  <div class="caption">
+                      <h3>Howard Vickers</h3>
+                      <h1><small>Capstone</small></h1>
+                      <h1><small>Asthma</small></h1>                      <p class="text">  </p>
+                      <p class="text">  </p>
+                      <ul>
+                        <li><h1><small>Identify Asthma Rates </small></h1></li>
+                        </ul>
+                      <p class="text">  </p>
+
+                      <div class="container">
+                        <div class="row">
+                          <div class="col">
+                            1 of 1
+
+                      <div class="card" style="width: 50rem;">
+                        <embed class="d-block w-100" src="../static/images/feat_imps.png" alt="Third slide">
+                        <div class="card-body">
+                          <h2 class="card-text">Which Factors Drive Asthma Rates?</h2>
+                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        </div>
+                      </div>
+                    </div>
+
+                  </div>
+                </div>
+
+
+                <div class="container">
+                  <br>
+
+
+                                    <select id="dropDown" type="button" class="btn btn-primary">
+                                        <option>Choose...</option>
+                                        <option value="mapPollution">Pollution</option>
+                                        <option value="mapSmoke">Smokers</option>
+                                        <option value="mapObesity">Obesity</option>
+                                        <option value="mapUnemploy">Unemployment</option>
+                                        <option value="mapUninsured">Uninsured</option>
+                                    </select>
+                                    <div class="row">
+
+
+                    <div class="col">
+                      <br>
+                <div class="card" style="width: 30rem;">
+
+
+
+
+
+                  <embed class="d-block w-100" src="../static/images/colorado_asthma.svg" alt="Third slide">
+                  <div class="card-body">
+                    <h2 class="card-text">Asthma</h2>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  </div>
+                </div>
+              </div>
+              <div class="col">
+                <br>
+
+                <!-- <select onchange="$('#imageToSwap').attr('src', this.options[this.selectedIndex].value);">
+                    <option value="../static/images/co_air_poll_partic.svg" selected>Air Pollution</option>
+                    <option value="../static/images/monday_ad.png">Monday</option>
+                    <option value="../static/images/co_smoke_adult.svg">Smoking</option>
+                    <option value="../static/images/co_unemployment.svg">Unemployment</option>
+                    <option value="../static/images/co_uninsured.svg">Uninsured</option>
+                </select> -->
+                <div id="mapPollution" class="drop-down-show-hide card" style="width: 30rem;">
+                  <embed class="d-block w-100" src="../static/images/co_air_poll_partic.svg" alt="Map of Feature (Rates)">
+                  <div class="card-body">
+                    <h2 class="card-text">Pollution</h2>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  </div>
+                </div>
+                <div id="mapSmoke" class="drop-down-show-hide card" style="width: 30rem;">
+                  <embed class="d-block w-100" src="../static/images/co_smoke_adult.svg" alt="Map of Feature (Rates)">
+                  <div class="card-body">
+                    <h2 class="card-text">Smoking Rate</h2>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  </div>
+                </div>
+                <div id="mapObesity" class="drop-down-show-hide card" style="width: 30rem;">
+                  <embed class="d-block w-100" src="../static/images/co_obese_adult.svg" alt="Map of Feature (Rates)">
+                  <div class="card-body">
+                    <h2 class="card-text">Obesity</h2>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  </div>
+                </div>
+                <div id="mapUnemploy" class="drop-down-show-hide card" style="width: 30rem;">
+                  <embed class="d-block w-100" src="../static/images/co_unemployment.svg" alt="Map of Feature (Rates)">
+                  <div class="card-body">
+                    <h2 class="card-text">Unemployment</h2>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  </div>
+                </div>
+                <div id="mapUninsured" class="drop-down-show-hide card" style="width: 30rem;">
+                  <embed class="d-block w-100" src="../static/images/co_uninsured.svg" alt="Map of Feature (Rates)">
+                  <div class="card-body">
+                    <h2 class="card-text">Uninsured</h2>
+                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                  </div>
+                </div>
+                </div>
+              </div>
+            </div>
+          </div>
+
+                      <div>
+                        <!-- <embed class="d-block w-100" src="../static/images/feat_imps.png" alt="Third slide"> -->
+                      </div>
+
+
+                      <!-- Button trigger modal -->
+                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">
+                        Launch demo modal
+                      </button>
+
+                      <!-- Modal -->
+                      <div class="modal fade bd-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg" role="document">
+                          <div class="modal-content">
+                            <div class="modal-header">
+                              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                <span aria-hidden="true">&times;</span>
+                              </button>
+                            </div>
+                            <div class="modal-body">
+
+                              <div class="container">
+                                <div class="row">
+                                  <div class="col">
+                                    1 of 2
+
+                              <div class="card" style="width: 25rem;">
+                                <embed class="card-img-top" src="../static/images/coloafrado_asthma.svg" alt="Card image cap">
+                                <div class="card-body">
+                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                </div>
+                              </div>
+                            </div>
+                            <div class="col">
+                              2 of 2
+                              <div class="card" style="width: 25rem;">
+                                <img class="card-img-top" src="../static/images/colorado_asthma.svg" alt="Card image cap">
+                                <div class="card-body">
+                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </div>
+                            </div>
+                            <div class="modal-footer">
+                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                              <button type="button" class="btn btn-primary">Save changes</button>
+                            </div>
+                          </div>
+                        </div>
+                      </div>
+
+
+
+
+                  </div>
+              </div>
+
+            </div>
+        </div>
+
+
+        <div class="row">
+            <div class="col-xs-12">
+
+              <div class="thumbnail">
+                  <div class="caption">
+                      <h3>Howard Vickers</h3>
+                      <h1><small>Capstone</small></h1>
+
+                      <form action='/policy', method='POST'>
+
+                      <table class="table table-hover">
+                        <thead>
+                          <tr>
+                            <th scope="col">County</th>
+                            <td colspan="2">{{county}} (actual)</td>
+                            <td>Policy Changes</td>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          <tr>
+                            <th scope="row">Uninsured</th>
+                            <td colspan="2">{{uninsured}}</td>
+                            <td>​<input type="text" id="new_uninsured" rows="1" cols="10" name="new_uninsur" placeholder="Enter..."/></td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Unemployment</th>
+                            <td colspan="2">{{unemployment}}</td>
+                            <td>​<input type="text" id="new_unemployment" rows="1" cols="10" name="new_unemploy" placeholder="Enter..."/></td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Obesity</th>
+                            <td colspan="2">{{obesity}}</td>
+                            <td>​<input type="text" id="new_obesity" rows="1" cols="10" name="new_obs" placeholder="Enter..."/></td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Smokers</th>
+                            <td colspan="2">{{smokers}}</td>
+                            <td>​<input type="text" id="new_smokers" rows="1" cols="10" name="new_smok" placeholder="Enter..."/></td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Pollution</th>
+                            <td colspan="2">{{particulates}}</td>
+                            <td>​<input type="text" id="new_particulates" rows="1" cols="10" name="new_partic" placeholder="Enter..."/></td>
+                          </tr>
+                          <tr>
+                            <th scope="row">Asthma</th>
+                            <td colspan="2">{{y}}</td>
+                            <td>​{{new_y}}</td>
+                          </tr>
+                          <tr>
+                            <th scope="row"></th>
+                            <td colspan="2"></td>
+                            <td>​<button type="submit" class="btn btn-primary" >Submit Changes</button></td>
+                          </tr>
+                        </tbody>
+                      </table>
+
+                    </form>
+
+
+              </div>
+                          </div>
+
+                  </div>
+                              </div>
+
+                      </div>
+                                  </div>
+
+<footer class="footer">
+    <div class="container" align="center">
+
+        <a href="https://github.com/" class="btn btn-social-icon btn-github btn-small"><i class="fa fa-github fa-3x"></i></a>
+        </p>
+    </div>
+</footer>
+
+{% endblock %}
+
+{% block other %}
+
+{% endblock %}
+
+
+
+{% block scripts %}
+{{super()}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script type="text/javascript">
+$('.drop-down-show-hide').hide();
+$('#dropDown').change(function () {
+    $('.drop-down-show-hide').hide()
+    $('#' + this.value).show();
+});
+</script>
+{% endblock %}

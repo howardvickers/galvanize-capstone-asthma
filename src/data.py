@@ -52,7 +52,13 @@ def all_socio_econ_data():
     # join back up all columns in a way that avoids numeric columns becoming all "NaN"
     df_soc_econ = pd.concat([df.state.reset_index(drop=True), df.county.reset_index(drop=True), df_num.reset_index(drop=True)], axis=1)
 
-    return df_soc_econ # this is all the socio-economic data in one dataframe
+    fips = make_fips_df()
+    fips = fips.drop(['state'], axis=1)
+    socio_econ_fips = df_soc_econ.merge(fips, how="left", on="county")
+    socio_econ_fips = socio_econ_fips.drop(['county'], axis=1)
+
+
+    return df_soc_econ, socio_econ_fips # this is all the socio-economic data in one dataframe
 
 def asthma_ca():
     # https://data.chhs.ca.gov/dataset/asthma-emergency-department-visit-rates-by-zip-code

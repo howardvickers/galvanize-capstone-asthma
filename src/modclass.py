@@ -33,7 +33,7 @@ def train_model():
 def show_columns():
     data = get_data()
     X_train, X_test, y_train, y_test = split_data(data)
-    return X_train.columns 
+    return X_train.columns
 
 
 def get_data():
@@ -81,7 +81,7 @@ def split_data(data):
     cln_data = clean_data(data)
     X, y = X_y(cln_data)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=123)
-    print('split_data - X_train.columns', X_train.columns)
+    # print('split_data - X_train.columns', X_train.columns)
     return X_train, X_test, y_train, y_test
 
 

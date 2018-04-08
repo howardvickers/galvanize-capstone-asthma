@@ -113,17 +113,20 @@ def chart_feature_importances(X_train, X_test, y_train, y_test):
 
     imps, names = zip(*sorted(zip(feat_imps, [col_dict.get(x, x) for x in X_train.columns])))
 
-    plt.style.use('seaborn-dark-palette')
+    plt.style.use('bmh')
+    # plt.style.use('seaborn-deep')
+    # plt.style.use('seaborn-dark-palette')
+    # plt.style.use('seaborn-dark-palette')
     # fig = plt.figure()
     # plt.axis([0, 0.4, 0, 1])
     plt.barh(range(len(names)), imps, align='center')
     plt.yticks(range(len(names)), names)
     # plt.xticks(range(len(imps)), imps)
-    plt.xlabel('Relative Importance of Features', fontsize=18)
-    plt.ylabel('Features', fontsize=18)
-    plt.title('Which Factors Drive Asthma Rates?', fontsize=24)
+    plt.xlabel('Relative Importance of Features', fontsize=14)
+    plt.ylabel('Features', fontsize=14)
+    # plt.title('Which Factors Drive Asthma Rates?', fontsize=24)
     plt.tight_layout()
-    plt.show()
+    # plt.show()
     plt.savefig('static/images/feat_imps.png')
 
 

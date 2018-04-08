@@ -13,6 +13,8 @@ from data import all_socio_econ_data
 _, fips_lookup = all_socio_econ_data()
 fips_feature_dict = fips_lookup.set_index('fips').to_dict()
 
+fips_lookup_co = fips_lookup[fips_lookup.state == 'colorado']
+fips_feature_dict_co = fips_lookup_co.set_index('fips').to_dict()
 
 chart_list = ['obese_adult', 'smoke_adult', 'uninsured', 'air_poll_partic', 'unemployment']
 # colors from http://colorbrewer2.org
@@ -37,7 +39,8 @@ path_style = 'font-size:12px;fill-rule:nonzero;stroke:#FFFFFF;stroke-opacity:1; 
 
 # create each map
 for feature in chart_list:
-    d = fips_feature_dict[feature]
+    # d = fips_feature_dict[feature]
+    d = fips_feature_dict_co[feature]
 
     # get colors for this map
     colors = colors_dict[feature]
@@ -97,4 +100,4 @@ for feature in chart_list:
     filename = 'static/images/co_{}.svg'.format(feature)
     open(filename, 'w').write(mymap)
 
-    svg2png(bytestring=mymap,write_to='static/images/co_{}.png')
+    # svg2png(bytestring=mymap,write_to='static/images/co_{}.png')

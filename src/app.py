@@ -5,7 +5,8 @@ import pandas as pd
 import numpy as np
 import requests
 import os
-from modclass import *
+from modclass import county_data
+from modclass import train_model as tm
 
 from flask_bootstrap import Bootstrap
 # from model import chart_feature_importances as make_chart
@@ -15,31 +16,35 @@ from charts import chart_feature_importances
 app = Flask(__name__)
 
 
-# def get_feat_imps_plot(data):
-#     make_chart(data)
+def train_predict(X_test):
+    model = tm()
+    prediction = model.predict(X_test)
+    return prediction
+    # fm = modclass.FinalModel()
+    # feat_imps = fm._regressor.feature_importances_
 
 
 @app.route('/policy', methods =['GET','POST'])
 def policy():
-
+    
     new_uninsur = int(request.form['new_uninsur'])
     new_unemploy = int(request.form['new_unemploy'])
     new_obs = int(request.form['new_obs'])
     new_smok = int(request.form['new_smok'])
     new_partic = int(request.form['new_partic'])
-    y_new = result['object_id'][0] # change this
-
+    # y_new = result['object_id'][0] # change this
+    print('This is from the website:', new_uninsur, new_unemploy, new_obs, new_smok, new_partic)
 
 
     return flask.render_template('policy.html',
-                              county = input_county,
+                              # county = input_county,
                               # state = state,
                               uninsured = uninsured,
                               unemployment = unemployment,
                               obesity = obesity,
                               smokers = smokers,
                               particulates = particulates,
-                              y = y
+                              # y = y
                               )
 
 

@@ -62,34 +62,15 @@ def one_county(input_county):
     return county, uninsured, unemployment, obesity, smokers, particulates, y
 
 
-@app.route('/policy', methods =['GET','POST'])
-def policy():
-
-    new_uninsur = int(request.form['new_uninsur'])
-    new_unemploy = int(request.form['new_unemploy'])
-    new_obs = int(request.form['new_obs'])
-    new_smok = int(request.form['new_smok'])
-    new_partic = int(request.form['new_partic'])
-    # y_new = result['object_id'][0] # change this
-    print('This is from the website:', new_uninsur, new_unemploy, new_obs, new_smok, new_partic)
-
-
-    return flask.render_template('policy.html',
-                              # county = input_county,
-                              # state = state,
-                              uninsured = uninsured,
-                              unemployment = unemployment,
-                              obesity = obesity,
-                              smokers = smokers,
-                              particulates = particulates,
-                              # y = y
-                              )
-
-
-@app.route('/', methods =['GET','POST'])
-def index():
-    # get_feat_imps_plot(data)
+@app.route('/data', methods =['GET','POST'])
+def data():
     chart_feature_importances()
+
+    return flask.render_template('data.html')
+
+
+@app.route('/predictions', methods =['GET','POST'])
+def predictions():
 
     input_county, uninsured, unemployment, obesity, smokers, particulates, y = one_county('Boulder')
 
@@ -114,8 +95,17 @@ def index():
 
 
 
-    # return render_template('index.html')
-    return flask.render_template(   'index.html',
+    new_uninsur = int(request.form['new_uninsur'])
+    new_unemploy = int(request.form['new_unemploy'])
+    new_obs = int(request.form['new_obs'])
+    new_smok = int(request.form['new_smok'])
+    new_partic = int(request.form['new_partic'])
+    # y_new = result['object_id'][0] # change this
+    print('This is from the website:', new_uninsur, new_unemploy, new_obs, new_smok, new_partic)
+
+
+    return flask.render_template('predictions.html',
+
 
                                     # these are for the 'Public Policy and Asthma' chart
                                     county = input_county,
@@ -126,7 +116,36 @@ def index():
                                     particulates = particulates,
                                     y = y,
                                     table_dict = table_dict
-                                    )
+
+
+
+                              # county = input_county,
+                              # state = state,
+                                  uninsured = uninsured,
+                                  unemployment = unemployment,
+                                  obesity = obesity,
+                                  smokers = smokers,
+                                  particulates = particulates,
+                              # y = y
+                              )
+
+
+@app.route('/', methods =['GET','POST'])
+def index():
+
+    return flask.render_template('index.html')
+
+
+@app.route('/models', methods =['GET','POST'])
+def models():
+
+    return flask.render_template('models.html')
+
+
+@app.route('/about', methods =['GET','POST'])
+def about():
+
+    return flask.render_template('about.html')
 
 
 
@@ -146,6 +165,5 @@ if __name__ == '__main__':
     # data = data()
     # data.to_csv(csv_file_path, index=False)
 
-    # model = get_fraud_classifier('data/data.json', 'pickle.pkl')
     Bootstrap(app)
     app.run(host='0.0.0.0', port=8080, debug=True, use_reloader=False)

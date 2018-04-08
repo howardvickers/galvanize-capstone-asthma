@@ -1,0 +1,221 @@
+{% extends "bootstrap/base.html" %}
+
+{% block head %}
+<head>
+      <!-- meta tags not used in this project -->
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <!-- Page title -->
+      <title>Fraud Detection - Case Study</title>
+      <!-- Latest compiled and minified CSS -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+      <!-- Optional theme -->
+      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+      <!-- Latest compiled and minified JavaScript -->
+      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+      <!-- favicon is in static folder; href points to a "variable" defined by curly braces. -->
+      <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+      <!-- Custom styles in main.css -->
+      <!-- main.css is in static folder; href points to a "variable" defined by curly braces. -->
+      <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
+      <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+</head>
+
+ {% endblock %}
+
+{% block content %}
+
+<div class="container">
+    </br>
+    <ul class="nav nav-tabs">
+        <li role="presentation"><a href="/">Introduction</a></li>
+        <li role="presentation"><a href="/data">Data</a></li>
+        <li role="presentation"><a href="/models">Models</a></li>
+        <li role="presentation" class="active"><a href="/predictions">Predictions</a></li>
+        <li role="presentation"><a href="/about">About/Contact</a></li>
+    </ul>
+    <div class="page-header">
+        <h1>Predicting the Future: <small>Forecasting Affects of Policy Changes</small></h1>
+        </br>
+
+        <div class="row">
+            <div class="col-xs-12">
+
+              <div class="thumbnail">
+                  <div class="caption">
+                      <h3>Section Title</h3>
+
+
+
+
+          </div>
+
+
+
+
+
+
+                  </div>
+              </div>
+
+            </div>
+
+                                      <div class="row">
+                                          <div class="col-xs-12">
+
+                                            <div class="thumbnail">
+                                                <div class="caption">
+                                                    <h3>Actual and Predicted Asthma Rates</h3>
+                                                    <h1><small>Random Selection of Counties from Test Data</small></h1>
+
+                                                    <!-- use flask for-loop (https://pybit.es/flask-for-loop.html) -->
+                                                    <table class="table table-hover">
+                                                      <thead>
+                                                        <tr>
+                                                          <th scope="col">County</th>
+                                                          <th scope="col">Uninsured</th>
+                                                          <th scope="col">Unemployment</th>
+                                                          <th scope="col">Obesity</th>
+                                                          <th scope="col">Smokers</th>
+                                                          <th scope="col">Pollution</th>
+                                                          <th scope="col">Asthma (Actual)</th>
+                                                          <th scope="col">Asthma (Predicted)</th>
+                                                        </tr>
+                                                      </thead>
+                                                      <tbody>
+
+                                                      {% for k, v in table_dict.items() %}
+                                                      <tr>
+                                                          <td>{{k}}</td>
+                                                          <td>{{v[0]}}</td>
+                                                          <td>{{v[1]}}</td>
+                                                          <td>{{v[2]}}</td>
+                                                          <td>{{v[3]}}</td>
+                                                          <td>{{v[4]}}</td>
+                                                          <td>{{v[5]}}</td>
+                                                          <td>{{v[6]}}</td>
+                                                          <td>{{v[7]}}</td>
+                                                        </tr>
+                                                        {% endfor %}
+                                                       </tbody>
+                                                    </table>
+
+                                            </div>
+                                                        </div>
+
+                                                </div>
+                                                            </div>
+
+
+
+      <div class="row">
+          <div class="col-xs-12">
+
+            <div class="thumbnail">
+                <div class="caption">
+                    <h3>Public Policy and Asthma</h3>
+                    <h1><small>Predicting Asthma Rates Under Policy Changes</small></h1>
+
+                    <form action='/predictions', method='POST'>
+
+                    <table class="table table-hover">
+                      <thead>
+                        <tr>
+                          <th scope="col">County</th>
+                          <td colspan="2">{{county}} (actual)</td>
+                          <td>Policy Changes</td>
+                        </tr>
+                      </thead>
+                      <tbody>
+                        <tr>
+                          <th scope="row">Uninsured</th>
+                          <td colspan="2">{{uninsured}}</td>
+                          <td>​<input type="text" id="new_uninsured" rows="1" cols="10" name="new_uninsur" placeholder="Enter..."/></td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Unemployment</th>
+                          <td colspan="2">{{unemployment}}</td>
+                          <td>​<input type="text" id="new_unemployment" rows="1" cols="10" name="new_unemploy" placeholder="Enter..."/></td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Obesity</th>
+                          <td colspan="2">{{obesity}}</td>
+                          <td>​<input type="text" id="new_obesity" rows="1" cols="10" name="new_obs" placeholder="Enter..."/></td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Smokers</th>
+                          <td colspan="2">{{smokers}}</td>
+                          <td>​<input type="text" id="new_smokers" rows="1" cols="10" name="new_smok" placeholder="Enter..."/></td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Pollution</th>
+                          <td colspan="2">{{particulates}}</td>
+                          <td>​<input type="text" id="new_particulates" rows="1" cols="10" name="new_partic" placeholder="Enter..."/></td>
+                        </tr>
+                        <tr>
+                          <th scope="row">Asthma</th>
+                          <td colspan="2">{{y}}</td>
+                          <td>​{{new_y}}</td>
+                        </tr>
+                        <tr>
+                          <th scope="row"></th>
+                          <td colspan="2"></td>
+                          <td>​<button type="submit" class="btn btn-primary" >Submit Changes</button></td>
+                        </tr>
+                      </tbody>
+                    </table>
+
+                  </form>
+
+
+            </div>
+                        </div>
+
+                </div>
+                            </div>
+
+
+
+
+
+
+
+
+
+
+
+                      </div>
+                                  </div>
+                                </div>
+
+
+<footer class="footer">
+    <div class="container" align="center">
+
+        <a href="https://github.com/" class="btn btn-social-icon btn-github btn-small"><i class="fa fa-github fa-3x"></i></a>
+        </p>
+    </div>
+</footer>
+
+{% endblock %}
+
+{% block other %}
+
+{% endblock %}
+
+
+
+{% block scripts %}
+{{super()}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script type="text/javascript">
+$('.drop-down-show-hide').hide();
+$('#dropDown').change(function () {
+    $('.drop-down-show-hide').hide()
+    $('#' + this.value).show();
+});
+</script>
+{% endblock %}

@@ -60,7 +60,7 @@ def one_county(input_county):
     smokers = X['smoke_adult'].values[0]
     particulates = X['air_poll_partic'].values[0]
     y = y.values[0]
-    return uninsured, unemployment, obesity, smokers, particulates, y
+    return county, uninsured, unemployment, obesity, smokers, particulates, y
 
 
 
@@ -96,28 +96,42 @@ def index():
     chart_feature_importances()
 
 
-    uninsured, unemployment, obesity, smokers, particulates, y = one_county('Boulder')
+    input_county, uninsured, unemployment, obesity, smokers, particulates, y = one_county('Boulder')
 
     county_tst, uninsured_tst, unemployment_tst, obesity_tst, smokers_tst, particulates_tst, y_tst, ypred = test_predict()
 
 
 
-
+# use flask for-loop (https://pybit.es/flask-for-loop.html)
 
 
 
 
     # return render_template('index.html')
-    return flask.render_template('index.html',
-                                  county = input_county,
-                                  # state = state,
-                                  uninsured = uninsured,
-                                  unemployment = unemployment,
-                                  obesity = obesity,
-                                  smokers = smokers,
-                                  particulates = particulates,
-                                  y = y
-                                  )
+    return flask.render_template(   'index.html',
+
+                                    # these are for the 'abc' chart
+                                    county = input_county,
+                                    uninsured = uninsured,
+                                    unemployment = unemployment,
+                                    obesity = obesity,
+                                    smokers = smokers,
+                                    particulates = particulates,
+                                    y = y,
+
+
+# make k the county name and v a list of all other variables and then unpack with v[0], v[1], etc
+
+                                    # these are for the 'xyz' chart...
+                                    county_tst = county_tst,
+                                    uninsured_tst = uninsured_tst,
+                                    unemployment_tst = unemployment_tst,
+                                    obesity_tst = obesity_tst,
+                                    smokers_tst = smokers_tst,
+                                    particulates_tst = particulates_tst,
+                                    y_tst = y_tst,
+                                    ypred = np.round(ypred, 2)
+                                    )
 
 
 

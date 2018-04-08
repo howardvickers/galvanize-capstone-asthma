@@ -1,9 +1,7 @@
 import csv
 from bs4 import BeautifulSoup
 from cairosvg import svg2png
-
-# from data import make_fips_dicts
-# from data import choose_states
+ 
 from data import asthma_ca
 from data import asthma_co
 from data import asthma_fl
@@ -99,5 +97,3 @@ for feature in chart_list:
     mymap = soup.prettify()
     filename = 'static/images/co_{}.svg'.format(feature)
     open(filename, 'w').write(mymap)
-
-    # svg2png(bytestring=mymap,write_to='static/images/co_{}.png')

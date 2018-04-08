@@ -31,12 +31,14 @@
 <div class="container">
     </br>
     <ul class="nav nav-tabs">
-        <li role="presentation" class="active"><a href="#">Home</a></li>
-        <li role="presentation"><a href="/live">Live</a></li>
-        <li role="presentation"><a href="/database">Dashboard</a></li>
+        <li role="presentation" class="active"><a href="#">Introduction</a></li>
+        <li role="presentation"><a href="/live">Data</a></li>
+        <li role="presentation"><a href="/database">Models</a></li>
+        <li role="presentation"><a href="/database">Predictions</a></li>
+        <li role="presentation"><a href="/database">About/Contact</a></li>
     </ul>
     <div class="page-header">
-        <h1>Fraud Detection <small>Case Study</small></h1>
+        <h1>A Breath of Fresh Air: <small>Predicting Asthma Rates with Data Science</small></h1>
         </br>
 
         <div class="row">
@@ -45,8 +47,8 @@
               <div class="thumbnail">
                   <div class="caption">
                       <h3>Howard Vickers</h3>
-                      <h1><small>Capstone</small></h1>
-                      <h1><small>Asthma</small></h1>                      <p class="text">  </p>
+                      <h1><small>Galvanize Data Science Capstone</small></h1>
+                      <h1><small>Machine learning algorithms to determine the drivers of asthma hospitalization rates and predict asthma rates at a county level.</small></h1>                      <p class="text">  </p>
                       <p class="text">  </p>
                       <ul>
                         <li><h1><small>Identify Asthma Rates </small></h1></li>
@@ -58,11 +60,11 @@
                           <div class="col">
                             <br>
                       <div class="card" style="width: 63rem;">
-                        <embed class="d-block w-100" src="../static/images/feat_imps.png" alt="Third slide">
                         <div class="card-body">
-                          <h2 class="card-text">Which Factors Drive Asthma Rates?</h2>
-                          <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                        <h2 class="card-text">Which Factors Drive Asthma Rates?</h2>
+                        <p class="card-text">Chart showing variables (features) identified as most important with the random forest model.  Longer bars represent greater importance in determining decision tree splits.</p>
                         </div>
+                        <embed class="d-block w-100" src="../static/images/feat_imps.png" alt="Feature Importances">
                       </div>
                     </div>
 
@@ -93,56 +95,49 @@
 
 
 
-                  <embed class="d-block w-100" src="../static/images/colorado_asthma.svg" alt="Third slide">
+                  <embed class="d-block w-100" src="../static/images/colorado_asthma.svg" alt="Asthma">
                   <div class="card-body">
                     <h2 class="card-text">Asthma</h2>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <p class="card-text">Map showing asthma hospitalization rates by county in Colorado in 2016.  Darker colors represent higher rates.</p>
                   </div>
                 </div>
               </div>
               <div class="col">
                 <br>
 
-                <!-- <select onchange="$('#imageToSwap').attr('src', this.options[this.selectedIndex].value);">
-                    <option value="../static/images/co_air_poll_partic.svg" selected>Air Pollution</option>
-                    <option value="../static/images/monday_ad.png">Monday</option>
-                    <option value="../static/images/co_smoke_adult.svg">Smoking</option>
-                    <option value="../static/images/co_unemployment.svg">Unemployment</option>
-                    <option value="../static/images/co_uninsured.svg">Uninsured</option>
-                </select> -->
                 <div id="mapPollution" class="drop-down-show-hide card" style="width: 30rem;">
-                  <embed class="d-block w-100" src="../static/images/co_air_poll_partic.svg" alt="Map of Feature (Rates)">
+                  <embed class="d-block w-100" src="../static/images/co_air_poll_partic.svg" alt="Pollution">
                   <div class="card-body">
                     <h2 class="card-text">Pollution</h2>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <p class="card-text">Map showing pollution by county in Colorado in 2016.  Darker colors represent higher rates.</p>
                   </div>
                 </div>
                 <div id="mapSmoke" class="drop-down-show-hide card" style="width: 30rem;">
-                  <embed class="d-block w-100" src="../static/images/co_smoke_adult.svg" alt="Map of Feature (Rates)">
+                  <embed class="d-block w-100" src="../static/images/co_smoke_adult.svg" alt="Smoking">
                   <div class="card-body">
                     <h2 class="card-text">Smoking Rate</h2>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <p class="card-text">Map showing smoking rates (adults) by county in Colorado in 2016.  Darker colors represent higher rates.</p>
                   </div>
                 </div>
                 <div id="mapObesity" class="drop-down-show-hide card" style="width: 30rem;">
-                  <embed class="d-block w-100" src="../static/images/co_obese_adult.svg" alt="Map of Feature (Rates)">
+                  <embed class="d-block w-100" src="../static/images/co_obese_adult.svg" alt="Obesity">
                   <div class="card-body">
                     <h2 class="card-text">Obesity</h2>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <p class="card-text">Map showing obesity by county in Colorado in 2016.  Darker colors represent higher rates.</p>
                   </div>
                 </div>
                 <div id="mapUnemploy" class="drop-down-show-hide card" style="width: 30rem;">
-                  <embed class="d-block w-100" src="../static/images/co_unemployment.svg" alt="Map of Feature (Rates)">
+                  <embed class="d-block w-100" src="../static/images/co_unemployment.svg" alt="Unemployment">
                   <div class="card-body">
                     <h2 class="card-text">Unemployment</h2>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <p class="card-text">Map showing unemployment by county in Colorado in 2016.  Darker colors represent higher rates.</p>
                   </div>
                 </div>
                 <div id="mapUninsured" class="drop-down-show-hide card" style="width: 30rem;">
-                  <embed class="d-block w-100" src="../static/images/co_uninsured.svg" alt="Map of Feature (Rates)">
+                  <embed class="d-block w-100" src="../static/images/co_uninsured.svg" alt="Uninsured">
                   <div class="card-body">
                     <h2 class="card-text">Uninsured</h2>
-                    <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
+                    <p class="card-text">Map showing proportion of population without health insurance by county in Colorado in 2016.  Darker colors represent higher rates.</p>
                   </div>
                 </div>
                 </div>
@@ -155,54 +150,7 @@
                       </div>
 
 
-                      <!-- Button trigger modal -->
-                      <button type="button" class="btn btn-primary" data-toggle="modal" data-target=".bd-example-modal-lg">
-                        Launch demo modal
-                      </button>
 
-                      <!-- Modal -->
-                      <div class="modal fade bd-example-modal-lg" id="myModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
-                        <div class="modal-dialog modal-lg" role="document">
-                          <div class="modal-content">
-                            <div class="modal-header">
-                              <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
-                              <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                              </button>
-                            </div>
-                            <div class="modal-body">
-
-                              <div class="container">
-                                <div class="row">
-                                  <div class="col">
-                                    1 of 2
-
-                              <div class="card" style="width: 25rem;">
-                                <embed class="card-img-top" src="../static/images/coloafrado_asthma.svg" alt="Card image cap">
-                                <div class="card-body">
-                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                </div>
-                              </div>
-                            </div>
-                            <div class="col">
-                              2 of 2
-                              <div class="card" style="width: 25rem;">
-                                <img class="card-img-top" src="../static/images/colorado_asthma.svg" alt="Card image cap">
-                                <div class="card-body">
-                                  <p class="card-text">Some quick example text to build on the card title and make up the bulk of the card's content.</p>
-                                </div>
-                              </div>
-                            </div>
-                          </div>
-                        </div>
-                            </div>
-                            <div class="modal-footer">
-                              <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                              <button type="button" class="btn btn-primary">Save changes</button>
-                            </div>
-                          </div>
-                        </div>
-                      </div>
 
 
 
@@ -219,8 +167,8 @@
 
               <div class="thumbnail">
                   <div class="caption">
-                      <h3>Howard Vickers</h3>
-                      <h1><small>Capstone</small></h1>
+                      <h3>Public Policy and Asthma</h3>
+                      <h1><small>Predicting Asthma Rates Under Policy Changes</small></h1>
 
                       <form action='/policy', method='POST'>
 
@@ -279,6 +227,67 @@
 
                   </div>
                               </div>
+
+
+
+
+                                      <div class="row">
+                                          <div class="col-xs-12">
+
+                                            <div class="thumbnail">
+                                                <div class="caption">
+                                                    <h3>Actual and Predicted Asthma Rates</h3>
+                                                    <h1><small>Random Selection of Counties from Test Data</small></h1>
+
+                                                    <!-- use flask for-loop (https://pybit.es/flask-for-loop.html) -->
+                                                    <table class="table table-hover">
+                                                      <thead>
+                                                        <tr>
+                                                          <th scope="col">County</th>
+                                                          <th scope="col">Uninsured</th>
+                                                          <th scope="col">Unemployment</th>
+                                                          <th scope="col">Obesity</th>
+                                                          <th scope="col">Smokers</th>
+                                                          <th scope="col">Pollution</th>
+                                                          <th scope="col">Asthma (Actual)</th>
+                                                          <th scope="col">Asthma (Predicted)</th>
+                                                        </tr>
+                                                      </thead>
+                                                      <tbody>
+
+                                                      {% for k, v in table_dict.items() %}
+                                                      <tr>
+                                                          <td>{{k}}</td>
+                                                          <td>{{v[0]}}</td>
+                                                          <td>{{v[1]}}</td>
+                                                          <td>{{v[2]}}</td>
+                                                          <td>{{v[3]}}</td>
+                                                          <td>{{v[4]}}</td>
+                                                          <td>{{v[5]}}</td>
+                                                          <td>{{v[6]}}</td>
+                                                          <td>{{v[7]}}</td>
+                                                        </tr>
+                                                        {% endfor %}
+                                                       </tbody>
+                                                    </table>
+
+                                            </div>
+                                                        </div>
+
+                                                </div>
+                                                            </div>
+
+
+
+
+
+
+
+
+
+
+
+
 
                       </div>
                                   </div>

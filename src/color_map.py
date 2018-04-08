@@ -1,14 +1,12 @@
 import csv
 from bs4 import BeautifulSoup
-# from data import make_fips_dicts
-# from data import choose_states
 from data import asthma_ca
 from data import asthma_co
 from data import asthma_fl
 from data import asthma_nj
 
 
- 
+
 co = asthma_co()[1]
 d = co.set_index('fips').to_dict()['asthma_rate']
 
@@ -69,5 +67,3 @@ mymap = soup.prettify()
 print(type(mymap))
 
 open('static/images/colorado_asthma.svg', 'w').write(mymap)
-
-# print (soup.prettify())

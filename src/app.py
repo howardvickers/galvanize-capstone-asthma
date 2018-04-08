@@ -23,20 +23,19 @@ def train_predict(X_test):
     model = tm()
     prediction = model.predict(X_test)
     return prediction
-    # fm = modclass.FinalModel()
-    # feat_imps = fm._regressor.feature_importances_
 
 def test_predict():
     data = gd()
     X_train, X_test, y_train, y_test = sd(data)
     counties_train = X_train['county']
     counties_test = X_test['county']
+    # states_train = X_train['state']
+    # states_test = X_test['state']
     X_test, y_test = rcs(X_test, y_test)
     ypred = train_predict(X_test)
 
     X = X_test.round(2)
     y = y_test.round(2)
-    # state = locations['state']
     uninsured = X['uninsured'].values
     unemployment = X['unemployment'].values
     obesity = X['obese_adult'].values
@@ -61,9 +60,6 @@ def one_county(input_county):
     particulates = X['air_poll_partic'].values[0]
     y = y.values[0]
     return county, uninsured, unemployment, obesity, smokers, particulates, y
-
-
-
 
 
 @app.route('/policy', methods =['GET','POST'])
@@ -95,22 +91,33 @@ def index():
     # get_feat_imps_plot(data)
     chart_feature_importances()
 
-
     input_county, uninsured, unemployment, obesity, smokers, particulates, y = one_county('Boulder')
 
     county_tst, uninsured_tst, unemployment_tst, obesity_tst, smokers_tst, particulates_tst, y_tst, ypred = test_predict()
 
-
-
-# use flask for-loop (https://pybit.es/flask-for-loop.html)
-
+    # these are for the 'Actual and Predicted Asthma Rates' chart...
+    num_results = 10
+    county_tst = list(county_tst.str.title()),
+    # states_tst = states_tst,
+    uninsured_tst = uninsured_tst,
+    unemployment_tst = unemployment_tst,
+    obesity_tst = obesity_tst,
+    smokers_tst = smokers_tst,
+    particulates_tst = particulates_tst,
+    y_tst = y_tst,
+    ypred = np.round(ypred, 2)
+    v_list = []
+    for i in range(num_results):
+        temp_list = [uninsured_tst[0][i], unemployment_tst[0][i], obesity_tst[0][i], smokers_tst[0][i], particulates_tst[0][i], y_tst[0][i], ypred[i]]
+        v_list.append(temp_list)
+    table_dict = dict(zip(county_tst[0], v_list))
 
 
 
     # return render_template('index.html')
     return flask.render_template(   'index.html',
 
-                                    # these are for the 'abc' chart
+                                    # these are for the 'Public Policy and Asthma' chart
                                     county = input_county,
                                     uninsured = uninsured,
                                     unemployment = unemployment,
@@ -118,19 +125,7 @@ def index():
                                     smokers = smokers,
                                     particulates = particulates,
                                     y = y,
-
-
-# make k the county name and v a list of all other variables and then unpack with v[0], v[1], etc
-
-                                    # these are for the 'xyz' chart...
-                                    county_tst = county_tst,
-                                    uninsured_tst = uninsured_tst,
-                                    unemployment_tst = unemployment_tst,
-                                    obesity_tst = obesity_tst,
-                                    smokers_tst = smokers_tst,
-                                    particulates_tst = particulates_tst,
-                                    y_tst = y_tst,
-                                    ypred = np.round(ypred, 2)
+                                    table_dict = table_dict
                                     )
 
 

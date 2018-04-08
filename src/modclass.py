@@ -18,7 +18,7 @@ import matplotlib.pyplot as plt
 def train_model():
     data = get_data()
     X_train, X_test, y_train, y_test = split_data(data)
-
+    X_train, y_train = remove_county_state(X_train, y_train)
     model = RFR(    max_features        = 'sqrt',
                     max_depth           = 100,
                     bootstrap           = False,
@@ -33,6 +33,8 @@ def train_model():
 def show_columns():
     data = get_data()
     X_train, X_test, y_train, y_test = split_data(data)
+    X_train, y_train = remove_county_state(X_train, y_train)
+
     return X_train.columns
 
 
@@ -63,9 +65,12 @@ def clean_data(data):
     return data_nas
 
 def X_y(data_nas):
-    no_counties = data_nas.drop(['county', 'state'], axis=1)
-    X = no_counties.drop('asthma_rate', axis=1)
-    y = no_counties.asthma_rate
+    # counties_states = data_nas[['county', 'state']]
+    # no_counties_states = data_nas.drop(['county', 'state'], axis=1)
+
+    # create X and y datasets
+    X = data_nas.drop('asthma_rate', axis=1)
+    y = data_nas.asthma_rate
     return X, y
 
 def county_data(county):
@@ -75,15 +80,21 @@ def county_data(county):
 
     single_county = data_nas[data_nas['county'] == county]
     X, y = X_y(single_county)
+
+    # note that X now includes county and state
     return X, y
 
 def split_data(data):
     cln_data = clean_data(data)
     X, y = X_y(cln_data)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=123)
-    # print('split_data - X_train.columns', X_train.columns)
+
+    # note that X_train, X_test, y_train and y_test all now include county and state
     return X_train, X_test, y_train, y_test
 
+def remove_county_state(X, y):
+    X = X.drop(['county', 'state'], axis=1)
+    return X, y
 
 class FinalModel(object):
     def __init__(self):
@@ -97,6 +108,7 @@ class FinalModel(object):
                                 )
 
     def fit(self, X, y):
+        X, y = remove_county_state(X, y)
         # StandardScaler here
         self._regressor.fit(X, y)
 

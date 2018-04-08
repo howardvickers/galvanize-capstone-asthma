@@ -7,6 +7,9 @@ import requests
 import os
 from modclass import county_data
 from modclass import train_model as tm
+from modclass import get_data as gd
+from modclass import split_data as sd
+from modclass import remove_county_state as rcs
 
 from flask_bootstrap import Bootstrap
 # from model import chart_feature_importances as make_chart
@@ -23,10 +26,49 @@ def train_predict(X_test):
     # fm = modclass.FinalModel()
     # feat_imps = fm._regressor.feature_importances_
 
+def test_predict():
+    data = gd()
+    X_train, X_test, y_train, y_test = sd(data)
+    counties_train = X_train['county']
+    counties_test = X_test['county']
+    X_test, y_test = rcs(X_test, y_test)
+    ypred = train_predict(X_test)
+
+    X = X_test.round(2)
+    y = y_test.round(2)
+    # state = locations['state']
+    uninsured = X['uninsured'].values
+    unemployment = X['unemployment'].values
+    obesity = X['obese_adult'].values
+    smokers = X['smoke_adult'].values
+    particulates = X['air_poll_partic'].values
+    y = y.values
+
+    return counties_test, uninsured, unemployment, obesity, smokers, particulates, y, ypred
+
+
+def one_county(input_county):
+    county = input_county.lower()
+    X, y = county_data(county)
+    X = X.round(2)
+    y = y.round(2)
+    # county = X['county']
+    # state = X['state']
+    uninsured = X['uninsured'].values[0]
+    unemployment = X['unemployment'].values[0]
+    obesity = X['obese_adult'].values[0]
+    smokers = X['smoke_adult'].values[0]
+    particulates = X['air_poll_partic'].values[0]
+    y = y.values[0]
+    return uninsured, unemployment, obesity, smokers, particulates, y
+
+
+
+
 
 @app.route('/policy', methods =['GET','POST'])
 def policy():
-    
+
     new_uninsur = int(request.form['new_uninsur'])
     new_unemploy = int(request.form['new_unemploy'])
     new_obs = int(request.form['new_obs'])
@@ -53,20 +95,10 @@ def index():
     # get_feat_imps_plot(data)
     chart_feature_importances()
 
-    input_county = 'Boulder'
-    county = input_county.lower()
-    X, y = county_data(county)
-    X = X.round(2)
-    y = y.round(2)
-    # county = X['county']
-    # state = X['state']
-    uninsured = X['uninsured'].values[0]
-    unemployment = X['unemployment'].values[0]
-    obesity = X['obese_adult'].values[0]
-    smokers = X['smoke_adult'].values[0]
-    particulates = X['air_poll_partic'].values[0]
-    y = y.values[0]
 
+    uninsured, unemployment, obesity, smokers, particulates, y = one_county('Boulder')
+
+    county_tst, uninsured_tst, unemployment_tst, obesity_tst, smokers_tst, particulates_tst, y_tst, ypred = test_predict()
 
 
 

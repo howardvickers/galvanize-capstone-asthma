@@ -99,7 +99,6 @@ def resulting():
     if request.method == 'POST':
         county = 'Boulder'
         one_county(county)
-        # result = request.form['new_uninsur']
         new_uninsur = request.form['new_uninsur']
         new_unemploy = request.form['new_unemploy']
         new_obs = request.form['new_obs']
@@ -108,15 +107,10 @@ def resulting():
         form_results = [new_uninsur, new_unemploy, new_obs, new_smok, new_partic]
         row = convert_to_row(form_results, county)
         pred = train_predict(row)
+        pred = pred[0].round(2)
 
         return render_template( "resulting.html",
-                                # result = result,
-                                # new_uninsur = new_uninsur,
-                                # new_unemploy = new_unemploy,
-                                # new_obs = new_obs,
-                                # new_smok = new_smok,
-                                # new_partic = new_partic,
-                                pred = pred
+                                new_y = pred
                                 )
 
 
@@ -124,9 +118,6 @@ def resulting():
 
 @app.route('/predictions', methods =['GET','POST'])
 def predictions():
-
-    # print('This is from the website:', new_uninsur, new_unemploy, new_obs, new_smok, new_partic)
-
 
     input_county, uninsured, unemployment, obesity, smokers, particulates, y, X = one_county('Boulder')
 
@@ -148,6 +139,34 @@ def predictions():
         temp_list = [uninsured_tst[0][i], unemployment_tst[0][i], obesity_tst[0][i], smokers_tst[0][i], particulates_tst[0][i], y_tst[0][i], ypred[i]]
         v_list.append(temp_list)
     table_dict = dict(zip(county_tst[0], v_list))
+
+    # these are for the 'Public Policy and Asthma' chart
+
+    if request.method == 'POST':
+        county = 'Boulder'
+        one_county(county)
+        new_uninsur = request.form['new_uninsur']
+        new_unemploy = request.form['new_unemploy']
+        new_obs = request.form['new_obs']
+        new_smok = request.form['new_smok']
+        new_partic = request.form['new_partic']
+        form_results = [new_uninsur, new_unemploy, new_obs, new_smok, new_partic]
+        row = convert_to_row(form_results, county)
+        pred = train_predict(row)
+        pred = pred[0].round(2)
+
+        return render_template( "predictions.html",
+                                    # these are for the 'Public Policy and Asthma' chart
+                                    county = input_county,
+                                    uninsured = uninsured,
+                                    unemployment = unemployment,
+                                    obesity = obesity,
+                                    smokers = smokers,
+                                    particulates = particulates,
+                                    y = y,
+                                    table_dict = table_dict,
+                                    new_y = pred
+                                )
 
 
 

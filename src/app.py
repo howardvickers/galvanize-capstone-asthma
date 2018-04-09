@@ -1,6 +1,7 @@
 from flask import Flask, request, render_template
 import flask
 from flask_bootstrap import Bootstrap
+from flask import Markup
 
 # import pickle
 import pandas as pd
@@ -144,11 +145,14 @@ def statepolicy():
         state_pred_map_svg = cm(pred_fips)
 
         # prepare embed for html - can I do this?
-        # state_pred_map = "<embed class="d-block w-100" src={} alt="Predicted Asthma Map">".format(state_pred_map_svg)
+
+        dub = '"'
+        state_pred_map = '<embed class="d-block w-100" src={}{}{} alt="Predicted Asthma Map">'.format(dub, state_pred_map_svg, dub)
+        value = Markup(state_pred_map)
 
         return flask.render_template( "policy.html"
-        # ,
-        #                         state_pred_map = state_pred_map_svg
+        ,
+                                state_pred_map = value
                                 )
 
 

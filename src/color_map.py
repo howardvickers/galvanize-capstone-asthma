@@ -9,7 +9,7 @@ from data import asthma_nj
 
 co = asthma_co()[1]
 d = co.set_index('fips').to_dict()['asthma_rate']
-
+print('Asthma Map Dictionary: ', d)
 
 # Load the SVG map
 svg = open('../data/colorado_election.svg', 'r').read()

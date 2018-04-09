@@ -2,12 +2,11 @@ import csv
 from bs4 import BeautifulSoup
 
 def create_map(state_data):
-    # I need data that has been through the predict method but is reunited with column names and then added to fips...
 
-    d = state_data.set_index('fips').to_dict()
+    a = state_data.set_index('fips').to_dict()
+    d = a['pred']
 
-    # d = state_data.set_index('fips').to_dict()['asthma_rate']
-
+    print('This is the dictionary for the state_pred_map: ', d)
 
     # load SVG map
     svg = open('static/images/co_counties_blank.svg', 'r').read()
@@ -19,7 +18,7 @@ def create_map(state_data):
     paths = soup.findAll('path')
 
     # map colors
-    colors = ["#f7fcf5", "#e5f5e0", "#c7e9c0", "#a1d99b", "#74c476", "#41ab5d", "#238b45", "#006d2c", "#00441b"],
+    colors = ["#f7fcf5", "#e5f5e0", "#c7e9c0", "#a1d99b", "#74c476", "#41ab5d", "#238b45", "#006d2c", "#00441b"]
 
     # county style
     path_style = 'font-size:12px;fill-rule:nonzero;stroke:#FFFFFF;stroke-opacity:1; stroke-width:0.1;stroke-miterlimit:4;stroke-dasharray:none;stroke-linecap:butt; marker-start:none;stroke-linejoin:bevel;fill:'

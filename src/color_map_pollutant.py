@@ -1,10 +1,6 @@
 import csv
 from bs4 import BeautifulSoup
 
-from data import asthma_ca
-from data import asthma_co
-from data import asthma_fl
-from data import asthma_nj
 from data import all_socio_econ_data
 
 _, fips_lookup = all_socio_econ_data()

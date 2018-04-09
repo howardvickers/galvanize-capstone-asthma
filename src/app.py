@@ -12,6 +12,7 @@ from modclass import county_data
 from modclass import train_model as tm
 from modclass import get_data as gd
 from modclass import split_data as sd
+from modclass import X_y as xy
 from modclass import remove_county_state as rcs
 from state_color_map import create_map as cm
 from charts import chart_feature_importances
@@ -45,6 +46,11 @@ def test_predict():
 
     return counties_test, uninsured, unemployment, obesity, smokers, particulates, y, ypred
 
+def state_data(state):
+    data = gd()
+    co_data = data.loc[data['state']==state.lower()]
+    X_co, y_co = xy(co_data)
+    return X_co, y_co
 
 def one_county(input_county):
     county = input_county.lower()
@@ -75,6 +81,17 @@ def convert_to_row(results, county):
     print(X)
     return X
 
+def update_state_policy(X, results):
+
+    X = X.drop(['county', 'state'], axis=1)
+    X['uninsured'] *= 1.1
+    X['unemployment'] *= 1
+    X['obese_adult'] *= 1
+    X['smoke_adult'] *= 1
+    X['air_poll_partic'] *= 1
+    print(X.shape)
+    return X
+
 @app.route('/', methods =['GET','POST'])
 def index():
     return flask.render_template('index.html')
@@ -101,8 +118,10 @@ def statepredict():
         state_smok = request.form['state_smok']
         state_partic = request.form['state_partic']
         state_form_results = [state_uninsur, state_unemploy, state_obs, state_smok, state_partic]
-        state_data = convert_to_row(state_form_results, state)
-        state_pred = train_predict(state_data)
+        state_data = state_data(state)
+        X_state, y_state = update_state_policy(state_form_results, state_data)
+        X_state = X_state.drop(['county', 'state'], axis=1)
+        state_pred = train_predict(X_state)
         state_pred = state_pred[0].round(2)
 
         # create map with predicted values

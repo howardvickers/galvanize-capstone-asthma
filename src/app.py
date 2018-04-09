@@ -59,7 +59,26 @@ def one_county(input_county):
     smokers = X['smoke_adult'].values[0]
     particulates = X['air_poll_partic'].values[0]
     y = y.values[0]
-    return county, uninsured, unemployment, obesity, smokers, particulates, y
+    print('Here is X:',X)
+    return county, uninsured, unemployment, obesity, smokers, particulates, y, X
+
+def convert_to_row(results, county):
+    print('results', results)
+    _, _, _, _, _, _, _, X = one_county(county)
+    X = X.drop(['county', 'state'], axis=1)
+    print('And here is X after dropping columns', X)
+    X['uninsured'] = float(results[0])
+    X['unemployment'] = float(results[1])
+    X['obese_adult'] = float(results[2])
+    X['smoke_adult'] = float(results[3])
+    X['air_poll_partic'] = float(results[4])
+    print(X)
+    return X
+
+@app.route('/', methods =['GET','POST'])
+def index():
+
+    return flask.render_template('index.html')
 
 
 @app.route('/data', methods =['GET','POST'])
@@ -69,10 +88,47 @@ def data():
     return flask.render_template('data.html')
 
 
+@app.route('/models', methods =['GET','POST'])
+def models():
+
+    return flask.render_template('models.html')
+
+
+@app.route('/resulting', methods =['GET','POST'])
+def resulting():
+    if request.method == 'POST':
+        county = 'Boulder'
+        one_county(county)
+        # result = request.form['new_uninsur']
+        new_uninsur = request.form['new_uninsur']
+        new_unemploy = request.form['new_unemploy']
+        new_obs = request.form['new_obs']
+        new_smok = request.form['new_smok']
+        new_partic = request.form['new_partic']
+        form_results = [new_uninsur, new_unemploy, new_obs, new_smok, new_partic]
+        row = convert_to_row(form_results, county)
+        pred = train_predict(row)
+
+        return render_template( "resulting.html",
+                                # result = result,
+                                # new_uninsur = new_uninsur,
+                                # new_unemploy = new_unemploy,
+                                # new_obs = new_obs,
+                                # new_smok = new_smok,
+                                # new_partic = new_partic,
+                                pred = pred
+                                )
+
+
+
+
 @app.route('/predictions', methods =['GET','POST'])
 def predictions():
 
-    input_county, uninsured, unemployment, obesity, smokers, particulates, y = one_county('Boulder')
+    # print('This is from the website:', new_uninsur, new_unemploy, new_obs, new_smok, new_partic)
+
+
+    input_county, uninsured, unemployment, obesity, smokers, particulates, y, X = one_county('Boulder')
 
     county_tst, uninsured_tst, unemployment_tst, obesity_tst, smokers_tst, particulates_tst, y_tst, ypred = test_predict()
 
@@ -95,18 +151,7 @@ def predictions():
 
 
 
-    new_uninsur = int(request.form['new_uninsur'])
-    new_unemploy = int(request.form['new_unemploy'])
-    new_obs = int(request.form['new_obs'])
-    new_smok = int(request.form['new_smok'])
-    new_partic = int(request.form['new_partic'])
-    # y_new = result['object_id'][0] # change this
-    print('This is from the website:', new_uninsur, new_unemploy, new_obs, new_smok, new_partic)
-
-
     return flask.render_template('predictions.html',
-
-
                                     # these are for the 'Public Policy and Asthma' chart
                                     county = input_county,
                                     uninsured = uninsured,
@@ -116,30 +161,7 @@ def predictions():
                                     particulates = particulates,
                                     y = y,
                                     table_dict = table_dict
-
-
-
-                              # county = input_county,
-                              # state = state,
-                                  uninsured = uninsured,
-                                  unemployment = unemployment,
-                                  obesity = obesity,
-                                  smokers = smokers,
-                                  particulates = particulates,
-                              # y = y
-                              )
-
-
-@app.route('/', methods =['GET','POST'])
-def index():
-
-    return flask.render_template('index.html')
-
-
-@app.route('/models', methods =['GET','POST'])
-def models():
-
-    return flask.render_template('models.html')
+                                    )
 
 
 @app.route('/about', methods =['GET','POST'])

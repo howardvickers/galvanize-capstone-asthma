@@ -2,10 +2,11 @@ import csv
 from bs4 import BeautifulSoup
 
 def create_map(state_data):
-    # I need data that has been through the predict method but is reunited with column names and then added to fips... 
+    # I need data that has been through the predict method but is reunited with column names and then added to fips...
 
-    state_data = state_data
-    d = state_data.set_index('fips').to_dict()['asthma_rate']
+    d = state_data.set_index('fips').to_dict()
+
+    # d = state_data.set_index('fips').to_dict()['asthma_rate']
 
 
     # load SVG map

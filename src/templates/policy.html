@@ -34,61 +34,127 @@
         <li role="presentation"><a href="/">Introduction</a></li>
         <li role="presentation"><a href="/data">Data</a></li>
         <li role="presentation"><a href="/models">Models</a></li>
-        <li role="presentation" class="active"><a href="/predictions">Predictions</a></li>
-        <li role="presentation"><a href="/policy">Policy</a></li>
+        <li role="presentation"><a href="/predictions">Predictions</a></li>
+        <li role="presentation" class="active"><a href="/policy">Policy</a></li>
         <li role="presentation"><a href="/about">About/Contact</a></li>
     </ul>
     <div class="page-header">
-        <h1>The Model in Action: <small>Comparing Actual and Predicted</small></h1>
+        <h1>Predicting the Future: <small>Forecasting Affects of Policy Changes</small></h1>
         </br>
 
+        <div class="row">
+            <div class="col-xs-12">
+
+              <div class="thumbnail">
+                  <div class="caption">
+                      <h3>Policy Changes at State Level</h3>
 
 
-                                      <div class="row">
-                                          <div class="col-xs-12">
+                          <div class="row">
+                            <div class="col">State</div>
+                            <div class="col">Uninsured</div>
+                            <div class="col">Unemployment</div>
+                            <div class="col">Obesity</div>
+                            <div class="col">Smokers</div>
+                            <div class="col">Pollution</div>
+                            <div class="col"></div>
+                          </div>
 
-                                            <div class="thumbnail">
-                                                <div class="caption">
-                                                    <h3>Actual and Predicted Asthma Rates</h3>
-                                                    <h1><small>Random Selection of Counties from Test Data</small></h1>
 
-                                                    <!-- use flask for-loop (https://pybit.es/flask-for-loop.html) -->
-                                                    <table class="table table-hover">
-                                                      <thead>
-                                                        <tr>
-                                                          <th scope="col">County</th>
-                                                          <th scope="col">Uninsured</th>
-                                                          <th scope="col">Unemployment</th>
-                                                          <th scope="col">Obesity</th>
-                                                          <th scope="col">Smokers</th>
-                                                          <th scope="col">Pollution</th>
-                                                          <th scope="col">Asthma (Actual)</th>
-                                                          <th scope="col">Asthma (Predicted)</th>
-                                                        </tr>
-                                                      </thead>
-                                                      <tbody>
+                          <form action='/policy', method='POST'>
+                          <div class="row">
+                            <div class="col">
+                              <select id="dropDown" type="button" name="state_name" class="btn btn-outline-secondary">
+                                  <option value="mapColorado">Colorado</option>
+                              </select>
+                            </div>
+                            <div class="col">
+                              <select id="dropDown" type="button" name="state_uninsur" class="btn btn-outline-secondary">
+                                <option value="same">No Change</option>
+                                <option value="plus10">+10%</option>
+                                <option value="minus10">-10%</option>
+                              </select>
+                            </div>
+                            <div class="col">
+                              <select id="dropDown" type="button" name="state_unemploy" class="btn btn-outline-secondary">
+                                <option value="same">No Change</option>
+                                <option value="plus10">+10%</option>
+                                <option value="minus10">-10%</option>
+                              </select>
+                            </div>
+                            <div class="col">
+                              <select id="dropDown" type="button" name="state_obs" class="btn btn-outline-secondary">
+                                <option value="same">No Change</option>
+                                <option value="plus10">+10%</option>
+                                <option value="minus10">-10%</option>
+                              </select>
+                            </div>
+                            <div class="col">
+                              <select id="dropDown" type="button" name="state_smok" class="btn btn-outline-secondary">
+                                <option value="same">No Change</option>
+                                <option value="plus10">+10%</option>
+                                <option value="minus10">-10%</option>
+                              </select>
+                            </div>
+                            <div class="col">
+                              <select id="dropDown" type="button" name="state_partic" class="btn btn-outline-secondary">
+                                <option value="same">No Change</option>
+                                <option value="plus10">+10%</option>
+                                <option value="minus10">-10%</option>
+                              </select>
+                            </div>
+                            <div class="col">
+                            <button type="submit" class="btn btn-primary" >Submit</button>
+                          </div>
 
-                                                      {% for k, v in table_dict.items() %}
-                                                      <tr>
-                                                          <td>{{k}}</td>
-                                                          <td>{{v[0]}}</td>
-                                                          <td>{{v[1]}}</td>
-                                                          <td>{{v[2]}}</td>
-                                                          <td>{{v[3]}}</td>
-                                                          <td>{{v[4]}}</td>
-                                                          <td>{{v[5]}}</td>
-                                                          <td>{{v[6]}}</td>
-                                                          <td>{{v[7]}}</td>
-                                                        </tr>
-                                                        {% endfor %}
-                                                       </tbody>
-                                                    </table>
+                          </div>
+                          </form>
+                          <div class="row">
 
+                              <div class="col">
+                                <br>
+                          <div class="card" style="width: 30rem;">
+                            <embed class="d-block w-100" src="../static/images/colorado_asthma.svg" alt="Actual Asthma Map">
+                                            <div class="card-body">
+                                              <h2 class="card-text">Actual</h2>
+                                              <p class="card-text">Map showing asthma hospitalization rates by county in Colorado in 2016.  Darker colors represent higher rates.</p>
                                             </div>
-                                                        </div>
+                                          </div>
+                                        </div>
 
-                                                </div>
-                                                            </div>
+
+                          <div class="col">
+                            <br>
+                            <div id="mapPrediction" class="drop-down-show-hide card" style="width: 30rem;">
+                              {{state_pred_map}}
+                              <embed class="d-block w-100" src="{{state_pred_map}}" alt="Actual Asthma Map">
+
+
+
+
+
+                                    <div class="card-body">
+                                      <h2 class="card-text">Predicted</h2>
+                                      <p class="card-text">Map showing predicted asthma hospitalization rates by county in Colorado.  Darker colors represent higher rates.</p>
+                                    </div>
+                                  </div>
+                                </div>
+
+</div>
+
+
+
+          </div>
+
+
+
+
+
+
+                  </div>
+              </div>
+
+            </div>
 
 
 
@@ -100,7 +166,7 @@
                     <h3>Public Policy and Asthma</h3>
                     <h1><small>Predicting Asthma Rates Under Policy Changes</small></h1>
 
-                    <form action='/predictions', method='POST'>
+                    <form action='/countypolicy', method='POST'>
 
                     <table class="table table-hover">
                       <thead>

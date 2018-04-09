@@ -2,7 +2,7 @@ from flask import Flask, request, render_template
 import flask
 from flask_bootstrap import Bootstrap
 
-import pickle
+# import pickle
 import pandas as pd
 import numpy as np
 import requests
@@ -16,6 +16,7 @@ from modclass import X_y as xy
 from modclass import remove_county_state as rcs
 from state_color_map import create_map as cm
 from charts import chart_feature_importances
+from data import make_fips_df as mf
 
 
 app = Flask(__name__)
@@ -46,7 +47,7 @@ def test_predict():
 
     return counties_test, uninsured, unemployment, obesity, smokers, particulates, y, ypred
 
-def state_data(state):
+def get_state_data(state):
     data = gd()
     co_data = data.loc[data['state']==state.lower()]
     X_co, y_co = xy(co_data)
@@ -81,9 +82,9 @@ def convert_to_row(results, county):
     print(X)
     return X
 
-def update_state_policy(X, results):
-
-    X = X.drop(['county', 'state'], axis=1)
+def update_state_policy(data_tuple, results):
+    X = data_tuple[0]
+    # X = X.drop(['county', 'state'], axis=1)
     X['uninsured'] *= 1.1
     X['unemployment'] *= 1
     X['obese_adult'] *= 1
@@ -106,8 +107,8 @@ def data():
 def models():
     return flask.render_template('models.html')
 
-@app.route('/statepredict', methods =['GET','POST'])
-def statepredict():
+@app.route('/policy', methods =['GET','POST'])
+def statepolicy():
     if request.method == 'POST':
         state = 'Colorado'
         # county = 'Boulder'
@@ -118,21 +119,50 @@ def statepredict():
         state_smok = request.form['state_smok']
         state_partic = request.form['state_partic']
         state_form_results = [state_uninsur, state_unemploy, state_obs, state_smok, state_partic]
-        state_data = state_data(state)
-        X_state, y_state = update_state_policy(state_form_results, state_data)
+        state_data = get_state_data(state)
+        X_state = update_state_policy(state_data, state_form_results)
+        X_state_counties = X_state.county
         X_state = X_state.drop(['county', 'state'], axis=1)
-        state_pred = train_predict(X_state)
-        state_pred = state_pred[0].round(2)
+        X_state = X_state.fillna(0)
+        state_pred_arr = train_predict(X_state)
+        state_pred_arr = state_pred_arr.round(2)
+
+        df_state_pred = pd.DataFrame(state_pred_arr)
+        df_state_pred.columns = ['pred']
+        df_X_state_counties = pd.DataFrame(X_state_counties)
+        df_X_state_counties = df_X_state_counties.reset_index(drop=True)
+        county_state_pred = df_state_pred.join(df_X_state_counties)
+
+        fips = mf()
+        fips_state = fips[fips['state']==state.lower()]
+
+        pred_fips = county_state_pred.merge(fips_state, how="left", on="county")
+        pred_fips = pred_fips.drop(['county', 'state'], axis=1)
+
 
         # create map with predicted values
-        state_pred_map_svg = cm(state_pred)
+        state_pred_map_svg = cm(pred_fips)
 
-        # prepare embed for html
-        state_pred_map = "<embed class="d-block w-100" src={} alt="Predicted Asthma Map">".format(state_pred_map_svg)
+        # prepare embed for html - can I do this?
+        # state_pred_map = "<embed class="d-block w-100" src={} alt="Predicted Asthma Map">".format(state_pred_map_svg)
 
-        return render_template( "predictions.html",
-                                state_pred_map = state_pred_map
+        return flask.render_template( "policy.html"
+        # ,
+        #                         state_pred_map = state_pred_map_svg
                                 )
+
+
+
+
+
+    return flask.render_template('policy.html')
+
+@app.route('/statepredict', methods =['GET','POST'])
+def statepredict():
+
+
+    pass
+
 
 @app.route('/predictions', methods =['GET','POST'])
 def predictions():

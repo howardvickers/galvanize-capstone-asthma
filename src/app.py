@@ -1,23 +1,23 @@
 from flask import Flask, request, render_template
 import flask
+from flask_bootstrap import Bootstrap
+
 import pickle
 import pandas as pd
 import numpy as np
 import requests
 import os
+
 from modclass import county_data
 from modclass import train_model as tm
 from modclass import get_data as gd
 from modclass import split_data as sd
 from modclass import remove_county_state as rcs
-
-from flask_bootstrap import Bootstrap
-# from model import chart_feature_importances as make_chart
-
+from state_color_map import create_map as cm
 from charts import chart_feature_importances
 
-app = Flask(__name__)
 
+app = Flask(__name__)
 
 def train_predict(X_test):
     model = tm()
@@ -77,9 +77,7 @@ def convert_to_row(results, county):
 
 @app.route('/', methods =['GET','POST'])
 def index():
-
     return flask.render_template('index.html')
-
 
 @app.route('/data', methods =['GET','POST'])
 def data():
@@ -87,34 +85,35 @@ def data():
 
     return flask.render_template('data.html')
 
-
 @app.route('/models', methods =['GET','POST'])
 def models():
-
     return flask.render_template('models.html')
 
-
-@app.route('/resulting', methods =['GET','POST'])
-def resulting():
+@app.route('/statepredict', methods =['GET','POST'])
+def statepredict():
     if request.method == 'POST':
-        county = 'Boulder'
-        one_county(county)
-        new_uninsur = request.form['new_uninsur']
-        new_unemploy = request.form['new_unemploy']
-        new_obs = request.form['new_obs']
-        new_smok = request.form['new_smok']
-        new_partic = request.form['new_partic']
-        form_results = [new_uninsur, new_unemploy, new_obs, new_smok, new_partic]
-        row = convert_to_row(form_results, county)
-        pred = train_predict(row)
-        pred = pred[0].round(2)
+        state = 'Colorado'
+        # county = 'Boulder'
+        # one_county(county)
+        state_uninsur = request.form['state_uninsur']
+        state_unemploy = request.form['state_unemploy']
+        state_obs = request.form['state_obs']
+        state_smok = request.form['state_smok']
+        state_partic = request.form['state_partic']
+        state_form_results = [state_uninsur, state_unemploy, state_obs, state_smok, state_partic]
+        state_data = convert_to_row(state_form_results, state)
+        state_pred = train_predict(state_data)
+        state_pred = state_pred[0].round(2)
 
-        return render_template( "resulting.html",
-                                new_y = pred
+        # create map with predicted values
+        state_pred_map_svg = cm(state_pred)
+
+        # prepare embed for html
+        state_pred_map = "<embed class="d-block w-100" src={} alt="Predicted Asthma Map">".format(state_pred_map_svg)
+
+        return render_template( "predictions.html",
+                                state_pred_map = state_pred_map
                                 )
-
-
-
 
 @app.route('/predictions', methods =['GET','POST'])
 def predictions():
@@ -141,7 +140,6 @@ def predictions():
     table_dict = dict(zip(county_tst[0], v_list))
 
     # these are for the 'Public Policy and Asthma' chart
-
     if request.method == 'POST':
         county = 'Boulder'
         one_county(county)
@@ -168,8 +166,6 @@ def predictions():
                                     new_y = pred
                                 )
 
-
-
     return flask.render_template('predictions.html',
                                     # these are for the 'Public Policy and Asthma' chart
                                     county = input_county,
@@ -182,13 +178,9 @@ def predictions():
                                     table_dict = table_dict
                                     )
 
-
 @app.route('/about', methods =['GET','POST'])
 def about():
-
     return flask.render_template('about.html')
-
-
 
 if __name__ == '__main__':
     csv_file_path = '../data/the_data_file.csv'
@@ -202,9 +194,6 @@ if __name__ == '__main__':
         from data import join_data as data
         data, labels = data()
         data.to_csv(csv_file_path, index=False)
-    # from data import join_data as data
-    # data = data()
-    # data.to_csv(csv_file_path, index=False)
 
     Bootstrap(app)
     app.run(host='0.0.0.0', port=8080, debug=True, use_reloader=False)

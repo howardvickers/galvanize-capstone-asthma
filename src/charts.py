@@ -79,19 +79,6 @@ def chart_feature_importances():
     # plt.show()
     plt.savefig('static/images/feat_imps.png')
 
-    # plt.style.use('seaborn-dark-palette')
-    # # fig = plt.figure()
-    # # plt.axis([0, 0.4, 0, 1])
-    # plt.barh(range(len(names)), imps, align='center')
-    # plt.yticks(range(len(names)), names)
-    # # plt.xticks(range(len(imps)), imps)
-    # plt.xlabel('Relative Importance of Features', fontsize=18)
-    # plt.ylabel('Features', fontsize=18)
-    # plt.title('Which Factors Drive Asthma Rates?', fontsize=20)
-    # plt.tight_layout()
-    # # plt.show()
-    # plt.savefig('static/images/feat_imps.png')
-
 
 
 if __name__ == '__main__':

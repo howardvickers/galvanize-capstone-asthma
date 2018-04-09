@@ -1,7 +1,6 @@
 import csv
 from bs4 import BeautifulSoup
-from cairosvg import svg2png
- 
+
 from data import asthma_ca
 from data import asthma_co
 from data import asthma_fl
@@ -15,6 +14,7 @@ fips_lookup_co = fips_lookup[fips_lookup.state == 'colorado']
 fips_feature_dict_co = fips_lookup_co.set_index('fips').to_dict()
 
 chart_list = ['obese_adult', 'smoke_adult', 'uninsured', 'air_poll_partic', 'unemployment']
+
 # colors from http://colorbrewer2.org
 colors_dict = { 'obese_adult'       : ["#fff5f0", "#fee0d2", "#fcbba1", "#fc9272", "#fb6a4a", "#ef3b2c", "#cb181d", "#a50f15", "#67000d"],
                 'smoke_adult'       : ["#fcfbfd", "#efedf5", "#dadaeb", "#bcbddc", "#9e9ac8", "#807dba", "#6a51a3", "#54278f", "#3f007d"],
@@ -23,16 +23,16 @@ colors_dict = { 'obese_adult'       : ["#fff5f0", "#fee0d2", "#fcbba1", "#fc9272
                 'unemployment'      : ["#f7fbff", "#deebf7", "#c6dbef", "#9ecae1", "#6baed6", "#4292c6", "#2171b5", "#08519c", "#08306b"]
                 }
 
-# Load the SVG map
+# load SVG map
 svg = open('static/images/co_counties_blank.svg', 'r').read()
 
-# Load into Beautiful Soup
+# load into Beautiful Soup
 soup = BeautifulSoup(svg, selfClosingTags=['defs','sodipodi:namedview'])
 
-# Find counties
+# find counties
 paths = soup.findAll('path')
 
-# County style
+# county style
 path_style = 'font-size:12px;fill-rule:nonzero;stroke:#FFFFFF;stroke-opacity:1; stroke-width:0.1;stroke-miterlimit:4;stroke-dasharray:none;stroke-linecap:butt; marker-start:none;stroke-linejoin:bevel;fill:'
 
 # create each map
@@ -93,7 +93,7 @@ for feature in chart_list:
             color = colors[color_class]
             p['style'] = path_style + color
 
-    # Output and save each map
+    # output and save each map
     mymap = soup.prettify()
     filename = 'static/images/co_{}.svg'.format(feature)
     open(filename, 'w').write(mymap)

@@ -46,8 +46,99 @@
 
               <div class="thumbnail">
                   <div class="caption">
-                      <h3>Section Title</h3>
+                      <h3>Policy Changes at State Level</h3>
 
+
+                          <div class="row">
+                            <div class="col">State</div>
+                            <div class="col">Uninsured</div>
+                            <div class="col">Unemployment</div>
+                            <div class="col">Obesity</div>
+                            <div class="col">Smokers</div>
+                            <div class="col">Pollution</div>
+                            <div class="col"></div>
+                          </div>
+
+
+                          <form action='/statepredict', method='POST'>
+                          <div class="row">
+                            <div class="col">
+                              <select id="dropDown" type="button" name="state_name" class="btn btn-outline-secondary">
+                                  <option value="mapColorado">Colorado</option>
+                              </select>
+                            </div>
+                            <div class="col">
+                              <select id="dropDown" type="button" name="state_uninsur" class="btn btn-outline-secondary">
+                                <option value="same">No Change</option>
+                                <option value="plus10">+10%</option>
+                                <option value="minus10">-10%</option>
+                              </select>
+                            </div>
+                            <div class="col">
+                              <select id="dropDown" type="button" name="state_unemploy" class="btn btn-outline-secondary">
+                                <option value="same">No Change</option>
+                                <option value="plus10">+10%</option>
+                                <option value="minus10">-10%</option>
+                              </select>
+                            </div>
+                            <div class="col">
+                              <select id="dropDown" type="button" name="state_obs" class="btn btn-outline-secondary">
+                                <option value="same">No Change</option>
+                                <option value="plus10">+10%</option>
+                                <option value="minus10">-10%</option>
+                              </select>
+                            </div>
+                            <div class="col">
+                              <select id="dropDown" type="button" name="state_smok" class="btn btn-outline-secondary">
+                                <option value="same">No Change</option>
+                                <option value="plus10">+10%</option>
+                                <option value="minus10">-10%</option>
+                              </select>
+                            </div>
+                            <div class="col">
+                              <select id="dropDown" type="button" name="state_partic" class="btn btn-outline-secondary">
+                                <option value="same">No Change</option>
+                                <option value="plus10">+10%</option>
+                                <option value="minus10">-10%</option>
+                              </select>
+                            </div>
+                            <div class="col">
+                            <button type="submit" class="btn btn-primary" >Submit</button>
+                          </div>
+
+                          </div>
+                          </form>
+                          <div class="row">
+
+                              <div class="col">
+                                <br>
+                          <div class="card" style="width: 30rem;">
+                            <embed class="d-block w-100" src="../static/images/colorado_asthma.svg" alt="Actual Asthma Map">
+                                            <div class="card-body">
+                                              <h2 class="card-text">Actual</h2>
+                                              <p class="card-text">Map showing asthma hospitalization rates by county in Colorado in 2016.  Darker colors represent higher rates.</p>
+                                            </div>
+                                          </div>
+                                        </div>
+
+
+                          <div class="col">
+                            <br>
+                            <div id="mapPrediction" class="drop-down-show-hide card" style="width: 30rem;">
+                              {{state_pred_map}}
+
+
+
+
+
+                                                          <div class="card-body">
+                                                            <h2 class="card-text">Predicted</h2>
+                                                            <p class="card-text">Map showing predicted asthma hospitalization rates by county in Colorado.  Darker colors represent higher rates.</p>
+                                                          </div>
+                                                        </div>
+                                                      </div>
+
+</div>
 
 
 
@@ -163,7 +254,7 @@
                         <tr>
                           <th scope="row"></th>
                           <td colspan="2"></td>
-                          <td>​<button type="submit" class="btn btn-primary" >Submit Changes</button></td>
+                          <td>​<button type="submit" class="btn btn-primary" >Submit</button></td>
                         </tr>
                       </tbody>
                     </table>

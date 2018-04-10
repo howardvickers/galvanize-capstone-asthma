@@ -75,9 +75,7 @@ def X_y(data_nas):
 
 def county_data(county):
     data = get_data()
-
     data_nas = clean_data(data)
-
     single_county = data_nas[data_nas['county'] == county]
     X, y = X_y(single_county)
 
@@ -98,7 +96,6 @@ def remove_county_state(X, y):
 
 class FinalModel(object):
     def __init__(self):
-        # self._vectorizer = TfidfVectorizer(stop_words='english')
         self._regressor = RFR(  max_features        = 'sqrt',
                                 max_depth           = 100,
                                 bootstrap           = False,
@@ -112,23 +109,14 @@ class FinalModel(object):
         # StandardScaler here
         self._regressor.fit(X, y)
 
-        # self.X_vectors = self._vectorizer.fit_transform(X)
-        # self._classifier.fit(self.X_vectors, y)
         return self
 
     def predict(self, X):
         return self._regressor.predict(X)
 
-    # def score(self, X, y):
-    #     X_vectors = self._vectorizer.transform(X)
-    #     return self._classifier.score(X_vectors, y)
 
 if __name__ == '__main__':
     Boulder_X, Boulder_y[1] = county_data(data, 'boulder')
-    print(Boulder_X.shape)
-    print(Boulder_y.shape)
-    print(type(Boulder_X))
-    print(type(Boulder_y))
     train_model()
 
     fm = FinalModel()
@@ -136,5 +124,3 @@ if __name__ == '__main__':
     fm.fit(X_train, y_train)
     fm.predict(X_test)
     fm.feat_imps = fm._regressor.feature_importances_
-    # pg.score(X_test, y_test)
-    print('Feature Importances: ', fm._regressor.feature_importances_)

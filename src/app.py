@@ -25,6 +25,7 @@ app = Flask(__name__)
 def train_predict(X_test):
     model = tm()
     prediction = model.predict(X_test)
+    print(predictions)
     return prediction
 
 def test_predict():
@@ -80,18 +81,24 @@ def convert_to_row(results, county):
     X['obese_adult'] = float(results[2])
     X['smoke_adult'] = float(results[3])
     X['air_poll_partic'] = float(results[4])
-    print(X)
     return X
 
 def update_state_policy(data_tuple, results):
     X = data_tuple[0]
-    # X = X.drop(['county', 'state'], axis=1)
-    X['uninsured'] *= 1.1
-    X['unemployment'] *= 1
-    X['obese_adult'] *= 1
-    X['smoke_adult'] *= 1
-    X['air_poll_partic'] *= 1
-    print(X.shape)
+    results_nums = []
+    for result in results:
+        if result == 'plus10':
+            result = 1.1
+        elif result == 'minus10':
+            result = 0.9
+        else:
+            result = 1
+        results_nums.append(result)
+    X['uninsured'] *= results_nums[0]
+    X['unemployment'] *= results_nums[1]
+    X['obese_adult'] *= results_nums[2]
+    X['smoke_adult'] *= results_nums[3]
+    X['air_poll_partic'] *= results_nums[4]
     return X
 
 @app.route('/', methods =['GET','POST'])
@@ -112,8 +119,6 @@ def models():
 def statepolicy():
     if request.method == 'POST':
         state = 'Colorado'
-        # county = 'Boulder'
-        # one_county(county)
         state_uninsur = request.form['state_uninsur']
         state_unemploy = request.form['state_unemploy']
         state_obs = request.form['state_obs']
@@ -144,27 +149,24 @@ def statepolicy():
         # create map with predicted values
         state_pred_map_svg = cm(pred_fips)
 
-        # prepare embed for html - can I do this?
-
+        # prepare embed for html
         dub = '"'
         state_pred_map = '<embed class="d-block w-100" src={}{}{} alt="Predicted Asthma Map">'.format(dub, state_pred_map_svg, dub)
-        value = Markup(state_pred_map)
+        value = Markup(
+                        '<div id="mapPrediction" class="card" style="width: 30rem;">'+
+                        state_pred_map+
+                        '<div class="card-body"><h2 class="card-text">Predicted</h2><p class="card-text">Map showing predicted asthma hospitalization rates by county in Colorado.  Darker colors represent higher rates.</p></div></div>'
+                        )
 
-        return flask.render_template( "policy.html"
-        ,
+        return flask.render_template( "policy.html",
                                 state_pred_map = value
                                 )
-
-
-
 
 
     return flask.render_template('policy.html')
 
 @app.route('/statepredict', methods =['GET','POST'])
 def statepredict():
-
-
     pass
 
 
@@ -178,7 +180,6 @@ def predictions():
     # these are for the 'Actual and Predicted Asthma Rates' chart...
     num_results = 10
     county_tst = list(county_tst.str.title()),
-    # states_tst = states_tst,
     uninsured_tst = uninsured_tst,
     unemployment_tst = unemployment_tst,
     obesity_tst = obesity_tst,

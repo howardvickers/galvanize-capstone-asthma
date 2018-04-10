@@ -61,55 +61,88 @@
                           </div>
 
 
+                          <!-- <form>
+                          Select your favorite fruit:
+                          <select id="mySelect">
+                            <option value="orange">Orange</option>
+                            <option value="pineapple">Pineapple</option>
+                            <option value="banana">Banana</option>
+                          </select>
+                          </form>
+
+                          <p>Click the button to return the value of the selected fruit.</p> -->
+
+                          <!-- <button type="button" onclick="myFunction()">Try it</button> -->
+
+                          <!-- <p id="demo"></p> -->
+
+
+
+
+
+
                           <form action='/policy', method='POST'>
                           <div class="row">
                             <div class="col">
-                              <select id="dropDown" type="button" name="state_name" class="btn btn-outline-secondary">
+                              <select id="dropDownPolicy" type="button" name="state_name" class="btn btn-outline-secondary">
                                   <option value="mapColorado">Colorado</option>
                               </select>
                             </div>
                             <div class="col">
-                              <select id="dropDown" type="button" name="state_uninsur" class="btn btn-outline-secondary">
+                              <select id="dropDownPolicy" type="button" name="state_uninsur" class="btn btn-outline-secondary">
                                 <option value="same">No Change</option>
                                 <option value="plus10">+10%</option>
                                 <option value="minus10">-10%</option>
                               </select>
                             </div>
                             <div class="col">
-                              <select id="dropDown" type="button" name="state_unemploy" class="btn btn-outline-secondary">
+                              <select id="dropDownPolicy" type="button" name="state_unemploy" class="btn btn-outline-secondary">
                                 <option value="same">No Change</option>
                                 <option value="plus10">+10%</option>
                                 <option value="minus10">-10%</option>
                               </select>
                             </div>
                             <div class="col">
-                              <select id="dropDown" type="button" name="state_obs" class="btn btn-outline-secondary">
+                              <select id="dropDownPolicy" type="button" name="state_obs" class="btn btn-outline-secondary">
                                 <option value="same">No Change</option>
                                 <option value="plus10">+10%</option>
                                 <option value="minus10">-10%</option>
                               </select>
                             </div>
                             <div class="col">
-                              <select id="dropDown" type="button" name="state_smok" class="btn btn-outline-secondary">
+                              <select id="dropDownPolicy" type="button" name="state_smok" class="btn btn-outline-secondary">
                                 <option value="same">No Change</option>
                                 <option value="plus10">+10%</option>
                                 <option value="minus10">-10%</option>
                               </select>
                             </div>
                             <div class="col">
-                              <select id="dropDown" type="button" name="state_partic" class="btn btn-outline-secondary">
+                              <select id="dropDownPolicy" type="button" name="state_partic" class="btn btn-outline-secondary">
                                 <option value="same">No Change</option>
                                 <option value="plus10">+10%</option>
                                 <option value="minus10">-10%</option>
                               </select>
                             </div>
                             <div class="col">
-                            <button type="submit" class="btn btn-primary" >Submit</button>
+                              <button type="submit" onclick="myFunction()"class="btn btn-primary" >Try it</button>
+                              <!-- <button type="submit" class="btn btn-primary" >Submit</button> -->
                           </div>
 
                           </div>
                           </form>
                           <div class="row">
+
+
+
+                            <!-- <script>
+                            function myFunction() {
+                                var x = document.getElementById("dropDownPolicy").value;
+                                // document.getElementById("demo").innerHTML = x;
+                            }
+                            </script> -->
+
+
+
 
                               <div class="col">
                                 <br>
@@ -125,21 +158,10 @@
 
                           <div class="col">
                             <br>
-                            <div id="mapPrediction" class="card" style="width: 30rem;">
                               {{state_pred_map}}
-                                <!-- <embed class="d-block w-100" src="{{state_pred_map}}" alt="Actual Asthma Map"> -->
-
-                                  <!-- <embed class="d-block w-100" src="static/images/state_pred_map.svg" alt="Predicted Asthma Map"> -->
-                                  <!-- <embed class="d-block w-100" src="static/images/state_pred_map.svg" alt="Predicted Asthma Map"> -->
 
 
-
-                                    <div class="card-body">
-                                      <h2 class="card-text">Predicted</h2>
-                                      <p class="card-text">Map showing predicted asthma hospitalization rates by county in Colorado.  Darker colors represent higher rates.</p>
-                                    </div>
-                                  </div>
-                                </div>
+                          </div>
 
 </div>
 

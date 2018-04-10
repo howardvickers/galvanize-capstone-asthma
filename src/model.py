@@ -127,7 +127,7 @@ def chart_feature_importances(X_train, X_test, y_train, y_test):
     # plt.title('Which Factors Drive Asthma Rates?', fontsize=24)
     plt.tight_layout()
     # plt.show()
-    plt.savefig('static/images/feat_imps.png')
+    plt.savefig('static/images/feat_imps2.png')
 
 
 

@@ -1,5 +1,7 @@
 import csv
 from bs4 import BeautifulSoup
+import time
+
 
 def create_map(state_data):
 
@@ -18,7 +20,8 @@ def create_map(state_data):
     paths = soup.findAll('path')
 
     # map colors
-    colors = ["#f7fcf5", "#e5f5e0", "#c7e9c0", "#a1d99b", "#74c476", "#41ab5d", "#238b45", "#006d2c", "#00441b"]
+    # colors = ["#f7fcf5", "#e5f5e0", "#c7e9c0", "#a1d99b", "#74c476", "#41ab5d", "#238b45", "#006d2c", "#00441b"]
+    colors = ["#f7fbff", "#deebf7", "#c6dbef", "#9ecae1", "#6baed6", "#4292c6", "#2171b5", "#08519c", "#08306b"]
 
     # county style
     path_style = 'font-size:12px;fill-rule:nonzero;stroke:#FFFFFF;stroke-opacity:1; stroke-width:0.1;stroke-miterlimit:4;stroke-dasharray:none;stroke-linecap:butt; marker-start:none;stroke-linejoin:bevel;fill:'
@@ -55,9 +58,11 @@ def create_map(state_data):
             color = colors[color_class]
             p['style'] = path_style + color
 
+
+    ts = time.time()
+    print(ts)
     # output map
     mymap = soup.prettify()
-    print(type(mymap))
-    state_pred_map = 'static/images/state_pred_map.svg'
+    state_pred_map = 'static/images/state_pred_map_{}.svg'.format(ts)
     open(state_pred_map, 'w').write(mymap)
     return state_pred_map

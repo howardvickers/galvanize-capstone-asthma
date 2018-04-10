@@ -180,7 +180,6 @@ def make_pollutant_df(file, state_name, pollutant):
     print('make_pollutant_df:', df.columns)
     return df # this is a dataframe for a pollutant for a given state
 
-
 def join_side_by_side(state):
     asthma_datasets = { 'California'    :   asthma_ca()[0],
                         'Colorado'      :   asthma_co()[0],

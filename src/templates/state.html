@@ -1,0 +1,149 @@
+{% extends "bootstrap/base.html" %}
+
+{% block head %}
+<head>
+  <!-- meta tags not used in this project -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <!-- Page title -->
+  <title>Fraud Detection - Case Study</title>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <!-- favicon is in static folder; href points to a "variable" defined by curly braces. -->
+  <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+  <!-- Custom styles in main.css -->
+  <!-- main.css is in static folder; href points to a "variable" defined by curly braces. -->
+  <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+</head>
+ {% endblock %}
+
+{% block content %}
+<div class="container">
+    </br>
+    <ul class="nav nav-tabs">
+        <li role="presentation"><a href="/">Introduction</a></li>
+        <li role="presentation"><a href="/data">Data</a></li>
+        <li role="presentation"><a href="/models">Models</a></li>
+        <li role="presentation"><a href="/predictions">Predictions</a></li>
+        <li role="presentation"><a href="/county">County</a></li>
+        <li role="presentation" class="active"><a href="/state">State</a></li>
+      <li role="presentation"><a href="/about">About/Contact</a></li>
+    </ul>
+    <div class="page-header">
+      <h1>Predicting the Future: <small>Forecasting Affects of Policy Changes</small></h1>
+        </br>
+      <div class="row">
+          <div class="col-xs-12">
+            <div class="thumbnail">
+              <div class="caption">
+                <h3>Policy Changes at State Level</h3>
+                  <div class="row">
+                    <div class="col">State</div>
+                    <div class="col">Uninsured</div>
+                    <div class="col">Unemployment</div>
+                    <div class="col">Obesity</div>
+                    <div class="col">Smokers</div>
+                    <div class="col">Pollution</div>
+                    <div class="col"></div>
+                  </div>
+                  <form action='/state', method='POST'>
+                  <div class="row">
+                    <div class="col">
+                      <select id="dropDownPolicy" type="button" name="state_name" class="btn btn-outline-secondary">
+                          <option value="mapColorado">Colorado</option>
+                      </select>
+                    </div>
+                    <div class="col">
+                      <select id="dropDownPolicy" type="button" name="state_uninsur" class="btn btn-outline-secondary">
+                        <option value="same">No Change</option>
+                        <option value="plus10">+10%</option>
+                        <option value="minus10">-10%</option>
+                      </select>
+                    </div>
+                    <div class="col">
+                      <select id="dropDownPolicy" type="button" name="state_unemploy" class="btn btn-outline-secondary">
+                        <option value="same">No Change</option>
+                        <option value="plus10">+10%</option>
+                        <option value="minus10">-10%</option>
+                      </select>
+                    </div>
+                    <div class="col">
+                      <select id="dropDownPolicy" type="button" name="state_obs" class="btn btn-outline-secondary">
+                        <option value="same">No Change</option>
+                        <option value="plus10">+10%</option>
+                        <option value="minus10">-10%</option>
+                      </select>
+                    </div>
+                    <div class="col">
+                      <select id="dropDownPolicy" type="button" name="state_smok" class="btn btn-outline-secondary">
+                        <option value="same">No Change</option>
+                        <option value="plus10">+10%</option>
+                        <option value="minus10">-10%</option>
+                      </select>
+                    </div>
+                    <div class="col">
+                      <select id="dropDownPolicy" type="button" name="state_partic" class="btn btn-outline-secondary">
+                        <option value="same">No Change</option>
+                        <option value="plus10">+10%</option>
+                        <option value="minus10">-10%</option>
+                      </select>
+                    </div>
+                    <div class="col">
+                      <button type="submit" onclick="myFunction()"class="btn btn-primary" >Try it</button>
+                      <!-- <button type="submit" class="btn btn-primary" >Submit</button> -->
+                    </div>
+                  </div>
+                  </form>
+                  <div class="row">
+                    <div class="col">
+                      <br>
+                    <div class="card" style="width: 30rem;">
+                      <embed class="d-block w-100" src="../static/images/colorado_asthma.svg" alt="Actual Asthma Map">
+                    <div class="card-body">
+                      <h2 class="card-text">Actual</h2>
+                      <p class="card-text">Map showing asthma hospitalization rates by county in Colorado in 2016.  Darker colors represent higher rates.</p>
+                    </div>
+                  </div>
+                </div>
+              <div class="col">
+                <br>
+                  {{state_pred_map}}
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container" align="center">
+    <a href="https://github.com/howardvickers/" class="btn btn-social-icon btn-github btn-small"><i class="fa fa-github fa-3x"></i></a>
+    <a href="https://linkedin.com/in/howardvickers/" class="btn btn-social-icon btn-linkedin btn-small"><i class="fa fa-linkedin fa-3x"></i></a>
+      </p>
+  </div>
+</footer>
+
+{% endblock %}
+
+{% block scripts %}
+{{super()}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script type="text/javascript">
+$('.drop-down-show-hide').hide();
+$('#dropDown').change(function () {
+    $('.drop-down-show-hide').hide()
+    $('#' + this.value).show();
+});
+</script>
+{% endblock %}

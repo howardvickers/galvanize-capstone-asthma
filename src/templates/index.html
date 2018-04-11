@@ -29,108 +29,49 @@
 {% block content %}
 
 <div class="container">
+  </br>
+  <ul class="nav nav-tabs">
+    <li role="presentation" class="active"><a href="/">Introduction</a></li>
+    <li role="presentation"><a href="/data">Data</a></li>
+    <li role="presentation"><a href="/models">Models</a></li>
+    <li role="presentation"><a href="/predictions">Predictions</a></li>
+    <li role="presentation"><a href="/county">County</a></li>
+    <li role="presentation"><a href="/state">State</a></li>
+    <li role="presentation"><a href="/about">About/Contact</a></li>
+  </ul>
+  <div class="page-header">
+    <h1>A Breath of Fresh Air: <small>Predicting Asthma Rates with Data Science</small></h1>
     </br>
-    <ul class="nav nav-tabs">
-        <li role="presentation" class="active"><a href="/">Introduction</a></li>
-        <li role="presentation"><a href="/data">Data</a></li>
-        <li role="presentation"><a href="/models">Models</a></li>
-        <li role="presentation"><a href="/predictions">Predictions</a></li>
-        <li role="presentation"><a href="/policy">Policy</a></li>
-        <li role="presentation"><a href="/about">About/Contact</a></li>
-    </ul>
-    <div class="page-header">
-        <h1>A Breath of Fresh Air: <small>Predicting Asthma Rates with Data Science</small></h1>
-        </br>
-
-        <div class="row">
-            <div class="col-xs-12">
-
-              <div class="thumbnail">
-                  <div class="caption">
-                      <h3>Howard Vickers</h3>
-                      <h1><small>Galvanize Data Science Capstone</small></h1>
-                      <h1><small>Machine learning algorithms to determine the drivers of asthma hospitalization rates and predict asthma rates at a county level.</small></h1>                      <p class="text">  </p>
-                      <p class="text">  </p>
-                      <ul>
-                        <li><h1><small>Identify Asthma Rates </small></h1></li>
-                        </ul>
-                      <p class="text">  </p>
-
-
-
-
-
-
-
-
-
-
-
-                  </div>
+    <div class="row">
+      <div class="col-xs-12">
+        <div class="thumbnail">
+            <div class="caption">
+                <h3>Galvanize Data Science Capstone Project</h3>
+                <h1><small>Machine learning algorithms to determine the drivers of asthma hospitalization rates and predict asthma rates at a county level.</small></h1>
+                <!-- <p class="text">  </p> -->
+                <p class="text">The goal of this project is to build a machine learning algorithm to predict asthma rates as influenced by pollutants and socio-economic factors by county in a sample of states.</p>
+                <!-- <ul>
+                  <li><h1><small>Identify Asthma Rates </small></h1></li>
+                </ul> -->
+                <p class="text">Asthma is a chronic inflammatory airway disease. While asthma may be considered in social, economic, cultural, environmental, hormonal, and genetic terms, the focus of this analysis was socio-economic and environmental.</p>
+                <p class="text">A particular interest is the relative potential impact of external pollution, internal (household) pollution such as cigarette smoke vis-à-vis socio-economic factors.</p>
+                <p class="text">Location is a key element in both pollution and socio-economic determinants, and so asthma rates are considered at the county level.</p>
+                <p class="text">ZNA Health have generously offered support with identifying data sources and with environmental/medical questions.</p>
+                <p class="text">The asthma variable is represented by hospitalization (ER visit) rates and as such are a reflection of both the current prevalence of asthma and the level of immediate ... Asthma hospitalization rates may be a reflection of both temporary triggers (current pollen and pollution levels) and the underlying causes of prevalence.</p>
               </div>
-
             </div>
+          </div>
         </div>
+      </div>
+    </div>
 
-
-        <div class="row">
-            <div class="col-xs-12">
-
-              <div class="thumbnail">
-                  <div class="caption">
-                      <h3>Section Title </h3>
-                      <h1><small>Subtitle</small></h1>
-
-
-              </div>
-                          </div>
-
-                  </div>
-                              </div>
-
-
-
-
-                                      <div class="row">
-                                          <div class="col-xs-12">
-
-                                            <div class="thumbnail">
-                                                <div class="caption">
-                                                    <h3>Section Title</h3>
-                                                    <h1><small>Subtitle</small></h1>
-
-
-
-                                            </div>
-                                                        </div>
-
-                                                </div>
-                                                            </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
-                      </div>
-                                  </div>
-
-
-                                            </div>
 
 <footer class="footer">
-    <div class="container" align="center">
-
-        <a href="https://github.com/" class="btn btn-social-icon btn-github btn-small"><i class="fa fa-github fa-3x"></i></a>
-        </p>
-    </div>
+  <div class="container" align="center">
+    <a href="https://github.com/howardvickers/" class="btn btn-social-icon btn-github btn-small"><i class="fa fa-github fa-3x"></i></a>
+    <a href="https://linkedin.com/in/howardvickers/" class="btn btn-social-icon btn-linkedin btn-small"><i class="fa fa-linkedin fa-3x"></i></a>
+      </p>
+  </div>
 </footer>
 
 {% endblock %}
@@ -138,7 +79,6 @@
 {% block other %}
 
 {% endblock %}
-
 
 
 {% block scripts %}

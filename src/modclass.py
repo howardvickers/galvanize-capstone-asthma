@@ -19,79 +19,16 @@ def train_model():
     data = get_data()
     X_train, X_test, y_train, y_test = split_data(data)
     X_train, y_train = remove_county_state(X_train, y_train)
-
-
-    hyperpara_dict = {  LR  : {}, # use defaults only
-                        RFR : { 'randomforestregressor__max_features' : ['auto', 'sqrt'],
-                                'randomforestregressor__max_depth': [10, 20, 30, 50, 80, 100, None],
-                                'randomforestregressor__bootstrap': [True, False],
-                                'randomforestregressor__min_samples_leaf': [1, 2, 4, 10],
-                                'randomforestregressor__min_samples_split': [2, 5, 10],
-                                'randomforestregressor__n_estimators': [100, 200, 500, 1000, 1500, 2000],
-                                },
-                        GBR : { 'gradientboostingregressor__n_estimators' :     [100, 600, 700, 800],
-                                'gradientboostingregressor__max_depth':         [3, 4, 5, 10, 20],
-                                'gradientboostingregressor__min_samples_split': [3, 4, 5, 10, 20],
-                                'gradientboostingregressor__learning_rate':     [0.01, 0.05, 0.1],
-                                'gradientboostingregressor__loss':              ['ls'],
-                                },
-                        KNR : { 'kneighborsregressor__n_neighbors' : [1, 2, 3, 4, 5, 6, 10],
-                                'kneighborsregressor__weights': ['uniform', 'distance'],
-                                },
-                        SVR : { 'svr__kernel': ['rbf'],
-                                'svr__C': [50],
-                                'svr__epsilon': [5],
-                                },
-                        EN : { 'elasticnet__alpha': [1], # equivalent to lambda; alpha=0 means no regularization, ie linear regression
-                                'elasticnet__l1_ratio': [0.9], # l1=1 means L1 penalty, ie Lasso (not L2/Ridge)
-                                'elasticnet__max_iter': [10000],
-                                }
-                    }
-
-
-    models = [SVR]
-    for model in models:
-
-        # data preprocessing (removing mean and scaling to unit variance with StandardScaler)
-        pipeline = make_pipeline(   StandardScaler(),
-                                    model()
-                                 )
-
-        hyperparameters = hyperpara_dict[model]
-
-        clf = GridSearchCV(pipeline, hyperparameters, cv=3) # cv=3 is same as cv=None (default)
-
-        trained_model = clf.fit(X_train, y_train)
-
-        # evaluate models with test data
-        # pred = clf.predict(X_test)
-
-
-    # model = RFR(    max_features        = 'sqrt',
-    #                 max_depth           = 100,
-    #                 bootstrap           = False,
-    #                 min_samples_leaf    = 1,
-    #                 min_samples_split   = 2,
-    #                 n_estimators        = 200
-    #                             )
-    #
-    # # X_train, y_train = standard_scaler(X_train, y_train)
-    # trained_model = model.fit(X_train, y_train)
+    model = RFR(    max_features        = 'sqrt',
+                    max_depth           = 100,
+                    bootstrap           = False,
+                    min_samples_leaf    = 1,
+                    min_samples_split   = 2,
+                    n_estimators        = 200
+                                )
+    trained_model = model.fit(X_train, y_train)
 
     return trained_model
-
-def standard_scaler(X, y):
-    # standardize with StandardScaler
-    # scaler_X = StandardScaler().fit(X.values)
-    # scaler_y = StandardScaler().fit(y.values)
-    # X_scaled = scaler_X.transform(X.values)
-    # y_scaled = scaler_y.transform(y.values.reshape(1,-1))
-
-    X_scaled = X.sub(X.mean())/X.get_values().std()
-    y_scaled = y.sub(y.mean())/y.get_values().std()
-
-    return X_scaled, y_scaled
-
 
 def show_columns():
     data = get_data()
@@ -148,7 +85,6 @@ def county_data(county):
 def split_data(data):
     cln_data = clean_data(data)
     X, y = X_y(cln_data)
-    # standard_scaler(X, y)
     X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=123)
 
     # note that X_train, X_test, y_train and y_test all now include county and state
@@ -160,7 +96,6 @@ def remove_county_state(X, y):
 
 class FinalModel(object):
     def __init__(self):
-        self._scaler = SS()
         self._regressor = RFR(  max_features        = 'sqrt',
                                 max_depth           = 100,
                                 bootstrap           = False,
@@ -171,15 +106,8 @@ class FinalModel(object):
 
     def fit(self, X, y):
         X, y = remove_county_state(X, y)
-
-        # standardize with StandardScaler
-        scaler_X = _scaler.fit(X)
-        scaler_y = _scaler.fit(y)
-        X_scaled = scaler_X.transform(X)
-        y_scaled = scaler_y.transform(y)
-
-        # fit model
-        self._regressor.fit(X_scaled, y_scaled)
+        # StandardScaler here
+        self._regressor.fit(X, y)
 
         return self
 
@@ -188,7 +116,7 @@ class FinalModel(object):
 
 
 if __name__ == '__main__':
-    # Boulder_X, Boulder_y[1] = county_data(data, 'boulder')
+    Boulder_X, Boulder_y[1] = county_data(data, 'boulder')
     train_model()
 
     fm = FinalModel()

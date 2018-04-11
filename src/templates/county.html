@@ -1,0 +1,165 @@
+{% extends "bootstrap/base.html" %}
+
+{% block head %}
+<head>
+  <!-- meta tags not used in this project -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <!-- Page title -->
+  <title>Fraud Detection - Case Study</title>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <!-- favicon is in static folder; href points to a "variable" defined by curly braces. -->
+  <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+  <!-- Custom styles in main.css -->
+  <!-- main.css is in static folder; href points to a "variable" defined by curly braces. -->
+  <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+</head>
+ {% endblock %}
+
+{% block content %}
+<div class="container">
+  </br>
+  <ul class="nav nav-tabs">
+      <li role="presentation"><a href="/">Introduction</a></li>
+      <li role="presentation"><a href="/data">Data</a></li>
+      <li role="presentation"><a href="/models">Models</a></li>
+      <li role="presentation"><a href="/predictions">Predictions</a></li>
+      <li role="presentation" class="active"><a href="/county">County</a></li>
+      <li role="presentation"><a href="/state">State</a></li>
+      <li role="presentation"><a href="/about">About/Contact</a></li>
+  </ul>
+  <div class="page-header">
+    <h1>Predicting the Future: <small>Forecasting Affects of Policy Changes</small></h1>
+      </br>
+      <div class="row">
+          <div class="col-xs-12">
+            <div class="thumbnail">
+              <div class="caption">
+                <h3>Public Policy and Asthma</h3>
+                <h1><small>Predicting Asthma Rates Under Policy Changes</small></h1>
+                <form action='/county', method='POST'>
+                  <table class="table table-hover">
+                    <thead>
+                      <tr>
+                        <th scope="col">County</th>
+                        <th colspan="2">{{county}} (Actual)</th>
+                        <th>Policy Changes</th>
+                      </tr>
+                    </thead>
+                    <tbody>
+                      <tr>
+                        <th scope="row">Uninsured</th>
+                        <td colspan="2">{{uninsured}}</td>
+                        <td>​
+                          <!-- <input type="text" id="new_uninsured" rows="1" cols="10" name="new_uninsur" placeholder="Enter..."/> -->
+                          <select id="dropDownPolicy" type="button" name="new_uninsur" class="btn btn-outline-secondary">
+                            <option value="same">No Change</option>
+                            <option value="plus10">+10%</option>
+                            <option value="minus10">-10%</option>
+                          </select>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Unemployment</th>
+                        <td colspan="2">{{unemployment}}</td>
+                        <td>​
+                          <!-- <input type="text" id="new_unemployment" rows="1" cols="10" name="new_unemploy" placeholder="Enter..."/> -->
+                          <select id="dropDownPolicy" type="button" name="new_unemploy" class="btn btn-outline-secondary">
+                            <option value="same">No Change</option>
+                            <option value="plus10">+10%</option>
+                            <option value="minus10">-10%</option>
+                          </select>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Obesity</th>
+                        <td colspan="2">{{obesity}}</td>
+                        <td>​
+                          <!-- <input type="text" id="new_obesity" rows="1" cols="10" name="new_obs" placeholder="Enter..."/> -->
+                          <select id="dropDownPolicy" type="button" name="new_obs" class="btn btn-outline-secondary">
+                            <option value="same">No Change</option>
+                            <option value="plus10">+10%</option>
+                            <option value="minus10">-10%</option>
+                          </select>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Smokers</th>
+                        <td colspan="2">{{smokers}}</td>
+                        <td>​
+                          <!-- <input type="text" id="new_smokers" rows="1" cols="10" name="new_smok" placeholder="Enter..."/> -->
+                          <select id="dropDownPolicy" type="button" name="new_smok" class="btn btn-outline-secondary">
+                            <option value="same">No Change</option>
+                            <option value="plus10">+10%</option>
+                            <option value="minus10">-10%</option>
+                          </select>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Pollution</th>
+                        <td colspan="2">{{particulates}}</td>
+                        <td>
+                          <!-- ​<input type="text" id="new_particulates" rows="1" cols="10" name="new_partic" placeholder="Enter..."/> -->
+                          <select id="dropDownPolicy" type="button" name="new_partic" class="btn btn-outline-secondary">
+                            <option value="same">No Change</option>
+                            <option value="plus10">+10%</option>
+                            <option value="minus10">-10%</option>
+                          </select>
+                        </td>
+                      </tr>
+                      <tr>
+                        <th scope="row">Asthma</th>
+                        <td colspan="2">{{y}}</td>
+                        <td>​{{new_y}}</td>
+                      </tr>
+                      <tr>
+                        <th scope="row"></th>
+                        <td colspan="2">
+                          <select id="dropDownPolicy" type="button" name="county_name" class="btn btn-outline-secondary">
+                              <option value="oneCounty">Boulder, CO</option>
+                          </select>
+                        </td>
+                        <td>​
+                          <button type="submit" class="btn btn-primary" >Prediction</button>
+                        </td>
+                      </tr>
+                    </tbody>
+                  </table>
+                </form>
+              </div>
+            </div>
+          </div>
+        </div>
+  </div>
+</div>
+
+<footer class="footer">
+  <div class="container" align="center">
+    <a href="https://github.com/howardvickers/" class="btn btn-social-icon btn-github btn-small"><i class="fa fa-github fa-3x"></i></a>
+    <a href="https://linkedin.com/in/howardvickers/" class="btn btn-social-icon btn-linkedin btn-small"><i class="fa fa-linkedin fa-3x"></i></a>
+      </p>
+  </div>
+</footer>
+
+{% endblock %}
+
+{% block scripts %}
+{{super()}}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.2.1/jquery.js"></script>
+<script type="text/javascript">
+$('.drop-down-show-hide').hide();
+$('#dropDown').change(function () {
+    $('.drop-down-show-hide').hide()
+    $('#' + this.value).show();
+});
+</script>
+{% endblock %}

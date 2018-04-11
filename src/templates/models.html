@@ -2,29 +2,29 @@
 
 {% block head %}
 <head>
-      <!-- meta tags not used in this project -->
-      <meta charset="utf-8">
-      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
-      <meta name="description" content="">
-      <meta name="author" content="">
-      <!-- Page title -->
-      <title>Fraud Detection - Case Study</title>
-      <!-- Latest compiled and minified CSS -->
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
-      <!-- Optional theme -->
-      <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
-      <!-- Latest compiled and minified JavaScript -->
-      <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
-      <!-- favicon is in static folder; href points to a "variable" defined by curly braces. -->
-      <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
-      <!-- Custom styles in main.css -->
-      <!-- main.css is in static folder; href points to a "variable" defined by curly braces. -->
-      <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
-      <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
-      <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
+  <!-- meta tags not used in this project -->
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+  <meta name="description" content="">
+  <meta name="author" content="">
+  <!-- Page title -->
+  <title>Fraud Detection - Case Study</title>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+  <!-- Optional theme -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap-theme.min.css" integrity="sha384-rHyoN1iRsVXV4nD0JutlnGaslCJuC7uwjduW9SVrLvRYooPp2bWYgmgJQIXwl/Sp" crossorigin="anonymous">
+  <!-- Latest compiled and minified JavaScript -->
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha384-Tc5IQib027qvyjSMfHjOMaLkfuWVxZxUPnCJA7l2mCWNIpG9mGCD8wGNIcPD7Txa" crossorigin="anonymous"></script>
+  <!-- favicon is in static folder; href points to a "variable" defined by curly braces. -->
+  <link rel="icon" href="{{ url_for('static', filename='favicon.ico') }}">
+  <!-- Custom styles in main.css -->
+  <!-- main.css is in static folder; href points to a "variable" defined by curly braces. -->
+  <link href="{{ url_for('static', filename='css/main.css') }}" rel="stylesheet">
+  <link href="{{ url_for('static', filename='css/bootstrap.min.css') }}" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" />
 </head>
 
- {% endblock %}
+{% endblock %}
 
 {% block content %}
 
@@ -35,123 +35,81 @@
         <li role="presentation"><a href="/data">Data</a></li>
         <li role="presentation" class="active"><a href="/models">Models</a></li>
         <li role="presentation"><a href="/predictions">Predictions</a></li>
-        <li role="presentation"><a href="/policy">Policy</a></li>
+        <li role="presentation"><a href="/county">County</a></li>
+        <li role="presentation"><a href="/state">State</a></li>
         <li role="presentation"><a href="/about">About/Contact</a></li>
     </ul>
     <div class="page-header">
-        <h1>About the Models: <small>Why Chosen and Performance</small></h1>
+        <h1>Models: <small>Selection and Performance</small></h1>
         </br>
-
         <div class="row">
             <div class="col-xs-12">
-
               <div class="thumbnail">
                   <div class="caption">
                       <h3>Models</h3>
-                      <h1><small>About Models</small></h1>
-                      <h1><small>Some Text.</small></h1>
-                      <p class="text">  </p>
-                      <p class="text">  </p>
+                      <h1><small>Models Selected</small></h1>
+                      <!-- <p class="text">  </p>
+                      <p class="text">  </p> -->
                       <ul>
-                        <li><h1><small>Text </small></h1></li>
-                        </ul>
+                        <li><h1><small>Linear Regression</small></h1></li>
+                        <li><h1><small>Random Forest</small></h1></li>
+                        <li><h1><small>Support Vector Regressor</small></h1></li>
+                        <li><h1><small>Gradient Boosting Regressor</small></h1></li>
+                        <li><h1><small>K-Neighbors Regressor</small></h1></li>
+                      </ul>
                       <p class="text">  </p>
                       <p>   </p>
-
                         <figure>
-                          <figcaption>Sample Code Title</figcaption>
+                          <figcaption>Sample Code</figcaption>
                           <pre>
-                            <code>
-                              X_train, X_test, y_train, y_test = train_test_split(X, y,
-                                                                                    test_size=0.2,
-                                                                                    random_state=123)
+                            <code>X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=123)
                             </code>
                           </pre>
                         </figure>
-
-
-
-
-
-
-
-
-
-                  </div>
-              </div>
-
-            </div>
-        </div>
-
-
-        <div class="row">
-            <div class="col-xs-12">
-
-              <div class="thumbnail">
-                  <div class="caption">
-                      <h3>Section Title </h3>
-                      <h1><small>Subtitle</small></h1>
-
-
-              </div>
-                          </div>
-
-                  </div>
-                              </div>
-
-
-
-
-                                      <div class="row">
-                                          <div class="col-xs-12">
-
-                                            <div class="thumbnail">
-                                                <div class="caption">
-                                                    <h3>Section Title</h3>
-                                                    <h1><small>Subtitle</small></h1>
-
-
-
-                                            </div>
-                                                        </div>
-
-                                                </div>
-                                                            </div>
-
-
-
-
-
-
-
-
-
-
-
-
-
                       </div>
-                                  </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <div class="thumbnail">
+                      <div class="caption">
+                        <h3>Support Vector Regressor </h3>
+                        <h1><small>Performance</small></h1>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+                <div class="row">
+                  <div class="col-xs-12">
+                    <div class="thumbnail">
+                      <div class="caption">
+                        <h3>Random Forest</h3>
+                        <h1><small>Feature Importances</small></h1>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
 
-
-                                            </div>
 
 
 <footer class="footer">
-    <div class="container" align="center">
-
-        <a href="https://github.com/howardvickers" class="btn btn-social-icon btn-github btn-small"><i class="fa fa-github fa-3x"></i></a>
-        </p>
-    </div>
+  <div class="container" align="center">
+    <a href="https://github.com/howardvickers/" class="btn btn-social-icon btn-github btn-small"><i class="fa fa-github fa-3x"></i></a>
+    <a href="https://linkedin.com/in/howardvickers/" class="btn btn-social-icon btn-linkedin btn-small"><i class="fa fa-linkedin fa-3x"></i></a>
+      </p>
+  </div>
 </footer>
+
 
 {% endblock %}
 
 {% block other %}
 
 {% endblock %}
-
-
 
 {% block scripts %}
 {{super()}}

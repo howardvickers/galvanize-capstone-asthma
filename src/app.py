@@ -3,16 +3,12 @@ import flask
 from flask_bootstrap import Bootstrap
 from flask import Markup
 
-
-
-
-# import pickle
 import pandas as pd
 import numpy as np
 import requests
 import os
 
-from modclass import county_data
+from modclass import county_data as cd
 from modclass import train_model as tm
 from modclass import get_data as gd
 from modclass import split_data as sd
@@ -22,13 +18,11 @@ from state_color_map import create_map as cm
 from charts import chart_feature_importances
 from data import make_fips_df as mf
 
-
 app = Flask(__name__)
 
 def train_predict(X_test):
     model = tm()
     prediction = model.predict(X_test)
-    print(predictions)
     return prediction
 
 def test_predict():
@@ -60,18 +54,15 @@ def get_state_data(state):
 
 def one_county(input_county):
     county = input_county.lower()
-    X, y = county_data(county)
+    X, y = cd(county)
     X = X.round(2)
     y = y.round(2)
-    # county = X['county']
-    # state = X['state']
     uninsured = X['uninsured'].values[0]
     unemployment = X['unemployment'].values[0]
     obesity = X['obese_adult'].values[0]
     smokers = X['smoke_adult'].values[0]
     particulates = X['air_poll_partic'].values[0]
     y = y.values[0]
-    print('Here is X:',X)
     return county, uninsured, unemployment, obesity, smokers, particulates, y, X
 
 def convert_to_row(results, county):
@@ -104,6 +95,31 @@ def update_state_policy(data_tuple, results):
     X['air_poll_partic'] *= results_nums[4]
     return X
 
+
+def update_county_policy(row, results):
+    print('row', row)
+    X = row
+    print('X', X)
+    print('type(X)', type(X))
+    print('results', results)
+    results_nums = []
+    for result in results:
+        if result == 'plus10':
+            result = 1.1
+        elif result == 'minus10':
+            result = 0.9
+        else:
+            result = 1
+        results_nums.append(result)
+    print('results_nums', results_nums)
+    X['uninsured'] *= results_nums[0]
+    X['unemployment'] *= results_nums[1]
+    X['obese_adult'] *= results_nums[2]
+    X['smoke_adult'] *= results_nums[3]
+    X['air_poll_partic'] *= results_nums[4]
+    print('updated X', X)
+    return X
+
 @app.route('/', methods =['GET','POST'])
 def index():
     return flask.render_template('index.html')
@@ -118,16 +134,16 @@ def data():
 def models():
     return flask.render_template('models.html')
 
-@app.route('/policy', methods =['GET','POST'])
-def statepolicy():
+@app.route('/state', methods =['GET','POST'])
+def state():
     if request.method == 'POST':
         state = 'Colorado'
-        state_uninsur = request.form['state_uninsur']
-        state_unemploy = request.form['state_unemploy']
-        state_obs = request.form['state_obs']
-        state_smok = request.form['state_smok']
-        state_partic = request.form['state_partic']
-        state_form_results = [state_uninsur, state_unemploy, state_obs, state_smok, state_partic]
+        state_form_results = [  request.form['state_uninsur'],
+                                request.form['state_unemploy'],
+                                request.form['state_obs'],
+                                request.form['state_smok'],
+                                request.form['state_partic']
+                              ]
         state_data = get_state_data(state)
         X_state = update_state_policy(state_data, state_form_results)
         X_state_counties = X_state.county
@@ -148,7 +164,6 @@ def statepolicy():
         pred_fips = county_state_pred.merge(fips_state, how="left", on="county")
         pred_fips = pred_fips.drop(['county', 'state'], axis=1)
 
-
         # create map with predicted values
         state_pred_map_svg = cm(pred_fips)
 
@@ -161,16 +176,64 @@ def statepolicy():
                         '<div class="card-body"><h2 class="card-text">Predicted</h2><p class="card-text">Map showing predicted asthma hospitalization rates by county in Colorado.  Darker colors represent higher rates.</p></div></div>'
                         )
 
-        return flask.render_template( "policy.html",
+        return flask.render_template( "state.html",
                                 state_pred_map = value
                                 )
 
+    return flask.render_template('state.html')
 
-    return flask.render_template('policy.html')
 
-@app.route('/statepredict', methods =['GET','POST'])
-def statepredict():
-    pass
+@app.route('/county', methods =['GET','POST'])
+def county():
+    input_county, uninsured, unemployment, obesity, smokers, particulates, y, X = one_county('Boulder')
+
+    # these are for the 'Public Policy and Asthma' chart
+    if request.method == 'POST':
+        county = 'Boulder'
+        # one_county(county)
+        # update_county_policy
+        form_results = [request.form['new_uninsur'],
+                        request.form['new_unemploy'],
+                        request.form['new_obs'],
+                        request.form['new_smok'],
+                        request.form['new_partic']
+                        ]
+
+        X, y = cd(county.lower())
+
+        row = update_county_policy(X, form_results)
+        row = row.drop(['county', 'state'], axis=1)
+
+        pred = train_predict(row)
+        pred = pred[0].round(2)
+
+        y = y.values[0].round(2)
+
+
+        return render_template( "county.html",
+                                    # these are for the 'Public Policy and Asthma' chart
+                                    county = input_county.title(),
+                                    uninsured = uninsured,
+                                    unemployment = unemployment,
+                                    obesity = obesity,
+                                    smokers = smokers,
+                                    particulates = particulates,
+                                    y = y,
+                                    new_y = pred,
+                                )
+
+    # return flask.render_template('county.html')
+    return flask.render_template('county.html',
+                                    # these are for the 'Public Policy and Asthma' chart
+                                    county = input_county.title(),
+                                    uninsured = uninsured,
+                                    unemployment = unemployment,
+                                    obesity = obesity,
+                                    smokers = smokers,
+                                    particulates = particulates,
+                                    y = y,
+                                    # table_dict = table_dict
+                                    )
 
 
 @app.route('/predictions', methods =['GET','POST'])

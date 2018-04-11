@@ -82,7 +82,7 @@ Brief description/list
 Although the Support Vector Machine regressor was selected for its predictive performance, the Random Forest model provides insight into the relative significance of the features.  The Feature Importances chart below shows that socio-economic factors have considerable explanatory power.
 
 < image here >
-![alt text](https://www.clicktoclarify.com/wp-content/uploads/2018/01/1234.jpg "Industrial Pollution")
+![alt text](https://github.com/howardvickers/galvanize-capstone-asthma/blob/master/src/static/images/feat_imps.png "Industrial Pollution")
 
 ##### Code
 The code is structured as follows:

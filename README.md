@@ -44,15 +44,13 @@ Data was selected for four US states for the year 2016, as this data is both rec
 **Scatter Matrix**
 The below scatter matrix indicates the potential nature of relationships between the variables.
 
-![alt text](https://github.com/howardvickers/galvanize-capstone-asthma/blob/master/before_after_maps.png "Before and After Policy Changes")
+< image here >
 
 **Distribution of Incidence**
 The below distribution of incidence demonstrates the range of levels of hospitalization rates across all counties in the four states.
 
 < image here >
-
-![alt text](https://github.com/howardvickers/galvanize-capstone-asthma/blob/master/before_after_maps.png "Before and After Policy Changes")
-
+ 
 
 #### Data Challenges
 While socio-economic datasets were largely complete (few missing data-points), the datasets for specific pollutants suffered considerably from sparsity.  

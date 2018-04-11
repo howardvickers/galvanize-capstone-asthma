@@ -1,6 +1,6 @@
 ## A Breath of Fresh Air: Predicting Asthma Rates with Data Science
 #### Machine learning to determine the drivers of asthma hospitalization rates and predict asthma rates at county level.
-![alt text](https://www.clicktoclarify.com/wp-content/uploads/2018/01/1234.jpg "Industrial Pollution")
+
 #### Overview & Purpose				
 The goal of this project is to build a machine learning algorithm to predict asthma rates as influenced by pollutants and socio-economic factors by county in a sample of US states.
 

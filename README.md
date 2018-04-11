@@ -1,6 +1,6 @@
 ## A Breath of Fresh Air: Predicting Asthma Rates with Data Science
-### Machine learning algorithms are used to determine the drivers of asthma hospitalization rates and power a tool to predict asthma rates at a county level.
-
+#### Machine learning to determine the drivers of asthma hospitalization rates and predict asthma rates at county level.
+![alt text](https://www.clicktoclarify.com/wp-content/uploads/2018/01/1234.jpg "Industrial Pollution")
 #### Overview & Purpose				
 The goal of this project is to build a machine learning algorithm to predict asthma rates as influenced by pollutants and socio-economic factors by county in a sample of US states.
 
@@ -82,12 +82,17 @@ Brief description/list
 Although the Support Vector Machine regressor was selected for its predictive performance, the Random Forest model provides insight into the relative significance of the features.  The Feature Importances chart below shows that socio-economic factors have considerable explanatory power.
 
 < image here >
-![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
+![alt text](https://www.clicktoclarify.com/wp-content/uploads/2018/01/1234.jpg "Industrial Pollution")
 
 ##### Code
-* Brief comments about structure
+The code is structured as follows:
+* [data.py](https://github.com/howardvickers) imports data from various csv files (downloaded from above-mentioned sources) and returns a single pandas dataframe.  The code includes functionality to run the model with selected states.
+* [model.py](https://github.com/howardvickers) runs (trains and predicts) the final model.  
+* [rf.py](https://github.com/howardvickers) runs the random forest model that is used to generate the feature importances chart.
+* [chart.py](https://github.com/howardvickers) generates the feature importances chart from the random forest model.
+* [app.py](https://github.com/howardvickers) serves the HTML and related files for the web app, drawing upon the above data and model files.
 
-The code is publically available at [github.com/howardvickers](https://github.com/howardvickers).
+The code is available at [github.com/howardvickers](https://github.com/howardvickers).
 
 #### Web App
 A web app ([asthma-rates.com](http://asthma-rates.com)) allows interaction with the predictive model to gain practical insights into how asthma rates vary with the changes in the determinants.  

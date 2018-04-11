@@ -34,11 +34,11 @@ Data was selected for four US states for the year 2016, as this data is both rec
 ~~#### Data Considerations~~
 ~~**Age:** Asthma hospitalization rates were available as adjusted for age.  Rates were for both adults and children.~~
 
-~~**Single Year Analysis:** Asthma hospitalization rates are likely affected by short-term (exacerbatory) factors and so a longer term consideration of how factors may determine prevalence rates (over perhaps many years) was not considered necessary.  ~~
+~~**Single Year Analysis:** Asthma hospitalization rates are likely affected by short-term (exacerbatory) factors and so a longer term consideration of how factors may determine prevalence rates (over perhaps many years) was not considered necessary.~~
 
 ~~**Gender:** Asthma has a greater prevalence in boys before puberty and yet a higher prevalence in women in adulthood.  Population gender differences between counties was therefore not included.~~
 
-~~**Specific Sources of Pollution:** Wells and power plants were considered as potential sources of pollution.  However, data was ambiguous as to activity level (active/disused/etc) and initial data exploration suggested the relationships may not map to a county level. Therefore specific pollutant levels were considered to better capture the nature of pollution.  ~~
+~~**Specific Sources of Pollution:** Wells and power plants were considered as potential sources of pollution.  However, data was ambiguous as to activity level (active/disused/etc) and initial data exploration suggested the relationships may not map to a county level. Therefore specific pollutant levels were considered to better capture the nature of pollution.~~
 
 ### Plots
 ~~**Scatter Matrix**

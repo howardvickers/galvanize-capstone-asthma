@@ -50,7 +50,7 @@ The below scatter matrix indicates the potential nature of relationships between
 The below distribution of incidence demonstrates the range of levels of hospitalization rates across all counties in the four states.
 
 < image here >
- 
+
 
 #### Data Challenges
 While socio-economic datasets were largely complete (few missing data-points), the datasets for specific pollutants suffered considerably from sparsity.  
@@ -61,17 +61,18 @@ Although datasets included multiple data-points for each year and county, the as
 
 
 #### Models
-Create a table with RMSE results and one sentence saying which was chosen and why.
+Random Forest was selected, although Elastic Net offered the most generalizable model with only marginal difference between the RMSE figures for train and test data.
 
-| Model                           | RMSE          | Comments      |
+| Model                           | RMSE (Train)         | RMSE (Test)      |
 | ------------------------------- |---------------| --------------|
-| Linear Regression               | here          | here          |
-| Lasso & Ridge (Elastic Net)     | here          | here          |
-| Random Forest                   | here          | here          |
-| Boosting                        | here          | here          |
-| Support Vector Regression       | here          | here          |
-| KNN Regression                  | here          | here          |
+| Linear Regression               | 18.25          | 22.37          |
+| Elastic Net (a=1, l1=0.9)     | 19.86           | 19.91          |
+| Random Forest                   | 11.27          | 16.50          |
+| Gradient Boosting               | 0.09          | 20.15          |
+| Support Vector Regressor      | 16.38          | 19.14          |
+| KNN Regressor                | 0.03          | 18.02          |
 
+Random Forest was also used to generate Feature Importances that offer insight into the relative importance of the variables.
 
 #### Features
 Brief description/list

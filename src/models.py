@@ -69,30 +69,33 @@ def all_regress(data):
     no_counties = data_nas.drop(['county', 'state'], axis=1)
     X = no_counties.drop('asthma_rate', axis=1)
     y = no_counties.asthma_rate
+    print(X.columns)
+    all_columns = ['pm10_mean', 'pm25_mean', 'pm25non_mean', 'pm25spec_mean', 'co_mean',
+       'so2_mean', 'no2_mean', 'ozo_mean', 'nonox_mean', 'lead_mean',
+       'haps_mean', 'vocs_mean', 'smoke_adult', 'obese_adult', 'uninsured',
+       'pcp', 'high_sch_grad', 'unemployment', 'income_ineq', 'air_poll_partic']
+    drop_columns = []
+    X = X.drop(drop_columns, axis=1)
 
     # consider replacing nans with mean (previously tried)...
     # train/test split
     X_train, X_test, y_train, y_test = train_test_split(X, y,
                                                         test_size=0.2,
                                                         random_state=123)
-    print('SHAPE '*20)
-    print('X_train.shape', X_train.shape)
-    print('y_train.shape', y_train.shape)
-    print('X_test.shape', X_test.shape)
-    print('y_test.shape', y_test.shape)
+
 
     hyperpara_dict = {  LR  : {}, # use defaults only
                         RFR : { 'randomforestregressor__max_features' : ['auto', 'sqrt'],
-                                'randomforestregressor__max_depth': [10, 20, 30, 50, 80, 100, None],
+                                'randomforestregressor__max_depth': [10, None],
                                 'randomforestregressor__bootstrap': [True, False],
-                                'randomforestregressor__min_samples_leaf': [1, 2, 4, 10],
-                                'randomforestregressor__min_samples_split': [2, 5, 10],
-                                'randomforestregressor__n_estimators': [100, 200, 500, 1000, 1500, 2000],
+                                'randomforestregressor__min_samples_leaf': [1, 2, 4],
+                                'randomforestregressor__min_samples_split': [2, 5],
+                                'randomforestregressor__n_estimators': [10, 100],
                                 },
-                        GBR : { 'gradientboostingregressor__n_estimators' :     [600, 700, 800],
-                                'gradientboostingregressor__max_depth':         [3, 4, 5],
-                                'gradientboostingregressor__min_samples_split': [10],
-                                'gradientboostingregressor__learning_rate':     [ 0.05, 0.1],
+                        GBR : { 'gradientboostingregressor__n_estimators' :     [100, 600, 700, 800],
+                                'gradientboostingregressor__max_depth':         [3, 4, 5, 10, 20],
+                                'gradientboostingregressor__min_samples_split': [3, 4, 5, 10, 20],
+                                'gradientboostingregressor__learning_rate':     [0.01, 0.05, 0.1],
                                 'gradientboostingregressor__loss':              ['ls'],
                                 },
                         KNR : { 'kneighborsregressor__n_neighbors' : [1, 2, 3, 4, 5, 6, 10],
@@ -109,16 +112,16 @@ def all_regress(data):
                         }
 
     # models = [LR, RFR, GBR, KNR, SVR, EN]
-    models = [GBR]
-    mod_dict = {RFR:'rfr'}
-    best_params_dict = {}
-    for model, tag in mod_dict.items():
-        print('MODEL '*12)
-        print(model)
-        print(tag)
+    models = [RFR]
+    # mod_dict = {RFR:'rfr'}
+    # best_params_dict = {}
+    # for model, tag in mod_dict.items():
+    #     print('MODEL '*12)
+    #     print(model)
+    #     print(tag)
 
-    print('y_train zeros:', y_train[y_train==0])
-    print('y_test zeros:', y_test[y_test==0])
+    print('Check if any y_train zeros:', y_train[y_train==0])
+    print('Check if any y_test zeros:', y_test[y_test==0])
     for model in models:
 
         # data preprocessing (removing mean and scaling to unit variance with StandardScaler)
@@ -139,6 +142,7 @@ def all_regress(data):
         print('*'*20)
         print('best params:',clf.best_params_)
         print('best grid:', clf.best_estimator_)
+        print('X_test-y_test Score: ', clf.score(X_test, y_test))
         print('^'*20)
         eval_model(clf.best_estimator_, X_train, y_train, X_test, y_test)
         # print('#'*20)
@@ -151,43 +155,43 @@ def all_regress(data):
 
 
 
-    mod = RFR(  max_features        = best_params_dict[tag]['randomforestregressor__max_features'],
-                max_depth           = best_params_dict[tag]['randomforestregressor__max_depth'],
-                bootstrap           = best_params_dict[tag]['randomforestregressor__bootstrap'],
-                min_samples_leaf    = best_params_dict[tag]['randomforestregressor__min_samples_leaf'],
-                min_samples_split   = best_params_dict[tag]['randomforestregressor__min_samples_split']
-                )
-
-
-    mod.fit(X_train, y_train)
-    print('get_params()'*20)
-    print(mod.get_params())
-    mod.predict(X_test)
-    print(mod.feature_importances_)
+    # mod = RFR(  max_features        = best_params_dict[tag]['randomforestregressor__max_features'],
+    #             max_depth           = best_params_dict[tag]['randomforestregressor__max_depth'],
+    #             bootstrap           = best_params_dict[tag]['randomforestregressor__bootstrap'],
+    #             min_samples_leaf    = best_params_dict[tag]['randomforestregressor__min_samples_leaf'],
+    #             min_samples_split   = best_params_dict[tag]['randomforestregressor__min_samples_split']
+    #             )
+    #
+    #
+    # mod.fit(X_train, y_train)
+    # print('get_params()'*20)
+    # print(mod.get_params())
+    # mod.predict(X_test)
+    # print(mod.feature_importances_)
 
 
     # from data import column_names as cols
-    col_dict = column_names(data)
-    imps, names = zip(*sorted(zip(mod.feature_importances_, [col_dict.get(x, x) for x in X_train.columns])))
+    # col_dict = column_names(data)
+    # imps, names = zip(*sorted(zip(mod.feature_importances_, [col_dict.get(x, x) for x in X_train.columns])))
 
     # plt.style.use('bmh')
     # plt.style.use('seaborn-deep')
-    plt.style.use('seaborn-dark-palette')
+    # plt.style.use('seaborn-dark-palette')
     # plt.style.use('seaborn-notebook')
     # plt.style.use('seaborn-pastel')
     # plt.style.use('ggplot')
 
     # fig = plt.figure()
     # plt.axis([0, 0.4, 0, 1])
-    plt.barh(range(len(names)), imps, align='center')
-    plt.yticks(range(len(names)), names)
-    plt.xlabel('Relative Importance of Features', fontsize=18)
-    plt.ylabel('Features', fontsize=18)
-    plt.title('Which Factors Drive Asthma Rates?', fontsize=24)
-
-    plt.tight_layout()
-    plt.show()
-    plt.savefig('../saved_images/feat_imps.png')
+    # plt.barh(range(len(names)), imps, align='center')
+    # plt.yticks(range(len(names)), names)
+    # plt.xlabel('Relative Importance of Features', fontsize=18)
+    # plt.ylabel('Features', fontsize=18)
+    # plt.title('Which Factors Drive Asthma Rates?', fontsize=24)
+    #
+    # plt.tight_layout()
+    # plt.show()
+    # plt.savefig('../saved_images/feat_imps.png')
 
 
     X_train = sm.add_constant(X_train)

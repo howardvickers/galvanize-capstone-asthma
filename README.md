@@ -15,8 +15,7 @@ ZNA Health have generously offered support with identifying data sources and wit
 
 The asthma variable is represented by hospitalization (ER visit) rates and as such are a reflection of both the current prevalence of asthma and the level of immediate ... Asthma hospitalization rates may be a reflection of both temporary triggers (current pollen and pollution levels) and the underlying causes of prevalence.  
 
-#### Data
-###### Data Sources
+#### Data Sources
 All data are available online as public records, either by county or otherwise geo-located.  The data include:
 * Asthma hospitalization rates for each state:
   * California: [data.chhs.ca.gov](https://data.chhs.ca.gov/dataset/asthma-ed-visit-rates-lghc-indicator-07)
@@ -32,7 +31,7 @@ Data was selected for four US states for the year 2016, as this data is both rec
 * Florida
 * New Jersey
 
-###### Data Considerations
+#### Data Considerations
 **Age:** Asthma hospitalization rates were available as adjusted for age.  Rates were for both adults and children.
 
 **Single Year Analysis:** Asthma hospitalization rates are likely affected by short-term (exacerbatory) factors and so a longer term consideration of how factors may determine prevalence rates (over perhaps many years) was not considered necessary.  
@@ -41,29 +40,29 @@ Data was selected for four US states for the year 2016, as this data is both rec
 
 **Specific Sources of Pollution:** Wells and power plants were considered as potential sources of pollution.  However, data was ambiguous as to activity level (active/disused/etc) and initial data exploration suggested the relationships may not map to a county level. Therefore specific pollutant levels were considered to better capture the nature of pollution.  
 
-##### Plots
-###### Scatter Matrix
+#### Plots
+**Scatter Matrix**
 The below scatter matrix indicates the potential nature of relationships between the variables.
 
-< image here >
-![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
+![alt text](https://github.com/howardvickers/galvanize-capstone-asthma/blob/master/before_after_maps.png "Before and After Policy Changes")
 
-###### Distribution of Incidence (hospitalization rates)
+**Distribution of Incidence**
 The below distribution of incidence demonstrates the range of levels of hospitalization rates across all counties in the four states.
 
 < image here >
-![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
 
-##### Data Challenges
+![alt text](https://github.com/howardvickers/galvanize-capstone-asthma/blob/master/before_after_maps.png "Before and After Policy Changes")
+
+
+#### Data Challenges
 While socio-economic datasets were largely complete (few missing data-points), the datasets for specific pollutants suffered considerably from sparsity.  
 
 Models were run with NaNs converted to both zero and means; zeros gave a consistently improved performance.
 
 Although datasets included multiple data-points for each year and county, the asthma hospitalization rates were only available as one data-point per county per year.  Multiple entries were therefore averaged to give one data-point per county for the year.
 
-#### Models & Code
 
-##### Models
+#### Models
 Create a table with RMSE results and one sentence saying which was chosen and why.
 
 | Model                           | RMSE          | Comments      |
@@ -76,7 +75,7 @@ Create a table with RMSE results and one sentence saying which was chosen and wh
 | KNN Regression                  | here          | here          |
 
 
-##### Features
+#### Features
 Brief description/list
 
 Although the Support Vector Machine regressor was selected for its predictive performance, the Random Forest model provides insight into the relative significance of the features.  The Feature Importances chart below shows that socio-economic factors have considerable explanatory power.
@@ -85,7 +84,7 @@ Although the Support Vector Machine regressor was selected for its predictive pe
 
 ![alt text](https://github.com/howardvickers/galvanize-capstone-asthma/blob/master/src/static/images/feat_imps.png "Feature Importances")
 
-##### Code
+#### Code
 The code is structured as follows:
 * [data.py](https://github.com/howardvickers) imports data from various csv files (downloaded from above-mentioned sources) and returns a single pandas dataframe.  The code includes functionality to run the model with selected states.
 * [model.py](https://github.com/howardvickers) runs (trains and predicts) the final model.  

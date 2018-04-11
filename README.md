@@ -100,9 +100,7 @@ A web app ([asthma-rates.com](http://asthma-rates.com)) allows interaction with 
 Web app users may change selected variables for a given county and/or state to see how the asthma rate is predicted to change under these new conditions.  This functionality can be seen as modeling the effects of policy changes.  
 
 Screenshot of before/after maps
-
-< image here >
-![alt text](https://github.com/adam-p/markdown-here/raw/master/src/common/images/icon48.png "Logo Title Text 1")
+![alt text](https://github.com/howardvickers/galvanize-capstone-asthma/blob/master/before_after_maps.png "Before and After Policy Changes")
 
 
 #### Results

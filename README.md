@@ -61,7 +61,9 @@ Although datasets included multiple data-points for each year and county, the as
 
 
 #### Models
-Random Forest was selected, although Elastic Net offered the most generalizable model with only marginal difference between the RMSE figures for train and test data.
+Model optimization was done using grid search with cross-validation.   
+
+Although Elastic Net offered the most generalizable model with only marginal difference between the RMSE figures for train and test data, Random Forest was selected as offering lowest overall RMSE.
 
 | Model                           | RMSE (Train)         | RMSE (Test)      |
 | ------------------------------- |---------------| --------------|

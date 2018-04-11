@@ -312,7 +312,8 @@ if __name__ == '__main__':
         print("Data file not found, assembling dataset...")
         # from combine_data import join_data as data
         from data import join_data as data
-        data, labels = data()
+        # data, labels = data()
+        data = data()
         data.to_csv(csv_file_path, index=False)
 
     Bootstrap(app)

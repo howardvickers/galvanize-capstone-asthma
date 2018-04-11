@@ -195,7 +195,7 @@ def join_side_by_side(state):
 
 def get_each_state_data(state):
     # socio-economic data for this state
-    data = all_socio_econ_data()
+    data, _ = all_socio_econ_data()
     state_socio_econ_data = data[data['state'] == state.lower()]
 
     # asthma-pollutant data for this state
@@ -209,7 +209,8 @@ def get_each_state_data(state):
 def join_data():
     list_of_each_states_data = []
     for state in choose_states():
-        list_of_each_states_data.append(get_each_state_data(state))
+        each_state_data = get_each_state_data(state)
+        list_of_each_states_data.append(each_state_data)
     df = pd.concat(list_of_each_states_data)
     df = df.reset_index()
     df = df.drop(['index'], axis=1)

@@ -82,6 +82,7 @@ Brief description/list
 Although the Support Vector Machine regressor was selected for its predictive performance, the Random Forest model provides insight into the relative significance of the features.  The Feature Importances chart below shows that socio-economic factors have considerable explanatory power.
 
 **Feature Importances**
+
 ![alt text](https://github.com/howardvickers/galvanize-capstone-asthma/blob/master/src/static/images/feat_imps.png "Feature Importances")
 
 ##### Code
@@ -100,6 +101,7 @@ A web app ([asthma-rates.com](http://asthma-rates.com)) allows interaction with 
 Web app users may change selected variables for a given county and/or state to see how the asthma rate is predicted to change under these new conditions.  This functionality can be seen as modeling the effects of policy changes.  
 
 **Screenshot of before/after maps**
+
 ![alt text](https://github.com/howardvickers/galvanize-capstone-asthma/blob/master/before_after_maps.png "Before and After Policy Changes")
 
 

@@ -63,14 +63,14 @@ Although datasets included multiple data-points for each year and county, the as
 ### Models
 Although Elastic Net offered the most generalizable model with only marginal difference between the RMSE figures for train and test data, Random Forest was selected as offering lowest overall RMSE.
 
-| Model                           | RMSE (Train)         | RMSE (Test)      |
-| ------------------------------- |---------------| --------------|
-| Linear Regression               | 18.25          | 22.37          |
-| Elastic Net (a=1, l1=0.9)     | 19.86           | 19.91          |
-| Random Forest                   | 11.27          | 16.50          |
-| Gradient Boosting               | 0.09          | 20.15          |
-| Support Vector Regressor      | 16.38          | 19.14          |
-| KNN Regressor                | 0.03          | 18.02          |
+| Model                           | RMSE (Train)         | RMSE (Test)      | R Squared     |
+| ------------------------------- |---------------| --------------| --------------|
+| Linear Regression               | 11.02          | 12.59          |  0.76        |
+| Elastic Net (a=1, l1=0.9)     | 11.87           | 12.01          |  0.78        |
+| Random Forest                   | 7.09          | 10.80          |    0.82      |
+| Gradient Boosting               | 2.00          | 10.68          | 0.82         |
+| Support Vector Regressor      | 11.24          | 12.69          |  0.75        |
+| KNN Regressor                | 0.03          | 11.49          |    0.80      |
 
 Random Forest was also used to generate Feature Importances that offer insight into the relative importance of the variables.
 

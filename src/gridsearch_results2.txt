@@ -1,0 +1,255 @@
+Last login: Wed Apr  4 17:55:05 on ttys020
+ipython --pylab
+Howards-MacBook-Air:src howard$ ipython --pylab
+Python 3.6.4 |Anaconda custom (64-bit)| (default, Jan 16 2018, 12:04:33)
+Type 'copyright', 'credits' or 'license' for more information
+IPython 6.1.0 -- An enhanced Interactive Python. Type '?' for help.
+ls
+Using matplotlib backend: MacOSX
+
+In [1]: ls
+__pycache__/                      data.py                           logistic_regression.py            random_forest2.py
+ca_data.py                        fl_data.py                        models.py                         support_vector_regressor.py
+co_data.py                        k_nearest_neighbors_regressor.py  nj_data.py                        us_data.py
+combine_data.py                   linear_regression.py              random_forest.py
+
+In [2]: run models.py
+/Users/howard/anaconda3/lib/python3.6/site-packages/statsmodels/compat/pandas.py:56: FutureWarning: The pandas.core.datetools module is deprecated and will be removed in a future version. Please use the pandas.tseries module instead.
+  from pandas.core import datetools
+/Users/howard/anaconda3/lib/python3.6/site-packages/sklearn/cross_validation.py:41: DeprecationWarning: This module was deprecated in version 0.18 in favor of the model_selection module into which all the refactored classes and functions are moved. Also note that the interface of the new CV iterators are different from that of this module. This module will be removed in 0.20.
+  "This module will be removed in 0.20.", DeprecationWarning)
+Data file found, loading data...
+r2 score: -0.00866704884387
+mse: 266.930125557
+********************
+best params: {}
+best grid: Pipeline(memory=None,
+     steps=[('standardscaler', StandardScaler(copy=True, with_mean=True, with_std=True)), ('linearregression', LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=False))])
+^^^^^^^^^^^^^^^^^^^^
+Model Performance Indicators
+MAE: 14.761
+MAPE: 28.671
+Accuracy = 71.329%
+RMSE (test): 16.3379963752
+RMSE (train): 15.5763472424
+Overfit
+####################
+r2 score: 0.19547240608
+mse: 212.907373057
+********************
+best params: {'randomforestregressor__bootstrap': True, 'randomforestregressor__max_depth': None, 'randomforestregressor__max_features': 'auto', 'randomforestregressor__min_samples_leaf': 5, 'randomforestregressor__min_samples_split': 10, 'randomforestregressor__n_estimators': 50}
+best grid: Pipeline(memory=None,
+     steps=[('standardscaler', StandardScaler(copy=True, with_mean=True, with_std=True)), ('randomforestregressor', RandomForestRegressor(bootstrap=True, criterion='mse', max_depth=None,
+           max_features='auto', max_leaf_nodes=None,
+           min_impurity_decrease=0.0, min_impurity_split=None,
+           min_samples_leaf=5, min_samples_split=10,
+           min_weight_fraction_leaf=0.0, n_estimators=50, n_jobs=1,
+           oob_score=False, random_state=None, verbose=0, warm_start=False))])
+^^^^^^^^^^^^^^^^^^^^
+Model Performance Indicators
+MAE: 11.420
+MAPE: 21.399
+Accuracy = 78.601%
+RMSE (test): 14.5913458275
+RMSE (train): 13.6142620049
+Overfit
+####################
+r2 score: 0.10250488546
+mse: 237.509973073
+********************
+best params: {'kneighborsregressor__n_neighbors': 10, 'kneighborsregressor__weights': 'uniform'}
+best grid: Pipeline(memory=None,
+     steps=[('standardscaler', StandardScaler(copy=True, with_mean=True, with_std=True)), ('kneighborsregressor', KNeighborsRegressor(algorithm='auto', leaf_size=30, metric='minkowski',
+          metric_params=None, n_jobs=1, n_neighbors=10, p=2,
+          weights='uniform'))])
+^^^^^^^^^^^^^^^^^^^^
+Model Performance Indicators
+MAE: 12.433
+MAPE: 25.036
+Accuracy = 74.964%
+RMSE (test): 15.4113585732
+RMSE (train): 17.6273802183
+Underfit
+####################
+r2 score: -0.00953800991164
+mse: 267.160613652
+********************
+best params: {'svr__C': 10, 'svr__kernel': 'linear'}
+best grid: Pipeline(memory=None,
+     steps=[('standardscaler', StandardScaler(copy=True, with_mean=True, with_std=True)), ('svr', SVR(C=10, cache_size=200, coef0=0.0, degree=3, epsilon=0.1, gamma='auto',
+  kernel='linear', max_iter=-1, shrinking=True, tol=0.001, verbose=False))])
+^^^^^^^^^^^^^^^^^^^^
+Model Performance Indicators
+MAE: 13.675
+MAPE: 26.453
+Accuracy = 73.547%
+RMSE (test): 16.3450485974
+RMSE (train): 16.7346672422
+Underfit
+####################
+                            OLS Regression Results
+==============================================================================
+Dep. Variable:            asthma_rate   R-squared:                       0.517
+Model:                            OLS   Adj. R-squared:                  0.408
+Method:                 Least Squares   F-statistic:                     4.736
+Date:                Wed, 04 Apr 2018   Prob (F-statistic):           3.03e-07
+Time:                        18:01:33   Log-Likelihood:                -433.13
+No. Observations:                 104   AIC:                             906.3
+Df Residuals:                      84   BIC:                             959.1
+Df Model:                          19
+Covariance Type:            nonrobust
+===================================================================================
+                      coef    std err          t      P>|t|      [0.025      0.975]
+-----------------------------------------------------------------------------------
+const             -25.8607     26.837     -0.964      0.338     -79.229      27.508
+Unnamed: 0         -0.0197      0.075     -0.262      0.794      -0.169       0.130
+smoke_adult         2.9943      1.121      2.671      0.009       0.765       5.223
+obese_adult         1.7745      0.596      2.980      0.004       0.590       2.959
+uninsured          -1.7339      0.751     -2.309      0.023      -3.227      -0.241
+pcp                 0.0455      0.067      0.683      0.497      -0.087       0.178
+high_sch_grad       0.1412      0.058      2.448      0.016       0.027       0.256
+unemployment        1.1006      0.971      1.133      0.260      -0.831       3.032
+income_ineq        -2.5016      3.612     -0.692      0.491      -9.685       4.682
+air_poll_partic     1.6581      1.389      1.194      0.236      -1.104       4.420
+ozo_mean         -293.8441    150.455     -1.953      0.054    -593.040       5.352
+no_mean             1.4922      0.921      1.621      0.109      -0.339       3.323
+co_mean             3.1311     22.730      0.138      0.891     -42.070      48.333
+so_mean          -389.0465    196.962     -1.975      0.052    -780.727       2.634
+vocs_mean           0.1113      0.326      0.341      0.734      -0.537       0.759
+haps_mean           0.0790     12.474      0.006      0.995     -24.726      24.884
+lead_mean         -79.3356    382.418     -0.207      0.836    -839.816     681.145
+pm10_mean           0.0112      0.229      0.049      0.961      -0.443       0.466
+pm2_5_mean          0.2288      0.950      0.241      0.810      -1.661       2.119
+pm2_5non_mean      -0.1007      0.324     -0.311      0.757      -0.745       0.544
+pm2_5spec_mean     -0.1007      0.324     -0.311      0.757      -0.745       0.544
+==============================================================================
+Omnibus:                        3.862   Durbin-Watson:                   2.102
+Prob(Omnibus):                  0.145   Jarque-Bera (JB):                3.405
+Skew:                          -0.293   Prob(JB):                        0.182
+Kurtosis:                       3.666   Cond. No.                     1.36e+18
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The smallest eigenvalue is 8.21e-31. This might indicate that there are
+strong multicollinearity problems or that the design matrix is singular.
+
+In [3]: run models.py
+/Users/howard/workspace/dsi/capstone/capstone_repo/src/data.py:149: DtypeWarning: Columns (27) have mixed types. Specify dtype option on import or set low_memory=False.
+  asthma_pollutants = join_side_by_side(state)
+r2 score: 0.084843906754
+mse: 520.202906606
+********************
+best params: {}
+best grid: Pipeline(memory=None,
+     steps=[('standardscaler', StandardScaler(copy=True, with_mean=True, with_std=True)), ('linearregression', LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=False))])
+^^^^^^^^^^^^^^^^^^^^
+Model Performance Indicators
+MAE: 17.172
+MAPE: inf
+Accuracy = -inf%
+RMSE (test): 22.8079570897
+RMSE (train): 18.6330021118
+Overfit
+####################
+r2 score: 0.521068213383
+mse: 272.239576727
+********************
+best params: {'randomforestregressor__bootstrap': True, 'randomforestregressor__max_depth': None, 'randomforestregressor__max_features': 'auto', 'randomforestregressor__min_samples_leaf': 5, 'randomforestregressor__min_samples_split': 10, 'randomforestregressor__n_estimators': 100}
+best grid: Pipeline(memory=None,
+     steps=[('standardscaler', StandardScaler(copy=True, with_mean=True, with_std=True)), ('randomforestregressor', RandomForestRegressor(bootstrap=True, criterion='mse', max_depth=None,
+           max_features='auto', max_leaf_nodes=None,
+           min_impurity_decrease=0.0, min_impurity_split=None,
+           min_samples_leaf=5, min_samples_split=10,
+           min_weight_fraction_leaf=0.0, n_estimators=100, n_jobs=1,
+           oob_score=False, random_state=None, verbose=0, warm_start=False))])
+^^^^^^^^^^^^^^^^^^^^
+Model Performance Indicators
+MAE: 12.201
+MAPE: inf
+Accuracy = -inf%
+RMSE (test): 16.4996841402
+RMSE (train): 11.2684591249
+Overfit
+####################
+r2 score: 0.47423666047
+mse: 298.86007363
+********************
+best params: {'kneighborsregressor__n_neighbors': 10, 'kneighborsregressor__weights': 'uniform'}
+best grid: Pipeline(memory=None,
+     steps=[('standardscaler', StandardScaler(copy=True, with_mean=True, with_std=True)), ('kneighborsregressor', KNeighborsRegressor(algorithm='auto', leaf_size=30, metric='minkowski',
+          metric_params=None, n_jobs=1, n_neighbors=10, p=2,
+          weights='uniform'))])
+^^^^^^^^^^^^^^^^^^^^
+Model Performance Indicators
+MAE: 13.270
+MAPE: inf
+Accuracy = -inf%
+RMSE (test): 17.2875699169
+RMSE (train): 17.7917858117
+Underfit
+####################
+r2 score: -0.0744039062573
+mse: 610.724267727
+********************
+best params: {'svr__C': 10, 'svr__kernel': 'linear'}
+best grid: Pipeline(memory=None,
+     steps=[('standardscaler', StandardScaler(copy=True, with_mean=True, with_std=True)), ('svr', SVR(C=10, cache_size=200, coef0=0.0, degree=3, epsilon=0.1, gamma='auto',
+  kernel='linear', max_iter=-1, shrinking=True, tol=0.001, verbose=False))])
+^^^^^^^^^^^^^^^^^^^^
+Model Performance Indicators
+MAE: 17.963
+MAPE: inf
+Accuracy = -inf%
+RMSE (test): 24.7128360923
+RMSE (train): 19.5403619603
+Overfit
+####################
+                            OLS Regression Results
+==============================================================================
+Dep. Variable:            asthma_rate   R-squared:                       0.519
+Model:                            OLS   Adj. R-squared:                  0.453
+Method:                 Least Squares   F-statistic:                     7.868
+Date:                Wed, 04 Apr 2018   Prob (F-statistic):           5.86e-15
+Time:                        18:05:02   Log-Likelihood:                -725.43
+No. Observations:                 167   AIC:                             1493.
+Df Residuals:                     146   BIC:                             1558.
+Df Model:                          20
+Covariance Type:            nonrobust
+===================================================================================
+                      coef    std err          t      P>|t|      [0.025      0.975]
+-----------------------------------------------------------------------------------
+const              48.8629     13.886      3.519      0.001      21.419      76.307
+pm10_mean           0.7296      0.199      3.669      0.000       0.337       1.123
+pm25_mean          -0.0163      0.912     -0.018      0.986      -1.819       1.787
+pm25non_mean       -0.5382      0.485     -1.109      0.269      -1.498       0.421
+pm25spec_mean      -0.0195      0.019     -1.011      0.313      -0.058       0.019
+co_mean            33.0867     21.787      1.519      0.131      -9.972      76.145
+so2_mean            3.5541      5.651      0.629      0.530      -7.614      14.722
+no2_mean           -1.1394      2.270     -0.502      0.616      -5.625       3.346
+ozo_mean          -70.7155    120.591     -0.586      0.559    -309.045     167.614
+nonox_mean          0.8517      1.701      0.501      0.617      -2.510       4.214
+lead_mean         -43.8523    355.030     -0.124      0.902    -745.514     657.809
+haps_mean         -11.7073      7.120     -1.644      0.102     -25.779       2.364
+vocs_mean           0.8473      0.315      2.686      0.008       0.224       1.471
+smoke_adult         0.7264      0.868      0.837      0.404      -0.989       2.442
+obese_adult        -1.3731      0.510     -2.693      0.008      -2.381      -0.365
+uninsured          -2.7059      0.452     -5.990      0.000      -3.599      -1.813
+pcp                -0.0779      0.068     -1.150      0.252      -0.212       0.056
+high_sch_grad      -0.1797      0.063     -2.853      0.005      -0.304      -0.055
+unemployment        6.2186      1.099      5.660      0.000       4.047       8.390
+income_ineq         6.5659      2.894      2.269      0.025       0.846      12.286
+air_poll_partic    -0.0054      1.264     -0.004      0.997      -2.503       2.492
+==============================================================================
+Omnibus:                        6.180   Durbin-Watson:                   2.036
+Prob(Omnibus):                  0.046   Jarque-Bera (JB):                5.979
+Skew:                           0.460   Prob(JB):                       0.0503
+Kurtosis:                       3.117   Cond. No.                     3.52e+04
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 3.52e+04. This might indicate that there are
+strong multicollinearity or other numerical problems.
+
+In [4]:

@@ -112,7 +112,7 @@ def all_regress(data):
                         }
 
     # models = [LR, RFR, GBR, KNR, SVR, EN]
-    models = [RFR]
+    models = [EN]
     # mod_dict = {RFR:'rfr'}
     # best_params_dict = {}
     # for model, tag in mod_dict.items():

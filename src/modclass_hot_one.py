@@ -14,10 +14,15 @@ from sklearn.svm import SVR as SVR
 from sklearn.linear_model import ElasticNet as EN
 from sklearn.ensemble import GradientBoostingRegressor as GBR
 import matplotlib.pyplot as plt
- 
+
 
 def train_model():
     data = get_data()
+    data['co'] = data.state == 'colorado'
+    data['fl'] = data.state == 'florida'
+    data['nj'] = data.state == 'new jersey'
+    data['ca'] = data.state == 'california'
+    print(data.shape)
     X_train, X_test, y_train, y_test = split_data(data)
     X_train, y_train = remove_county_state(X_train, y_train)
     model = RFR(    max_features        = 'auto',

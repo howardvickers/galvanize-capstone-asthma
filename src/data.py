@@ -1,5 +1,10 @@
 import numpy as np
 import pandas as pd
+
+# import urllib2
+# from urllib.request import urlopen
+
+
 # source data: https://data.chhs.ca.gov/dataset/asthma-ed-visit-rates-lghc-indicator-07
 
 # ****************** CREATE VARIABLES ******************
@@ -38,9 +43,20 @@ states_codes = {    'California': 'ca',
 
 # ****************** CREATE INITIAL DATASETS ******************
 def all_socio_econ_data():
+
     # source data: http://www.countyhealthrankings.org/rankings/data
     xls = pd.ExcelFile('../data/2016CountyHealthRankingsData.xls')
     df = pd.read_excel(xls, 'Ranked Measure Data') # select tab with data
+
+
+    csv_file_path = '../data/newcsv.csv'
+    df = data.to_csv(csv_file_path)
+    df = pd.read_csv(csv_file_path)
+    df = df.drop('Unnamed: 0', axis=1)
+
+
+
+
     df = df.iloc[:, [1,2,27,31,63,68,95,105,116,135]] # get: state, county, adult smoking, adult obesity, uninsured, PCP (doctors) rate, high school graduation, unemployment, income inequality, air pollution,
     df.columns = ['state', 'county','smoke_adult', 'obese_adult', 'uninsured', 'pcp', 'high_sch_grad', 'unemployment', 'income_ineq', 'air_poll_partic']
     df = df.drop([0]) # drop first row (previously header)

@@ -14,21 +14,74 @@ from sklearn.svm import SVR as SVR
 from sklearn.linear_model import ElasticNet as EN
 from sklearn.ensemble import GradientBoostingRegressor as GBR
 import matplotlib.pyplot as plt
- 
+
+def calc_rmse(yhat, y):
+    return np.sqrt(((yhat-y)**2).mean())
+
+def calc_mae(yhat, y):
+    return np.mean(abs(yhat-y))
+
+def calc_mape(yhat, y):
+    return 100*np.mean(abs((yhat-y)/y))
+
+def eval_model(model, X_train, y_train, X_test, y_test):
+    ypred = model.predict(X_test)
+    ytrainpred = model.predict(X_train)
+
+    mae = calc_mae(ypred, y_test)
+    mape = calc_mape(ypred, y_test)
+    accuracy = 100 - mape
+
+    rmse_test   = calc_rmse(ypred, y_test)
+    rmse_train  = calc_rmse(ytrainpred, y_train)
+
+    print('Model Performance Indicators')
+    print('MAE: {:0.3f}'.format(mae))
+    print('MAPE: {:0.3f}'.format(mape))
+    print('Accuracy = {:0.3f}%'.format(accuracy))
+
+    print('RMSE (test):', rmse_test)
+    print('RMSE (train):', rmse_train)
+    if rmse_test > rmse_train:
+        print('Overfit')
+    else:
+        print('Underfit')
+    return accuracy
+
 
 def train_model():
     data = get_data()
     X_train, X_test, y_train, y_test = split_data(data)
     X_train, y_train = remove_county_state(X_train, y_train)
-    model = RFR(    max_features        = 'auto',
-                    max_depth           = None,
-                    bootstrap           = True,
-                    min_samples_leaf    = 5,
-                    min_samples_split   = 10,
-                    n_estimators        = 10
-                                )
-    trained_model = model.fit(X_train, y_train)
-    return trained_model
+    X_test, y_test = remove_county_state(X_test, y_test)
+
+    # data preprocessing (removing mean and scaling to unit variance with StandardScaler)
+    pipeline = make_pipeline(StandardScaler(),
+                             EN())
+
+    # set hyperparameters
+    hyperparameters = { 'elasticnet__alpha': [1,0.1,0.01,0.001], # equivalent to lambda; alpha=0 means no regularization, ie linear regression
+                        'elasticnet__l1_ratio': [0.5, 0.7, 0.8, 0.9, 1], # l1=1 means L1 penalty, ie Lasso (not L2/Ridge)
+                        'elasticnet__max_iter': [10000],
+                        }
+
+    # tune model via pipeline
+    clf = GridSearchCV(pipeline, hyperparameters, cv=3)
+
+    clf.fit(X_train, y_train)
+
+    pred = clf.predict(X_test)
+    # print('feature importances:', clf.feature_importances_)
+    print ('r2 score:',r2_score(y_test, pred))
+    print ('mse:',mean_squared_error(y_test, pred))
+    print('*'*20)
+    print('best params:',clf.best_params_)
+    print('best grid:', clf.best_estimator_)
+    print('^'*20)
+    eval_model(clf.best_estimator_, X_train, y_train, X_test, y_test)
+    print('#'*20)
+    print('score', clf.score)
+    return clf
 
 def show_columns():
     data = get_data()
@@ -82,4 +135,4 @@ def remove_county_state(X, y):
     return X, y
 
 if __name__ == '__main__':
-    pass
+    train_model()

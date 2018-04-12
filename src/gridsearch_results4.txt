@@ -1,0 +1,2105 @@
+Last login: Mon Apr  9 15:13:59 on ttys004
+ipython --pylab
+Howards-MacBook-Air:src howard$ ipython --pylab
+Error processing line 1 of /Users/howard/anaconda3/lib/python3.6/site-packages/flask-lesscss-nspkg.pth:
+
+  Traceback (most recent call last):
+    File "/Users/howard/anaconda3/lib/python3.6/site.py", line 168, in addpackage
+      exec(line)
+    File "<string>", line 1, in <module>
+    File "<frozen importlib._bootstrap>", line 568, in module_from_spec
+  AttributeError: 'NoneType' object has no attribute 'loader'
+
+Remainder of file ignored
+Python 3.6.4 |Anaconda custom (64-bit)| (default, Jan 16 2018, 12:04:33)
+Type 'copyright', 'credits' or 'license' for more information
+IPython 6.1.0 -- An enhanced Interactive Python. Type '?' for help.
+Using matplotlib backend: MacOSX
+
+In [1]: ls
+__pycache__/                      combine_data.py                   model.py                          static/
+app.py                            data.py                           models.py                         support_vector_regressor.py
+ca_data.py                        fl_data.py                        nj.svg                            templates/
+charts.py                         gridsearch_results.txt            nj_data.py                        test.py
+co_data.py                        k_nearest_neighbors_regressor.py  out.svg                           us_data.py
+colo_elec.svg                     linear_regression.py              random_forest.py
+color_map.py                      logistic_regression.py            random_forest2.py
+color_map_pollutant.py            modclass.py                       state_color_map.py
+
+In [2]: run modclass.py
+/Users/howard/anaconda3/lib/python3.6/site-packages/statsmodels/compat/pandas.py:56: FutureWarning: The pandas.core.datetools module is deprecated and will be removed in a future version. Please use the pandas.tseries module instead.
+  from pandas.core import datetools
+/Users/howard/anaconda3/lib/python3.6/site-packages/sklearn/cross_validation.py:41: DeprecationWarning: This module was deprecated in version 0.18 in favor of the model_selection module into which all the refactored classes and functions are moved. Also note that the interface of the new CV iterators are different from that of this module. This module will be removed in 0.20.
+  "This module will be removed in 0.20.", DeprecationWarning)
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+~/workspace/dsi/capstone/capstone_repo/src/modclass.py in <module>()
+    125
+    126 if __name__ == '__main__':
+--> 127     Boulder_X, Boulder_y[1] = county_data(data, 'boulder')
+    128     train_model()
+    129
+
+NameError: name 'data' is not defined
+
+In [3]: run modclass.py
+Data file found, loading data...
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+~/workspace/dsi/capstone/capstone_repo/src/modclass.py in <module>()
+    129
+    130     fm = FinalModel()
+--> 131     X_train, X_test, y_train, y_test = split_data(data)
+    132     fm.fit(X_train, y_train)
+    133     fm.predict(X_test)
+
+NameError: name 'data' is not defined
+
+In [4]: run modclass2.py
+---------------------------------------------------------------------------
+NameError                                 Traceback (most recent call last)
+~/workspace/dsi/capstone/capstone_repo/src/modclass2.py in <module>()
+    125
+    126 if __name__ == '__main__':
+--> 127     Boulder_X, Boulder_y[1] = county_data(data, 'boulder')
+    128     print(Boulder_X.shape)
+    129     print(Boulder_y.shape)
+
+NameError: name 'data' is not defined
+
+In [5]: ls
+__pycache__/                      combine_data.py                   modclass2.py                      state_color_map.py
+app.py                            data.py                           model.py                          static/
+ca_data.py                        fl_data.py                        models.py                         support_vector_regressor.py
+charts.py                         gridsearch_results.txt            nj.svg                            templates/
+co_data.py                        k_nearest_neighbors_regressor.py  nj_data.py                        test.py
+colo_elec.svg                     linear_regression.py              out.svg                           us_data.py
+color_map.py                      logistic_regression.py            random_forest.py
+color_map_pollutant.py            modclass.py                       random_forest2.py
+
+In [6]: run models.py
+Data file found, loading data...
+SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE
+X_train.shape (163, 20)
+y_train.shape (163,)
+X_test.shape (41, 20)
+y_test.shape (41,)
+MODEL MODEL MODEL MODEL MODEL MODEL MODEL MODEL MODEL MODEL MODEL MODEL
+<class 'sklearn.ensemble.forest.RandomForestRegressor'>
+rfr
+y_train zeros: Series([], Name: asthma_rate, dtype: float64)
+y_test zeros: Series([], Name: asthma_rate, dtype: float64)
+********************
+best params: {'gradientboostingregressor__learning_rate': 0.1, 'gradientboostingregressor__loss': 'ls', 'gradientboostingregressor__max_depth': 3, 'gradientboostingregressor__min_samples_split': 10, 'gradientboostingregressor__n_estimators': 600}
+best grid: Pipeline(memory=None,
+     steps=[('standardscaler', StandardScaler(copy=True, with_mean=True, with_std=True)), ('gradientboostingregressor', GradientBoostingRegressor(alpha=0.9, criterion='friedman_mse', init=None,
+             learning_rate=0.1, loss='ls', max_depth=3, max_features=None,
+             max_leaf_nodes=None, mi...s=600, presort='auto', random_state=None,
+             subsample=1.0, verbose=0, warm_start=False))])
+^^^^^^^^^^^^^^^^^^^^
+Model Performance Indicators
+Model: Pipeline(memory=None,
+     steps=[('standardscaler', StandardScaler(copy=True, with_mean=True, with_std=True)), ('gradientboostingregressor', GradientBoostingRegressor(alpha=0.9, criterion='friedman_mse', init=None,
+             learning_rate=0.1, loss='ls', max_depth=3, max_features=None,
+             max_leaf_nodes=None, mi...s=600, presort='auto', random_state=None,
+             subsample=1.0, verbose=0, warm_start=False))])
+MAE: 14.338
+MAPE: 140.779
+Accuracy = -40.779%
+RMSE (test): 20.1666038409
+RMSE (train): 0.0913852983699
+Overfit
+---------------------------------------------------------------------------
+KeyError                                  Traceback (most recent call last)
+~/workspace/dsi/capstone/capstone_repo/src/models.py in <module>()
+    215     # data.to_csv(csv_file_path, index=False)
+    216
+--> 217     all_regress(data)
+
+~/workspace/dsi/capstone/capstone_repo/src/models.py in all_regress(data)
+    152
+    153
+--> 154     mod = RFR(  max_features        = best_params_dict[tag]['randomforestregressor__max_features'],
+    155                 max_depth           = best_params_dict[tag]['randomforestregressor__max_depth'],
+    156                 bootstrap           = best_params_dict[tag]['randomforestregressor__bootstrap'],
+
+KeyError: 'rfr'
+
+In [7]: run models.py
+Data file found, loading data...
+SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE SHAPE
+X_train.shape (163, 20)
+y_train.shape (163,)
+X_test.shape (41, 20)
+y_test.shape (41,)
+MODEL MODEL MODEL MODEL MODEL MODEL MODEL MODEL MODEL MODEL MODEL MODEL
+<class 'sklearn.ensemble.forest.RandomForestRegressor'>
+rfr
+y_train zeros: Series([], Name: asthma_rate, dtype: float64)
+y_test zeros: Series([], Name: asthma_rate, dtype: float64)
+********************
+best params: {'gradientboostingregressor__learning_rate': 0.1, 'gradientboostingregressor__loss': 'ls', 'gradientboostingregressor__max_depth': 3, 'gradientboostingregressor__min_samples_split': 10, 'gradientboostingregressor__n_estimators': 700}
+best grid: Pipeline(memory=None,
+     steps=[('standardscaler', StandardScaler(copy=True, with_mean=True, with_std=True)), ('gradientboostingregressor', GradientBoostingRegressor(alpha=0.9, criterion='friedman_mse', init=None,
+             learning_rate=0.1, loss='ls', max_depth=3, max_features=None,
+             max_leaf_nodes=None, mi...s=700, presort='auto', random_state=None,
+             subsample=1.0, verbose=0, warm_start=False))])
+^^^^^^^^^^^^^^^^^^^^
+Model Performance Indicators
+Model: Pipeline(memory=None,
+     steps=[('standardscaler', StandardScaler(copy=True, with_mean=True, with_std=True)), ('gradientboostingregressor', GradientBoostingRegressor(alpha=0.9, criterion='friedman_mse', init=None,
+             learning_rate=0.1, loss='ls', max_depth=3, max_features=None,
+             max_leaf_nodes=None, mi...s=700, presort='auto', random_state=None,
+             subsample=1.0, verbose=0, warm_start=False))])
+MAE: 14.358
+MAPE: 141.072
+Accuracy = -41.072%
+RMSE (test): 20.2092946285
+RMSE (train): 0.0484753247806
+Overfit
+                            OLS Regression Results
+==============================================================================
+Dep. Variable:            asthma_rate   R-squared:                       0.523
+Model:                            OLS   Adj. R-squared:                  0.456
+Method:                 Least Squares   F-statistic:                     7.783
+Date:                Mon, 09 Apr 2018   Prob (F-statistic):           1.15e-14
+Time:                        20:00:33   Log-Likelihood:                -704.72
+No. Observations:                 163   AIC:                             1451.
+Df Residuals:                     142   BIC:                             1516.
+Df Model:                          20
+Covariance Type:            nonrobust
+===================================================================================
+                      coef    std err          t      P>|t|      [0.025      0.975]
+-----------------------------------------------------------------------------------
+const              52.8810     13.341      3.964      0.000      26.508      79.254
+pm10_mean           0.7096      0.193      3.673      0.000       0.328       1.092
+pm25_mean           0.4762      0.906      0.525      0.600      -1.315       2.268
+pm25non_mean       -0.8383      0.519     -1.614      0.109      -1.865       0.188
+pm25spec_mean      -0.0238      0.018     -1.312      0.192      -0.060       0.012
+co_mean            34.8866     21.953      1.589      0.114      -8.510      78.284
+so2_mean            0.4973      5.529      0.090      0.928     -10.432      11.427
+no2_mean           -0.4810      2.357     -0.204      0.839      -5.140       4.178
+ozo_mean          -86.5897    119.261     -0.726      0.469    -322.346     149.166
+nonox_mean          0.3789      1.739      0.218      0.828      -3.058       3.816
+lead_mean        -260.3690    344.093     -0.757      0.450    -940.576     419.838
+haps_mean         -17.3970      7.534     -2.309      0.022     -32.291      -2.503
+vocs_mean           0.8342      0.319      2.612      0.010       0.203       1.465
+smoke_adult         0.8583      0.853      1.006      0.316      -0.828       2.545
+obese_adult        -1.4356      0.473     -3.038      0.003      -2.370      -0.501
+uninsured          -2.3704      0.492     -4.814      0.000      -3.344      -1.397
+pcp                -0.1187      0.064     -1.866      0.064      -0.245       0.007
+high_sch_grad      -0.1864      0.065     -2.875      0.005      -0.314      -0.058
+unemployment        3.8619      0.840      4.598      0.000       2.202       5.522
+income_ineq         5.4272      2.850      1.904      0.059      -0.208      11.062
+air_poll_partic     1.5807      1.316      1.201      0.232      -1.021       4.182
+==============================================================================
+Omnibus:                        2.344   Durbin-Watson:                   2.056
+Prob(Omnibus):                  0.310   Jarque-Bera (JB):                2.306
+Skew:                           0.287   Prob(JB):                        0.316
+Kurtosis:                       2.899   Cond. No.                     3.70e+04
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 3.7e+04. This might indicate that there are
+strong multicollinearity or other numerical problems.
+
+In [8]: run models.py
+Data file found, loading data...
+Check if any y_train zeros: Series([], Name: asthma_rate, dtype: float64)
+Check if any y_test zeros: Series([], Name: asthma_rate, dtype: float64)
+********************
+best params: {'gradientboostingregressor__learning_rate': 0.1, 'gradientboostingregressor__loss': 'ls', 'gradientboostingregressor__max_depth': 3, 'gradientboostingregressor__min_samples_split': 10, 'gradientboostingregressor__n_estimators': 600}
+best grid: Pipeline(memory=None,
+     steps=[('standardscaler', StandardScaler(copy=True, with_mean=True, with_std=True)), ('gradientboostingregressor', GradientBoostingRegressor(alpha=0.9, criterion='friedman_mse', init=None,
+             learning_rate=0.1, loss='ls', max_depth=3, max_features=None,
+             max_leaf_nodes=None, mi...s=600, presort='auto', random_state=None,
+             subsample=1.0, verbose=0, warm_start=False))])
+^^^^^^^^^^^^^^^^^^^^
+Model Performance Indicators
+Model: Pipeline(memory=None,
+     steps=[('standardscaler', StandardScaler(copy=True, with_mean=True, with_std=True)), ('gradientboostingregressor', GradientBoostingRegressor(alpha=0.9, criterion='friedman_mse', init=None,
+             learning_rate=0.1, loss='ls', max_depth=3, max_features=None,
+             max_leaf_nodes=None, mi...s=600, presort='auto', random_state=None,
+             subsample=1.0, verbose=0, warm_start=False))])
+MAE: 14.376
+MAPE: 141.152
+Accuracy = -41.152%
+RMSE (test): 20.2175051637
+RMSE (train): 0.0913852983699
+Overfit
+                            OLS Regression Results
+==============================================================================
+Dep. Variable:            asthma_rate   R-squared:                       0.523
+Model:                            OLS   Adj. R-squared:                  0.456
+Method:                 Least Squares   F-statistic:                     7.783
+Date:                Mon, 09 Apr 2018   Prob (F-statistic):           1.15e-14
+Time:                        20:03:56   Log-Likelihood:                -704.72
+No. Observations:                 163   AIC:                             1451.
+Df Residuals:                     142   BIC:                             1516.
+Df Model:                          20
+Covariance Type:            nonrobust
+===================================================================================
+                      coef    std err          t      P>|t|      [0.025      0.975]
+-----------------------------------------------------------------------------------
+const              52.8810     13.341      3.964      0.000      26.508      79.254
+pm10_mean           0.7096      0.193      3.673      0.000       0.328       1.092
+pm25_mean           0.4762      0.906      0.525      0.600      -1.315       2.268
+pm25non_mean       -0.8383      0.519     -1.614      0.109      -1.865       0.188
+pm25spec_mean      -0.0238      0.018     -1.312      0.192      -0.060       0.012
+co_mean            34.8866     21.953      1.589      0.114      -8.510      78.284
+so2_mean            0.4973      5.529      0.090      0.928     -10.432      11.427
+no2_mean           -0.4810      2.357     -0.204      0.839      -5.140       4.178
+ozo_mean          -86.5897    119.261     -0.726      0.469    -322.346     149.166
+nonox_mean          0.3789      1.739      0.218      0.828      -3.058       3.816
+lead_mean        -260.3690    344.093     -0.757      0.450    -940.576     419.838
+haps_mean         -17.3970      7.534     -2.309      0.022     -32.291      -2.503
+vocs_mean           0.8342      0.319      2.612      0.010       0.203       1.465
+smoke_adult         0.8583      0.853      1.006      0.316      -0.828       2.545
+obese_adult        -1.4356      0.473     -3.038      0.003      -2.370      -0.501
+uninsured          -2.3704      0.492     -4.814      0.000      -3.344      -1.397
+pcp                -0.1187      0.064     -1.866      0.064      -0.245       0.007
+high_sch_grad      -0.1864      0.065     -2.875      0.005      -0.314      -0.058
+unemployment        3.8619      0.840      4.598      0.000       2.202       5.522
+income_ineq         5.4272      2.850      1.904      0.059      -0.208      11.062
+air_poll_partic     1.5807      1.316      1.201      0.232      -1.021       4.182
+==============================================================================
+Omnibus:                        2.344   Durbin-Watson:                   2.056
+Prob(Omnibus):                  0.310   Jarque-Bera (JB):                2.306
+Skew:                           0.287   Prob(JB):                        0.316
+Kurtosis:                       2.899   Cond. No.                     3.70e+04
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 3.7e+04. This might indicate that there are
+strong multicollinearity or other numerical problems.
+
+In [9]: run models.py
+Data file found, loading data...
+Check if any y_train zeros: Series([], Name: asthma_rate, dtype: float64)
+Check if any y_test zeros: Series([], Name: asthma_rate, dtype: float64)
+^[[A
+********************
+best params: {'gradientboostingregressor__learning_rate': 0.1, 'gradientboostingregressor__loss': 'ls', 'gradientboostingregressor__max_depth': 3, 'gradientboostingregressor__min_samples_split': 5, 'gradientboostingregressor__n_estimators': 100}
+best grid: Pipeline(memory=None,
+     steps=[('standardscaler', StandardScaler(copy=True, with_mean=True, with_std=True)), ('gradientboostingregressor', GradientBoostingRegressor(alpha=0.9, criterion='friedman_mse', init=None,
+             learning_rate=0.1, loss='ls', max_depth=3, max_features=None,
+             max_leaf_nodes=None, mi...s=100, presort='auto', random_state=None,
+             subsample=1.0, verbose=0, warm_start=False))])
+^^^^^^^^^^^^^^^^^^^^
+Model Performance Indicators
+Model: Pipeline(memory=None,
+     steps=[('standardscaler', StandardScaler(copy=True, with_mean=True, with_std=True)), ('gradientboostingregressor', GradientBoostingRegressor(alpha=0.9, criterion='friedman_mse', init=None,
+             learning_rate=0.1, loss='ls', max_depth=3, max_features=None,
+             max_leaf_nodes=None, mi...s=100, presort='auto', random_state=None,
+             subsample=1.0, verbose=0, warm_start=False))])
+MAE: 13.803
+MAPE: 131.444
+Accuracy = -31.444%
+RMSE (test): 20.1900649842
+RMSE (train): 3.31694247709
+Overfit
+                            OLS Regression Results
+==============================================================================
+Dep. Variable:            asthma_rate   R-squared:                       0.523
+Model:                            OLS   Adj. R-squared:                  0.456
+Method:                 Least Squares   F-statistic:                     7.783
+Date:                Mon, 09 Apr 2018   Prob (F-statistic):           1.15e-14
+Time:                        20:09:10   Log-Likelihood:                -704.72
+No. Observations:                 163   AIC:                             1451.
+Df Residuals:                     142   BIC:                             1516.
+Df Model:                          20
+Covariance Type:            nonrobust
+===================================================================================
+                      coef    std err          t      P>|t|      [0.025      0.975]
+-----------------------------------------------------------------------------------
+const              52.8810     13.341      3.964      0.000      26.508      79.254
+pm10_mean           0.7096      0.193      3.673      0.000       0.328       1.092
+pm25_mean           0.4762      0.906      0.525      0.600      -1.315       2.268
+pm25non_mean       -0.8383      0.519     -1.614      0.109      -1.865       0.188
+pm25spec_mean      -0.0238      0.018     -1.312      0.192      -0.060       0.012
+co_mean            34.8866     21.953      1.589      0.114      -8.510      78.284
+so2_mean            0.4973      5.529      0.090      0.928     -10.432      11.427
+no2_mean           -0.4810      2.357     -0.204      0.839      -5.140       4.178
+ozo_mean          -86.5897    119.261     -0.726      0.469    -322.346     149.166
+nonox_mean          0.3789      1.739      0.218      0.828      -3.058       3.816
+lead_mean        -260.3690    344.093     -0.757      0.450    -940.576     419.838
+haps_mean         -17.3970      7.534     -2.309      0.022     -32.291      -2.503
+vocs_mean           0.8342      0.319      2.612      0.010       0.203       1.465
+smoke_adult         0.8583      0.853      1.006      0.316      -0.828       2.545
+obese_adult        -1.4356      0.473     -3.038      0.003      -2.370      -0.501
+uninsured          -2.3704      0.492     -4.814      0.000      -3.344      -1.397
+pcp                -0.1187      0.064     -1.866      0.064      -0.245       0.007
+high_sch_grad      -0.1864      0.065     -2.875      0.005      -0.314      -0.058
+unemployment        3.8619      0.840      4.598      0.000       2.202       5.522
+income_ineq         5.4272      2.850      1.904      0.059      -0.208      11.062
+air_poll_partic     1.5807      1.316      1.201      0.232      -1.021       4.182
+==============================================================================
+Omnibus:                        2.344   Durbin-Watson:                   2.056
+Prob(Omnibus):                  0.310   Jarque-Bera (JB):                2.306
+Skew:                           0.287   Prob(JB):                        0.316
+Kurtosis:                       2.899   Cond. No.                     3.70e+04
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 3.7e+04. This might indicate that there are
+strong multicollinearity or other numerical problems.
+
+In [10]: run models.py
+Data file found, loading data...
+Check if any y_train zeros: Series([], Name: asthma_rate, dtype: float64)
+Check if any y_test zeros: Series([], Name: asthma_rate, dtype: float64)
+********************
+best params: {'svr__C': 50, 'svr__epsilon': 5, 'svr__kernel': 'rbf'}
+best grid: Pipeline(memory=None,
+     steps=[('standardscaler', StandardScaler(copy=True, with_mean=True, with_std=True)), ('svr', SVR(C=50, cache_size=200, coef0=0.0, degree=3, epsilon=5, gamma='auto',
+  kernel='rbf', max_iter=-1, shrinking=True, tol=0.001, verbose=False))])
+^^^^^^^^^^^^^^^^^^^^
+Model Performance Indicators
+Model: Pipeline(memory=None,
+     steps=[('standardscaler', StandardScaler(copy=True, with_mean=True, with_std=True)), ('svr', SVR(C=50, cache_size=200, coef0=0.0, degree=3, epsilon=5, gamma='auto',
+  kernel='rbf', max_iter=-1, shrinking=True, tol=0.001, verbose=False))])
+MAE: 14.226
+MAPE: 121.577
+Accuracy = -21.577%
+RMSE (test): 18.1443626755
+RMSE (train): 10.1611933543
+Overfit
+                            OLS Regression Results
+==============================================================================
+Dep. Variable:            asthma_rate   R-squared:                       0.523
+Model:                            OLS   Adj. R-squared:                  0.456
+Method:                 Least Squares   F-statistic:                     7.783
+Date:                Mon, 09 Apr 2018   Prob (F-statistic):           1.15e-14
+Time:                        20:09:30   Log-Likelihood:                -704.72
+No. Observations:                 163   AIC:                             1451.
+Df Residuals:                     142   BIC:                             1516.
+Df Model:                          20
+Covariance Type:            nonrobust
+===================================================================================
+                      coef    std err          t      P>|t|      [0.025      0.975]
+-----------------------------------------------------------------------------------
+const              52.8810     13.341      3.964      0.000      26.508      79.254
+pm10_mean           0.7096      0.193      3.673      0.000       0.328       1.092
+pm25_mean           0.4762      0.906      0.525      0.600      -1.315       2.268
+pm25non_mean       -0.8383      0.519     -1.614      0.109      -1.865       0.188
+pm25spec_mean      -0.0238      0.018     -1.312      0.192      -0.060       0.012
+co_mean            34.8866     21.953      1.589      0.114      -8.510      78.284
+so2_mean            0.4973      5.529      0.090      0.928     -10.432      11.427
+no2_mean           -0.4810      2.357     -0.204      0.839      -5.140       4.178
+ozo_mean          -86.5897    119.261     -0.726      0.469    -322.346     149.166
+nonox_mean          0.3789      1.739      0.218      0.828      -3.058       3.816
+lead_mean        -260.3690    344.093     -0.757      0.450    -940.576     419.838
+haps_mean         -17.3970      7.534     -2.309      0.022     -32.291      -2.503
+vocs_mean           0.8342      0.319      2.612      0.010       0.203       1.465
+smoke_adult         0.8583      0.853      1.006      0.316      -0.828       2.545
+obese_adult        -1.4356      0.473     -3.038      0.003      -2.370      -0.501
+uninsured          -2.3704      0.492     -4.814      0.000      -3.344      -1.397
+pcp                -0.1187      0.064     -1.866      0.064      -0.245       0.007
+high_sch_grad      -0.1864      0.065     -2.875      0.005      -0.314      -0.058
+unemployment        3.8619      0.840      4.598      0.000       2.202       5.522
+income_ineq         5.4272      2.850      1.904      0.059      -0.208      11.062
+air_poll_partic     1.5807      1.316      1.201      0.232      -1.021       4.182
+==============================================================================
+Omnibus:                        2.344   Durbin-Watson:                   2.056
+Prob(Omnibus):                  0.310   Jarque-Bera (JB):                2.306
+Skew:                           0.287   Prob(JB):                        0.316
+Kurtosis:                       2.899   Cond. No.                     3.70e+04
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 3.7e+04. This might indicate that there are
+strong multicollinearity or other numerical problems.
+
+In [11]: run models.py
+Data file found, loading data...
+Check if any y_train zeros: Series([], Name: asthma_rate, dtype: float64)
+Check if any y_test zeros: Series([], Name: asthma_rate, dtype: float64)
+********************
+best params: {'elasticnet__alpha': 1, 'elasticnet__l1_ratio': 0.9, 'elasticnet__max_iter': 10000}
+best grid: Pipeline(memory=None,
+     steps=[('standardscaler', StandardScaler(copy=True, with_mean=True, with_std=True)), ('elasticnet', ElasticNet(alpha=1, copy_X=True, fit_intercept=True, l1_ratio=0.9,
+      max_iter=10000, normalize=False, positive=False, precompute=False,
+      random_state=None, selection='cyclic', tol=0.0001, warm_start=False))])
+^^^^^^^^^^^^^^^^^^^^
+Model Performance Indicators
+Model: Pipeline(memory=None,
+     steps=[('standardscaler', StandardScaler(copy=True, with_mean=True, with_std=True)), ('elasticnet', ElasticNet(alpha=1, copy_X=True, fit_intercept=True, l1_ratio=0.9,
+      max_iter=10000, normalize=False, positive=False, precompute=False,
+      random_state=None, selection='cyclic', tol=0.0001, warm_start=False))])
+MAE: 17.773
+MAPE: 166.012
+Accuracy = -66.012%
+RMSE (test): 21.3832428556
+RMSE (train): 19.2407232728
+Overfit
+                            OLS Regression Results
+==============================================================================
+Dep. Variable:            asthma_rate   R-squared:                       0.523
+Model:                            OLS   Adj. R-squared:                  0.456
+Method:                 Least Squares   F-statistic:                     7.783
+Date:                Mon, 09 Apr 2018   Prob (F-statistic):           1.15e-14
+Time:                        20:10:27   Log-Likelihood:                -704.72
+No. Observations:                 163   AIC:                             1451.
+Df Residuals:                     142   BIC:                             1516.
+Df Model:                          20
+Covariance Type:            nonrobust
+===================================================================================
+                      coef    std err          t      P>|t|      [0.025      0.975]
+-----------------------------------------------------------------------------------
+const              52.8810     13.341      3.964      0.000      26.508      79.254
+pm10_mean           0.7096      0.193      3.673      0.000       0.328       1.092
+pm25_mean           0.4762      0.906      0.525      0.600      -1.315       2.268
+pm25non_mean       -0.8383      0.519     -1.614      0.109      -1.865       0.188
+pm25spec_mean      -0.0238      0.018     -1.312      0.192      -0.060       0.012
+co_mean            34.8866     21.953      1.589      0.114      -8.510      78.284
+so2_mean            0.4973      5.529      0.090      0.928     -10.432      11.427
+no2_mean           -0.4810      2.357     -0.204      0.839      -5.140       4.178
+ozo_mean          -86.5897    119.261     -0.726      0.469    -322.346     149.166
+nonox_mean          0.3789      1.739      0.218      0.828      -3.058       3.816
+lead_mean        -260.3690    344.093     -0.757      0.450    -940.576     419.838
+haps_mean         -17.3970      7.534     -2.309      0.022     -32.291      -2.503
+vocs_mean           0.8342      0.319      2.612      0.010       0.203       1.465
+smoke_adult         0.8583      0.853      1.006      0.316      -0.828       2.545
+obese_adult        -1.4356      0.473     -3.038      0.003      -2.370      -0.501
+uninsured          -2.3704      0.492     -4.814      0.000      -3.344      -1.397
+pcp                -0.1187      0.064     -1.866      0.064      -0.245       0.007
+high_sch_grad      -0.1864      0.065     -2.875      0.005      -0.314      -0.058
+unemployment        3.8619      0.840      4.598      0.000       2.202       5.522
+income_ineq         5.4272      2.850      1.904      0.059      -0.208      11.062
+air_poll_partic     1.5807      1.316      1.201      0.232      -1.021       4.182
+==============================================================================
+Omnibus:                        2.344   Durbin-Watson:                   2.056
+Prob(Omnibus):                  0.310   Jarque-Bera (JB):                2.306
+Skew:                           0.287   Prob(JB):                        0.316
+Kurtosis:                       2.899   Cond. No.                     3.70e+04
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 3.7e+04. This might indicate that there are
+strong multicollinearity or other numerical problems.
+
+In [12]: run models.py
+Data file found, loading data...
+Check if any y_train zeros: Series([], Name: asthma_rate, dtype: float64)
+Check if any y_test zeros: Series([], Name: asthma_rate, dtype: float64)
+********************
+best params: {'gradientboostingregressor__learning_rate': 0.1, 'gradientboostingregressor__loss': 'ls', 'gradientboostingregressor__max_depth': 3, 'gradientboostingregressor__min_samples_split': 10, 'gradientboostingregressor__n_estimators': 600}
+best grid: Pipeline(memory=None,
+     steps=[('standardscaler', StandardScaler(copy=True, with_mean=True, with_std=True)), ('gradientboostingregressor', GradientBoostingRegressor(alpha=0.9, criterion='friedman_mse', init=None,
+             learning_rate=0.1, loss='ls', max_depth=3, max_features=None,
+             max_leaf_nodes=None, mi...s=600, presort='auto', random_state=None,
+             subsample=1.0, verbose=0, warm_start=False))])
+^^^^^^^^^^^^^^^^^^^^
+Model Performance Indicators
+Model: Pipeline(memory=None,
+     steps=[('standardscaler', StandardScaler(copy=True, with_mean=True, with_std=True)), ('gradientboostingregressor', GradientBoostingRegressor(alpha=0.9, criterion='friedman_mse', init=None,
+             learning_rate=0.1, loss='ls', max_depth=3, max_features=None,
+             max_leaf_nodes=None, mi...s=600, presort='auto', random_state=None,
+             subsample=1.0, verbose=0, warm_start=False))])
+MAE: 14.310
+MAPE: 140.540
+Accuracy = -40.540%
+RMSE (test): 20.152859418
+RMSE (train): 0.0913852983699
+Overfit
+                            OLS Regression Results
+==============================================================================
+Dep. Variable:            asthma_rate   R-squared:                       0.523
+Model:                            OLS   Adj. R-squared:                  0.456
+Method:                 Least Squares   F-statistic:                     7.783
+Date:                Mon, 09 Apr 2018   Prob (F-statistic):           1.15e-14
+Time:                        20:14:46   Log-Likelihood:                -704.72
+No. Observations:                 163   AIC:                             1451.
+Df Residuals:                     142   BIC:                             1516.
+Df Model:                          20
+Covariance Type:            nonrobust
+===================================================================================
+                      coef    std err          t      P>|t|      [0.025      0.975]
+-----------------------------------------------------------------------------------
+const              52.8810     13.341      3.964      0.000      26.508      79.254
+pm10_mean           0.7096      0.193      3.673      0.000       0.328       1.092
+pm25_mean           0.4762      0.906      0.525      0.600      -1.315       2.268
+pm25non_mean       -0.8383      0.519     -1.614      0.109      -1.865       0.188
+pm25spec_mean      -0.0238      0.018     -1.312      0.192      -0.060       0.012
+co_mean            34.8866     21.953      1.589      0.114      -8.510      78.284
+so2_mean            0.4973      5.529      0.090      0.928     -10.432      11.427
+no2_mean           -0.4810      2.357     -0.204      0.839      -5.140       4.178
+ozo_mean          -86.5897    119.261     -0.726      0.469    -322.346     149.166
+nonox_mean          0.3789      1.739      0.218      0.828      -3.058       3.816
+lead_mean        -260.3690    344.093     -0.757      0.450    -940.576     419.838
+haps_mean         -17.3970      7.534     -2.309      0.022     -32.291      -2.503
+vocs_mean           0.8342      0.319      2.612      0.010       0.203       1.465
+smoke_adult         0.8583      0.853      1.006      0.316      -0.828       2.545
+obese_adult        -1.4356      0.473     -3.038      0.003      -2.370      -0.501
+uninsured          -2.3704      0.492     -4.814      0.000      -3.344      -1.397
+pcp                -0.1187      0.064     -1.866      0.064      -0.245       0.007
+high_sch_grad      -0.1864      0.065     -2.875      0.005      -0.314      -0.058
+unemployment        3.8619      0.840      4.598      0.000       2.202       5.522
+income_ineq         5.4272      2.850      1.904      0.059      -0.208      11.062
+air_poll_partic     1.5807      1.316      1.201      0.232      -1.021       4.182
+==============================================================================
+Omnibus:                        2.344   Durbin-Watson:                   2.056
+Prob(Omnibus):                  0.310   Jarque-Bera (JB):                2.306
+Skew:                           0.287   Prob(JB):                        0.316
+Kurtosis:                       2.899   Cond. No.                     3.70e+04
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 3.7e+04. This might indicate that there are
+strong multicollinearity or other numerical problems.
+
+In [13]: run models.py
+Data file found, loading data...
+Index(['pm10_mean', 'pm25_mean', 'pm25non_mean', 'pm25spec_mean', 'co_mean',
+       'so2_mean', 'no2_mean', 'ozo_mean', 'nonox_mean', 'lead_mean',
+       'haps_mean', 'vocs_mean', 'smoke_adult', 'obese_adult', 'uninsured',
+       'pcp', 'high_sch_grad', 'unemployment', 'income_ineq',
+       'air_poll_partic'],
+      dtype='object')
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+~/workspace/dsi/capstone/capstone_repo/src/models.py in <module>()
+    214     # data.to_csv(csv_file_path, index=False)
+    215
+--> 216     all_regress(data)
+
+~/workspace/dsi/capstone/capstone_repo/src/models.py in all_regress(data)
+     72     print(X.columns)
+     73     drop_columns = []
+---> 74     X = X.drop([drop_columns], axis=1)
+     75
+     76     # consider replacing nans with mean (previously tried)...
+
+~/anaconda3/lib/python3.6/site-packages/pandas/core/generic.py in drop(self, labels, axis, index, columns, level, inplace, errors)
+   2528         for axis, labels in axes.items():
+   2529             if labels is not None:
+-> 2530                 obj = obj._drop_axis(labels, axis, level=level, errors=errors)
+   2531
+   2532         if inplace:
+
+~/anaconda3/lib/python3.6/site-packages/pandas/core/generic.py in _drop_axis(self, labels, axis, level, errors)
+   2560                 new_axis = axis.drop(labels, level=level, errors=errors)
+   2561             else:
+-> 2562                 new_axis = axis.drop(labels, errors=errors)
+   2563             dropped = self.reindex(**{axis_name: new_axis})
+   2564             try:
+
+~/anaconda3/lib/python3.6/site-packages/pandas/core/indexes/base.py in drop(self, labels, errors)
+   3737         """
+   3738         labels = _index_labels_to_array(labels)
+-> 3739         indexer = self.get_indexer(labels)
+   3740         mask = indexer == -1
+   3741         if mask.any():
+
+~/anaconda3/lib/python3.6/site-packages/pandas/core/indexes/base.py in get_indexer(self, target, method, limit, tolerance)
+   2700                                  'backfill or nearest reindexing')
+   2701
+-> 2702             indexer = self._engine.get_indexer(target._values)
+   2703
+   2704         return _ensure_platform_int(indexer)
+
+pandas/_libs/index.pyx in pandas._libs.index.IndexEngine.get_indexer()
+
+pandas/_libs/hashtable_class_helper.pxi in pandas._libs.hashtable.PyObjectHashTable.lookup()
+
+TypeError: unhashable type: 'list'
+
+In [14]: run models.py
+Data file found, loading data...
+Index(['pm10_mean', 'pm25_mean', 'pm25non_mean', 'pm25spec_mean', 'co_mean',
+       'so2_mean', 'no2_mean', 'ozo_mean', 'nonox_mean', 'lead_mean',
+       'haps_mean', 'vocs_mean', 'smoke_adult', 'obese_adult', 'uninsured',
+       'pcp', 'high_sch_grad', 'unemployment', 'income_ineq',
+       'air_poll_partic'],
+      dtype='object')
+Check if any y_train zeros: Series([], Name: asthma_rate, dtype: float64)
+Check if any y_test zeros: Series([], Name: asthma_rate, dtype: float64)
+********************
+best params: {'elasticnet__alpha': 1, 'elasticnet__l1_ratio': 0.9, 'elasticnet__max_iter': 10000}
+best grid: Pipeline(memory=None,
+     steps=[('standardscaler', StandardScaler(copy=True, with_mean=True, with_std=True)), ('elasticnet', ElasticNet(alpha=1, copy_X=True, fit_intercept=True, l1_ratio=0.9,
+      max_iter=10000, normalize=False, positive=False, precompute=False,
+      random_state=None, selection='cyclic', tol=0.0001, warm_start=False))])
+^^^^^^^^^^^^^^^^^^^^
+Model Performance Indicators
+Model: Pipeline(memory=None,
+     steps=[('standardscaler', StandardScaler(copy=True, with_mean=True, with_std=True)), ('elasticnet', ElasticNet(alpha=1, copy_X=True, fit_intercept=True, l1_ratio=0.9,
+      max_iter=10000, normalize=False, positive=False, precompute=False,
+      random_state=None, selection='cyclic', tol=0.0001, warm_start=False))])
+MAE: 17.773
+MAPE: 166.012
+Accuracy = -66.012%
+RMSE (test): 21.3832428556
+RMSE (train): 19.2407232728
+Overfit
+                            OLS Regression Results
+==============================================================================
+Dep. Variable:            asthma_rate   R-squared:                       0.523
+Model:                            OLS   Adj. R-squared:                  0.456
+Method:                 Least Squares   F-statistic:                     7.783
+Date:                Mon, 09 Apr 2018   Prob (F-statistic):           1.15e-14
+Time:                        20:20:19   Log-Likelihood:                -704.72
+No. Observations:                 163   AIC:                             1451.
+Df Residuals:                     142   BIC:                             1516.
+Df Model:                          20
+Covariance Type:            nonrobust
+===================================================================================
+                      coef    std err          t      P>|t|      [0.025      0.975]
+-----------------------------------------------------------------------------------
+const              52.8810     13.341      3.964      0.000      26.508      79.254
+pm10_mean           0.7096      0.193      3.673      0.000       0.328       1.092
+pm25_mean           0.4762      0.906      0.525      0.600      -1.315       2.268
+pm25non_mean       -0.8383      0.519     -1.614      0.109      -1.865       0.188
+pm25spec_mean      -0.0238      0.018     -1.312      0.192      -0.060       0.012
+co_mean            34.8866     21.953      1.589      0.114      -8.510      78.284
+so2_mean            0.4973      5.529      0.090      0.928     -10.432      11.427
+no2_mean           -0.4810      2.357     -0.204      0.839      -5.140       4.178
+ozo_mean          -86.5897    119.261     -0.726      0.469    -322.346     149.166
+nonox_mean          0.3789      1.739      0.218      0.828      -3.058       3.816
+lead_mean        -260.3690    344.093     -0.757      0.450    -940.576     419.838
+haps_mean         -17.3970      7.534     -2.309      0.022     -32.291      -2.503
+vocs_mean           0.8342      0.319      2.612      0.010       0.203       1.465
+smoke_adult         0.8583      0.853      1.006      0.316      -0.828       2.545
+obese_adult        -1.4356      0.473     -3.038      0.003      -2.370      -0.501
+uninsured          -2.3704      0.492     -4.814      0.000      -3.344      -1.397
+pcp                -0.1187      0.064     -1.866      0.064      -0.245       0.007
+high_sch_grad      -0.1864      0.065     -2.875      0.005      -0.314      -0.058
+unemployment        3.8619      0.840      4.598      0.000       2.202       5.522
+income_ineq         5.4272      2.850      1.904      0.059      -0.208      11.062
+air_poll_partic     1.5807      1.316      1.201      0.232      -1.021       4.182
+==============================================================================
+Omnibus:                        2.344   Durbin-Watson:                   2.056
+Prob(Omnibus):                  0.310   Jarque-Bera (JB):                2.306
+Skew:                           0.287   Prob(JB):                        0.316
+Kurtosis:                       2.899   Cond. No.                     3.70e+04
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 3.7e+04. This might indicate that there are
+strong multicollinearity or other numerical problems.
+
+In [15]: run models.py
+Data file found, loading data...
+Index(['pm10_mean', 'pm25_mean', 'pm25non_mean', 'pm25spec_mean', 'co_mean',
+       'so2_mean', 'no2_mean', 'ozo_mean', 'nonox_mean', 'lead_mean',
+       'haps_mean', 'vocs_mean', 'smoke_adult', 'obese_adult', 'uninsured',
+       'pcp', 'high_sch_grad', 'unemployment', 'income_ineq',
+       'air_poll_partic'],
+      dtype='object')
+Check if any y_train zeros: Series([], Name: asthma_rate, dtype: float64)
+Check if any y_test zeros: Series([], Name: asthma_rate, dtype: float64)
+********************
+best params: {'elasticnet__alpha': 1, 'elasticnet__l1_ratio': 1, 'elasticnet__max_iter': 10000}
+best grid: Pipeline(memory=None,
+     steps=[('standardscaler', StandardScaler(copy=True, with_mean=True, with_std=True)), ('elasticnet', ElasticNet(alpha=1, copy_X=True, fit_intercept=True, l1_ratio=1,
+      max_iter=10000, normalize=False, positive=False, precompute=False,
+      random_state=None, selection='cyclic', tol=0.0001, warm_start=False))])
+^^^^^^^^^^^^^^^^^^^^
+Model Performance Indicators
+Model: Pipeline(memory=None,
+     steps=[('standardscaler', StandardScaler(copy=True, with_mean=True, with_std=True)), ('elasticnet', ElasticNet(alpha=1, copy_X=True, fit_intercept=True, l1_ratio=1,
+      max_iter=10000, normalize=False, positive=False, precompute=False,
+      random_state=None, selection='cyclic', tol=0.0001, warm_start=False))])
+MAE: 18.654
+MAPE: 184.598
+Accuracy = -84.598%
+RMSE (test): 22.6973288792
+RMSE (train): 21.1162359912
+Overfit
+                            OLS Regression Results
+==============================================================================
+Dep. Variable:            asthma_rate   R-squared:                       0.384
+Model:                            OLS   Adj. R-squared:                  0.352
+Method:                 Least Squares   F-statistic:                     11.98
+Date:                Mon, 09 Apr 2018   Prob (F-statistic):           3.23e-13
+Time:                        20:21:09   Log-Likelihood:                -725.59
+No. Observations:                 163   AIC:                             1469.
+Df Residuals:                     154   BIC:                             1497.
+Df Model:                           8
+Covariance Type:            nonrobust
+===================================================================================
+                      coef    std err          t      P>|t|      [0.025      0.975]
+-----------------------------------------------------------------------------------
+const              62.7076     13.815      4.539      0.000      35.417      89.998
+smoke_adult         0.8784      0.885      0.992      0.323      -0.870       2.627
+obese_adult        -1.8593      0.480     -3.877      0.000      -2.807      -0.912
+uninsured          -2.4495      0.494     -4.958      0.000      -3.426      -1.473
+pcp                -0.1133      0.065     -1.730      0.086      -0.243       0.016
+high_sch_grad      -0.1849      0.067     -2.747      0.007      -0.318      -0.052
+unemployment        4.5180      0.826      5.471      0.000       2.887       6.150
+income_ineq         4.4192      2.927      1.510      0.133      -1.364      10.202
+air_poll_partic     2.1699      1.077      2.015      0.046       0.043       4.297
+==============================================================================
+Omnibus:                        1.174   Durbin-Watson:                   2.166
+Prob(Omnibus):                  0.556   Jarque-Bera (JB):                1.239
+Skew:                           0.139   Prob(JB):                        0.538
+Kurtosis:                       2.677   Cond. No.                         879.
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+
+In [16]: run models.py
+---------------------------------------------------------------------------
+TypeError                                 Traceback (most recent call last)
+~/workspace/dsi/capstone/capstone_repo/src/models.py in <module>()
+    215     #     data.to_csv(csv_file_path, index=False)
+    216     from data import join_data as data
+--> 217     data = data()
+    218     data.to_csv(csv_file_path, index=False)
+    219
+
+~/workspace/dsi/capstone/capstone_repo/src/data.py in join_data()
+    210     list_of_each_states_data = []
+    211     for state in choose_states():
+--> 212         list_of_each_states_data.append(get_each_state_data(state))
+    213     df = pd.concat(list_of_each_states_data)
+    214     df = df.reset_index()
+
+~/workspace/dsi/capstone/capstone_repo/src/data.py in get_each_state_data(state)
+    197     # socio-economic data for this state
+    198     data = all_socio_econ_data()
+--> 199     state_socio_econ_data = data[data['state'] == state.lower()]
+    200
+    201     # asthma-pollutant data for this state
+
+TypeError: tuple indices must be integers or slices, not str
+
+In [17]: run models.py
+Data file found, loading data...
+Index(['pm10_mean', 'pm25_mean', 'pm25non_mean', 'pm25spec_mean', 'co_mean',
+       'so2_mean', 'no2_mean', 'ozo_mean', 'nonox_mean', 'lead_mean',
+       'haps_mean', 'vocs_mean', 'smoke_adult', 'obese_adult', 'uninsured',
+       'pcp', 'high_sch_grad', 'unemployment', 'income_ineq',
+       'air_poll_partic'],
+      dtype='object')
+Check if any y_train zeros: Series([], Name: asthma_rate, dtype: float64)
+Check if any y_test zeros: Series([], Name: asthma_rate, dtype: float64)
+********************
+best params: {'elasticnet__alpha': 1, 'elasticnet__l1_ratio': 0.9, 'elasticnet__max_iter': 10000}
+best grid: Pipeline(memory=None,
+     steps=[('standardscaler', StandardScaler(copy=True, with_mean=True, with_std=True)), ('elasticnet', ElasticNet(alpha=1, copy_X=True, fit_intercept=True, l1_ratio=0.9,
+      max_iter=10000, normalize=False, positive=False, precompute=False,
+      random_state=None, selection='cyclic', tol=0.0001, warm_start=False))])
+^^^^^^^^^^^^^^^^^^^^
+Model Performance Indicators
+Model: Pipeline(memory=None,
+     steps=[('standardscaler', StandardScaler(copy=True, with_mean=True, with_std=True)), ('elasticnet', ElasticNet(alpha=1, copy_X=True, fit_intercept=True, l1_ratio=0.9,
+      max_iter=10000, normalize=False, positive=False, precompute=False,
+      random_state=None, selection='cyclic', tol=0.0001, warm_start=False))])
+MAE: 17.773
+MAPE: 166.012
+Accuracy = -66.012%
+RMSE (test): 21.3832428556
+RMSE (train): 19.2407232728
+Overfit
+                            OLS Regression Results
+==============================================================================
+Dep. Variable:            asthma_rate   R-squared:                       0.523
+Model:                            OLS   Adj. R-squared:                  0.456
+Method:                 Least Squares   F-statistic:                     7.783
+Date:                Mon, 09 Apr 2018   Prob (F-statistic):           1.15e-14
+Time:                        20:23:24   Log-Likelihood:                -704.72
+No. Observations:                 163   AIC:                             1451.
+Df Residuals:                     142   BIC:                             1516.
+Df Model:                          20
+Covariance Type:            nonrobust
+===================================================================================
+                      coef    std err          t      P>|t|      [0.025      0.975]
+-----------------------------------------------------------------------------------
+const              52.8810     13.341      3.964      0.000      26.508      79.254
+pm10_mean           0.7096      0.193      3.673      0.000       0.328       1.092
+pm25_mean           0.4762      0.906      0.525      0.600      -1.315       2.268
+pm25non_mean       -0.8383      0.519     -1.614      0.109      -1.865       0.188
+pm25spec_mean      -0.0238      0.018     -1.312      0.192      -0.060       0.012
+co_mean            34.8866     21.953      1.589      0.114      -8.510      78.284
+so2_mean            0.4973      5.529      0.090      0.928     -10.432      11.427
+no2_mean           -0.4810      2.357     -0.204      0.839      -5.140       4.178
+ozo_mean          -86.5897    119.261     -0.726      0.469    -322.346     149.166
+nonox_mean          0.3789      1.739      0.218      0.828      -3.058       3.816
+lead_mean        -260.3690    344.093     -0.757      0.450    -940.576     419.838
+haps_mean         -17.3970      7.534     -2.309      0.022     -32.291      -2.503
+vocs_mean           0.8342      0.319      2.612      0.010       0.203       1.465
+smoke_adult         0.8583      0.853      1.006      0.316      -0.828       2.545
+obese_adult        -1.4356      0.473     -3.038      0.003      -2.370      -0.501
+uninsured          -2.3704      0.492     -4.814      0.000      -3.344      -1.397
+pcp                -0.1187      0.064     -1.866      0.064      -0.245       0.007
+high_sch_grad      -0.1864      0.065     -2.875      0.005      -0.314      -0.058
+unemployment        3.8619      0.840      4.598      0.000       2.202       5.522
+income_ineq         5.4272      2.850      1.904      0.059      -0.208      11.062
+air_poll_partic     1.5807      1.316      1.201      0.232      -1.021       4.182
+==============================================================================
+Omnibus:                        2.344   Durbin-Watson:                   2.056
+Prob(Omnibus):                  0.310   Jarque-Bera (JB):                2.306
+Skew:                           0.287   Prob(JB):                        0.316
+Kurtosis:                       2.899   Cond. No.                     3.70e+04
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 3.7e+04. This might indicate that there are
+strong multicollinearity or other numerical problems.
+
+In [18]: run models.py
+Data file found, loading data...
+Index(['pm10_mean', 'pm25_mean', 'pm25non_mean', 'pm25spec_mean', 'co_mean',
+       'so2_mean', 'no2_mean', 'ozo_mean', 'nonox_mean', 'lead_mean',
+       'haps_mean', 'vocs_mean', 'smoke_adult', 'obese_adult', 'uninsured',
+       'pcp', 'high_sch_grad', 'unemployment', 'income_ineq',
+       'air_poll_partic'],
+      dtype='object')
+Check if any y_train zeros: Series([], Name: asthma_rate, dtype: float64)
+Check if any y_test zeros: Series([], Name: asthma_rate, dtype: float64)
+********************
+best params: {'kneighborsregressor__n_neighbors': 4, 'kneighborsregressor__weights': 'distance'}
+best grid: Pipeline(memory=None,
+     steps=[('standardscaler', StandardScaler(copy=True, with_mean=True, with_std=True)), ('kneighborsregressor', KNeighborsRegressor(algorithm='auto', leaf_size=30, metric='minkowski',
+          metric_params=None, n_jobs=1, n_neighbors=4, p=2,
+          weights='distance'))])
+^^^^^^^^^^^^^^^^^^^^
+Model Performance Indicators
+Model: Pipeline(memory=None,
+     steps=[('standardscaler', StandardScaler(copy=True, with_mean=True, with_std=True)), ('kneighborsregressor', KNeighborsRegressor(algorithm='auto', leaf_size=30, metric='minkowski',
+          metric_params=None, n_jobs=1, n_neighbors=4, p=2,
+          weights='distance'))])
+MAE: 13.605
+MAPE: 126.326
+Accuracy = -26.326%
+RMSE (test): 19.2672586787
+RMSE (train): 0.0
+Overfit
+                            OLS Regression Results
+==============================================================================
+Dep. Variable:            asthma_rate   R-squared:                       0.523
+Model:                            OLS   Adj. R-squared:                  0.456
+Method:                 Least Squares   F-statistic:                     7.783
+Date:                Mon, 09 Apr 2018   Prob (F-statistic):           1.15e-14
+Time:                        22:54:21   Log-Likelihood:                -704.72
+No. Observations:                 163   AIC:                             1451.
+Df Residuals:                     142   BIC:                             1516.
+Df Model:                          20
+Covariance Type:            nonrobust
+===================================================================================
+                      coef    std err          t      P>|t|      [0.025      0.975]
+-----------------------------------------------------------------------------------
+const              52.8810     13.341      3.964      0.000      26.508      79.254
+pm10_mean           0.7096      0.193      3.673      0.000       0.328       1.092
+pm25_mean           0.4762      0.906      0.525      0.600      -1.315       2.268
+pm25non_mean       -0.8383      0.519     -1.614      0.109      -1.865       0.188
+pm25spec_mean      -0.0238      0.018     -1.312      0.192      -0.060       0.012
+co_mean            34.8866     21.953      1.589      0.114      -8.510      78.284
+so2_mean            0.4973      5.529      0.090      0.928     -10.432      11.427
+no2_mean           -0.4810      2.357     -0.204      0.839      -5.140       4.178
+ozo_mean          -86.5897    119.261     -0.726      0.469    -322.346     149.166
+nonox_mean          0.3789      1.739      0.218      0.828      -3.058       3.816
+lead_mean        -260.3690    344.093     -0.757      0.450    -940.576     419.838
+haps_mean         -17.3970      7.534     -2.309      0.022     -32.291      -2.503
+vocs_mean           0.8342      0.319      2.612      0.010       0.203       1.465
+smoke_adult         0.8583      0.853      1.006      0.316      -0.828       2.545
+obese_adult        -1.4356      0.473     -3.038      0.003      -2.370      -0.501
+uninsured          -2.3704      0.492     -4.814      0.000      -3.344      -1.397
+pcp                -0.1187      0.064     -1.866      0.064      -0.245       0.007
+high_sch_grad      -0.1864      0.065     -2.875      0.005      -0.314      -0.058
+unemployment        3.8619      0.840      4.598      0.000       2.202       5.522
+income_ineq         5.4272      2.850      1.904      0.059      -0.208      11.062
+air_poll_partic     1.5807      1.316      1.201      0.232      -1.021       4.182
+==============================================================================
+Omnibus:                        2.344   Durbin-Watson:                   2.056
+Prob(Omnibus):                  0.310   Jarque-Bera (JB):                2.306
+Skew:                           0.287   Prob(JB):                        0.316
+Kurtosis:                       2.899   Cond. No.                     3.70e+04
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 3.7e+04. This might indicate that there are
+strong multicollinearity or other numerical problems.
+
+In [19]: run models.py
+Data file found, loading data...
+Index(['pm10_mean', 'pm25_mean', 'pm25non_mean', 'pm25spec_mean', 'co_mean',
+       'so2_mean', 'no2_mean', 'ozo_mean', 'nonox_mean', 'lead_mean',
+       'haps_mean', 'vocs_mean', 'smoke_adult', 'obese_adult', 'uninsured',
+       'pcp', 'high_sch_grad', 'unemployment', 'income_ineq',
+       'air_poll_partic'],
+      dtype='object')
+Check if any y_train zeros: Series([], Name: asthma_rate, dtype: float64)
+Check if any y_test zeros: Series([], Name: asthma_rate, dtype: float64)
+********************
+best params: {}
+best grid: Pipeline(memory=None,
+     steps=[('standardscaler', StandardScaler(copy=True, with_mean=True, with_std=True)), ('linearregression', LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=False))])
+^^^^^^^^^^^^^^^^^^^^
+Model Performance Indicators
+Model: Pipeline(memory=None,
+     steps=[('standardscaler', StandardScaler(copy=True, with_mean=True, with_std=True)), ('linearregression', LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=False))])
+MAE: 17.610
+MAPE: 148.307
+Accuracy = -48.307%
+RMSE (test): 22.3667600731
+RMSE (train): 18.2558759049
+Overfit
+                            OLS Regression Results
+==============================================================================
+Dep. Variable:            asthma_rate   R-squared:                       0.523
+Model:                            OLS   Adj. R-squared:                  0.456
+Method:                 Least Squares   F-statistic:                     7.783
+Date:                Mon, 09 Apr 2018   Prob (F-statistic):           1.15e-14
+Time:                        22:54:45   Log-Likelihood:                -704.72
+No. Observations:                 163   AIC:                             1451.
+Df Residuals:                     142   BIC:                             1516.
+Df Model:                          20
+Covariance Type:            nonrobust
+===================================================================================
+                      coef    std err          t      P>|t|      [0.025      0.975]
+-----------------------------------------------------------------------------------
+const              52.8810     13.341      3.964      0.000      26.508      79.254
+pm10_mean           0.7096      0.193      3.673      0.000       0.328       1.092
+pm25_mean           0.4762      0.906      0.525      0.600      -1.315       2.268
+pm25non_mean       -0.8383      0.519     -1.614      0.109      -1.865       0.188
+pm25spec_mean      -0.0238      0.018     -1.312      0.192      -0.060       0.012
+co_mean            34.8866     21.953      1.589      0.114      -8.510      78.284
+so2_mean            0.4973      5.529      0.090      0.928     -10.432      11.427
+no2_mean           -0.4810      2.357     -0.204      0.839      -5.140       4.178
+ozo_mean          -86.5897    119.261     -0.726      0.469    -322.346     149.166
+nonox_mean          0.3789      1.739      0.218      0.828      -3.058       3.816
+lead_mean        -260.3690    344.093     -0.757      0.450    -940.576     419.838
+haps_mean         -17.3970      7.534     -2.309      0.022     -32.291      -2.503
+vocs_mean           0.8342      0.319      2.612      0.010       0.203       1.465
+smoke_adult         0.8583      0.853      1.006      0.316      -0.828       2.545
+obese_adult        -1.4356      0.473     -3.038      0.003      -2.370      -0.501
+uninsured          -2.3704      0.492     -4.814      0.000      -3.344      -1.397
+pcp                -0.1187      0.064     -1.866      0.064      -0.245       0.007
+high_sch_grad      -0.1864      0.065     -2.875      0.005      -0.314      -0.058
+unemployment        3.8619      0.840      4.598      0.000       2.202       5.522
+income_ineq         5.4272      2.850      1.904      0.059      -0.208      11.062
+air_poll_partic     1.5807      1.316      1.201      0.232      -1.021       4.182
+==============================================================================
+Omnibus:                        2.344   Durbin-Watson:                   2.056
+Prob(Omnibus):                  0.310   Jarque-Bera (JB):                2.306
+Skew:                           0.287   Prob(JB):                        0.316
+Kurtosis:                       2.899   Cond. No.                     3.70e+04
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 3.7e+04. This might indicate that there are
+strong multicollinearity or other numerical problems.
+
+In [20]: run models.py
+Data file found, loading data...
+Index(['pm10_mean', 'pm25_mean', 'pm25non_mean', 'pm25spec_mean', 'co_mean',
+       'so2_mean', 'no2_mean', 'ozo_mean', 'nonox_mean', 'lead_mean',
+       'haps_mean', 'vocs_mean', 'smoke_adult', 'obese_adult', 'uninsured',
+       'pcp', 'high_sch_grad', 'unemployment', 'income_ineq',
+       'air_poll_partic'],
+      dtype='object')
+Check if any y_train zeros: Series([], Name: asthma_rate, dtype: float64)
+Check if any y_test zeros: Series([], Name: asthma_rate, dtype: float64)
+********************
+best params: {}
+best grid: Pipeline(memory=None,
+     steps=[('standardscaler', StandardScaler(copy=True, with_mean=True, with_std=True)), ('linearregression', LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=False))])
+score:  0.227338593814
+^^^^^^^^^^^^^^^^^^^^
+Model Performance Indicators
+Model: Pipeline(memory=None,
+     steps=[('standardscaler', StandardScaler(copy=True, with_mean=True, with_std=True)), ('linearregression', LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=False))])
+MAE: 17.610
+MAPE: 148.307
+Accuracy = -48.307%
+RMSE (test): 22.3667600731
+RMSE (train): 18.2558759049
+Overfit
+                            OLS Regression Results
+==============================================================================
+Dep. Variable:            asthma_rate   R-squared:                       0.523
+Model:                            OLS   Adj. R-squared:                  0.456
+Method:                 Least Squares   F-statistic:                     7.783
+Date:                Mon, 09 Apr 2018   Prob (F-statistic):           1.15e-14
+Time:                        23:00:10   Log-Likelihood:                -704.72
+No. Observations:                 163   AIC:                             1451.
+Df Residuals:                     142   BIC:                             1516.
+Df Model:                          20
+Covariance Type:            nonrobust
+===================================================================================
+                      coef    std err          t      P>|t|      [0.025      0.975]
+-----------------------------------------------------------------------------------
+const              52.8810     13.341      3.964      0.000      26.508      79.254
+pm10_mean           0.7096      0.193      3.673      0.000       0.328       1.092
+pm25_mean           0.4762      0.906      0.525      0.600      -1.315       2.268
+pm25non_mean       -0.8383      0.519     -1.614      0.109      -1.865       0.188
+pm25spec_mean      -0.0238      0.018     -1.312      0.192      -0.060       0.012
+co_mean            34.8866     21.953      1.589      0.114      -8.510      78.284
+so2_mean            0.4973      5.529      0.090      0.928     -10.432      11.427
+no2_mean           -0.4810      2.357     -0.204      0.839      -5.140       4.178
+ozo_mean          -86.5897    119.261     -0.726      0.469    -322.346     149.166
+nonox_mean          0.3789      1.739      0.218      0.828      -3.058       3.816
+lead_mean        -260.3690    344.093     -0.757      0.450    -940.576     419.838
+haps_mean         -17.3970      7.534     -2.309      0.022     -32.291      -2.503
+vocs_mean           0.8342      0.319      2.612      0.010       0.203       1.465
+smoke_adult         0.8583      0.853      1.006      0.316      -0.828       2.545
+obese_adult        -1.4356      0.473     -3.038      0.003      -2.370      -0.501
+uninsured          -2.3704      0.492     -4.814      0.000      -3.344      -1.397
+pcp                -0.1187      0.064     -1.866      0.064      -0.245       0.007
+high_sch_grad      -0.1864      0.065     -2.875      0.005      -0.314      -0.058
+unemployment        3.8619      0.840      4.598      0.000       2.202       5.522
+income_ineq         5.4272      2.850      1.904      0.059      -0.208      11.062
+air_poll_partic     1.5807      1.316      1.201      0.232      -1.021       4.182
+==============================================================================
+Omnibus:                        2.344   Durbin-Watson:                   2.056
+Prob(Omnibus):                  0.310   Jarque-Bera (JB):                2.306
+Skew:                           0.287   Prob(JB):                        0.316
+Kurtosis:                       2.899   Cond. No.                     3.70e+04
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 3.7e+04. This might indicate that there are
+strong multicollinearity or other numerical problems.
+
+In [21]: run models.py
+Data file found, loading data...
+Index(['pm10_mean', 'pm25_mean', 'pm25non_mean', 'pm25spec_mean', 'co_mean',
+       'so2_mean', 'no2_mean', 'ozo_mean', 'nonox_mean', 'lead_mean',
+       'haps_mean', 'vocs_mean', 'smoke_adult', 'obese_adult', 'uninsured',
+       'pcp', 'high_sch_grad', 'unemployment', 'income_ineq',
+       'air_poll_partic'],
+      dtype='object')
+Check if any y_train zeros: Series([], Name: asthma_rate, dtype: float64)
+Check if any y_test zeros: Series([], Name: asthma_rate, dtype: float64)
+********************
+best params: {}
+best grid: Pipeline(memory=None,
+     steps=[('standardscaler', StandardScaler(copy=True, with_mean=True, with_std=True)), ('linearregression', LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=False))])
+X_test-y_test Score:  0.227338593814
+^^^^^^^^^^^^^^^^^^^^
+Model Performance Indicators
+Model: Pipeline(memory=None,
+     steps=[('standardscaler', StandardScaler(copy=True, with_mean=True, with_std=True)), ('linearregression', LinearRegression(copy_X=True, fit_intercept=True, n_jobs=1, normalize=False))])
+MAE: 17.610
+MAPE: 148.307
+Accuracy = -48.307%
+RMSE (test): 22.3667600731
+RMSE (train): 18.2558759049
+Overfit
+                            OLS Regression Results
+==============================================================================
+Dep. Variable:            asthma_rate   R-squared:                       0.523
+Model:                            OLS   Adj. R-squared:                  0.456
+Method:                 Least Squares   F-statistic:                     7.783
+Date:                Mon, 09 Apr 2018   Prob (F-statistic):           1.15e-14
+Time:                        23:00:36   Log-Likelihood:                -704.72
+No. Observations:                 163   AIC:                             1451.
+Df Residuals:                     142   BIC:                             1516.
+Df Model:                          20
+Covariance Type:            nonrobust
+===================================================================================
+                      coef    std err          t      P>|t|      [0.025      0.975]
+-----------------------------------------------------------------------------------
+const              52.8810     13.341      3.964      0.000      26.508      79.254
+pm10_mean           0.7096      0.193      3.673      0.000       0.328       1.092
+pm25_mean           0.4762      0.906      0.525      0.600      -1.315       2.268
+pm25non_mean       -0.8383      0.519     -1.614      0.109      -1.865       0.188
+pm25spec_mean      -0.0238      0.018     -1.312      0.192      -0.060       0.012
+co_mean            34.8866     21.953      1.589      0.114      -8.510      78.284
+so2_mean            0.4973      5.529      0.090      0.928     -10.432      11.427
+no2_mean           -0.4810      2.357     -0.204      0.839      -5.140       4.178
+ozo_mean          -86.5897    119.261     -0.726      0.469    -322.346     149.166
+nonox_mean          0.3789      1.739      0.218      0.828      -3.058       3.816
+lead_mean        -260.3690    344.093     -0.757      0.450    -940.576     419.838
+haps_mean         -17.3970      7.534     -2.309      0.022     -32.291      -2.503
+vocs_mean           0.8342      0.319      2.612      0.010       0.203       1.465
+smoke_adult         0.8583      0.853      1.006      0.316      -0.828       2.545
+obese_adult        -1.4356      0.473     -3.038      0.003      -2.370      -0.501
+uninsured          -2.3704      0.492     -4.814      0.000      -3.344      -1.397
+pcp                -0.1187      0.064     -1.866      0.064      -0.245       0.007
+high_sch_grad      -0.1864      0.065     -2.875      0.005      -0.314      -0.058
+unemployment        3.8619      0.840      4.598      0.000       2.202       5.522
+income_ineq         5.4272      2.850      1.904      0.059      -0.208      11.062
+air_poll_partic     1.5807      1.316      1.201      0.232      -1.021       4.182
+==============================================================================
+Omnibus:                        2.344   Durbin-Watson:                   2.056
+Prob(Omnibus):                  0.310   Jarque-Bera (JB):                2.306
+Skew:                           0.287   Prob(JB):                        0.316
+Kurtosis:                       2.899   Cond. No.                     3.70e+04
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 3.7e+04. This might indicate that there are
+strong multicollinearity or other numerical problems.
+
+In [22]: run models.py
+Data file found, loading data...
+Index(['pm10_mean', 'pm25_mean', 'pm25non_mean', 'pm25spec_mean', 'co_mean',
+       'so2_mean', 'no2_mean', 'ozo_mean', 'nonox_mean', 'lead_mean',
+       'haps_mean', 'vocs_mean', 'smoke_adult', 'obese_adult', 'uninsured',
+       'pcp', 'high_sch_grad', 'unemployment', 'income_ineq',
+       'air_poll_partic'],
+      dtype='object')
+Check if any y_train zeros: Series([], Name: asthma_rate, dtype: float64)
+Check if any y_test zeros: Series([], Name: asthma_rate, dtype: float64)
+********************
+best params: {'elasticnet__alpha': 1, 'elasticnet__l1_ratio': 0.9, 'elasticnet__max_iter': 10000}
+best grid: Pipeline(memory=None,
+     steps=[('standardscaler', StandardScaler(copy=True, with_mean=True, with_std=True)), ('elasticnet', ElasticNet(alpha=1, copy_X=True, fit_intercept=True, l1_ratio=0.9,
+      max_iter=10000, normalize=False, positive=False, precompute=False,
+      random_state=None, selection='cyclic', tol=0.0001, warm_start=False))])
+X_test-y_test Score:  0.293795958459
+^^^^^^^^^^^^^^^^^^^^
+Model Performance Indicators
+Model: Pipeline(memory=None,
+     steps=[('standardscaler', StandardScaler(copy=True, with_mean=True, with_std=True)), ('elasticnet', ElasticNet(alpha=1, copy_X=True, fit_intercept=True, l1_ratio=0.9,
+      max_iter=10000, normalize=False, positive=False, precompute=False,
+      random_state=None, selection='cyclic', tol=0.0001, warm_start=False))])
+MAE: 17.773
+MAPE: 166.012
+Accuracy = -66.012%
+RMSE (test): 21.3832428556
+RMSE (train): 19.2407232728
+Overfit
+                            OLS Regression Results
+==============================================================================
+Dep. Variable:            asthma_rate   R-squared:                       0.523
+Model:                            OLS   Adj. R-squared:                  0.456
+Method:                 Least Squares   F-statistic:                     7.783
+Date:                Mon, 09 Apr 2018   Prob (F-statistic):           1.15e-14
+Time:                        23:00:50   Log-Likelihood:                -704.72
+No. Observations:                 163   AIC:                             1451.
+Df Residuals:                     142   BIC:                             1516.
+Df Model:                          20
+Covariance Type:            nonrobust
+===================================================================================
+                      coef    std err          t      P>|t|      [0.025      0.975]
+-----------------------------------------------------------------------------------
+const              52.8810     13.341      3.964      0.000      26.508      79.254
+pm10_mean           0.7096      0.193      3.673      0.000       0.328       1.092
+pm25_mean           0.4762      0.906      0.525      0.600      -1.315       2.268
+pm25non_mean       -0.8383      0.519     -1.614      0.109      -1.865       0.188
+pm25spec_mean      -0.0238      0.018     -1.312      0.192      -0.060       0.012
+co_mean            34.8866     21.953      1.589      0.114      -8.510      78.284
+so2_mean            0.4973      5.529      0.090      0.928     -10.432      11.427
+no2_mean           -0.4810      2.357     -0.204      0.839      -5.140       4.178
+ozo_mean          -86.5897    119.261     -0.726      0.469    -322.346     149.166
+nonox_mean          0.3789      1.739      0.218      0.828      -3.058       3.816
+lead_mean        -260.3690    344.093     -0.757      0.450    -940.576     419.838
+haps_mean         -17.3970      7.534     -2.309      0.022     -32.291      -2.503
+vocs_mean           0.8342      0.319      2.612      0.010       0.203       1.465
+smoke_adult         0.8583      0.853      1.006      0.316      -0.828       2.545
+obese_adult        -1.4356      0.473     -3.038      0.003      -2.370      -0.501
+uninsured          -2.3704      0.492     -4.814      0.000      -3.344      -1.397
+pcp                -0.1187      0.064     -1.866      0.064      -0.245       0.007
+high_sch_grad      -0.1864      0.065     -2.875      0.005      -0.314      -0.058
+unemployment        3.8619      0.840      4.598      0.000       2.202       5.522
+income_ineq         5.4272      2.850      1.904      0.059      -0.208      11.062
+air_poll_partic     1.5807      1.316      1.201      0.232      -1.021       4.182
+==============================================================================
+Omnibus:                        2.344   Durbin-Watson:                   2.056
+Prob(Omnibus):                  0.310   Jarque-Bera (JB):                2.306
+Skew:                           0.287   Prob(JB):                        0.316
+Kurtosis:                       2.899   Cond. No.                     3.70e+04
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 3.7e+04. This might indicate that there are
+strong multicollinearity or other numerical problems.
+
+In [23]: run models.py
+Data file found, loading data...
+Index(['pm10_mean', 'pm25_mean', 'pm25non_mean', 'pm25spec_mean', 'co_mean',
+       'so2_mean', 'no2_mean', 'ozo_mean', 'nonox_mean', 'lead_mean',
+       'haps_mean', 'vocs_mean', 'smoke_adult', 'obese_adult', 'uninsured',
+       'pcp', 'high_sch_grad', 'unemployment', 'income_ineq',
+       'air_poll_partic'],
+      dtype='object')
+Check if any y_train zeros: Series([], Name: asthma_rate, dtype: float64)
+Check if any y_test zeros: Series([], Name: asthma_rate, dtype: float64)
+********************
+best params: {'svr__C': 50, 'svr__epsilon': 5, 'svr__kernel': 'rbf'}
+best grid: Pipeline(memory=None,
+     steps=[('standardscaler', StandardScaler(copy=True, with_mean=True, with_std=True)), ('svr', SVR(C=50, cache_size=200, coef0=0.0, degree=3, epsilon=5, gamma='auto',
+  kernel='rbf', max_iter=-1, shrinking=True, tol=0.001, verbose=False))])
+X_test-y_test Score:  0.491528637526
+^^^^^^^^^^^^^^^^^^^^
+Model Performance Indicators
+Model: Pipeline(memory=None,
+     steps=[('standardscaler', StandardScaler(copy=True, with_mean=True, with_std=True)), ('svr', SVR(C=50, cache_size=200, coef0=0.0, degree=3, epsilon=5, gamma='auto',
+  kernel='rbf', max_iter=-1, shrinking=True, tol=0.001, verbose=False))])
+MAE: 14.226
+MAPE: 121.577
+Accuracy = -21.577%
+RMSE (test): 18.1443626755
+RMSE (train): 10.1611933543
+Overfit
+                            OLS Regression Results
+==============================================================================
+Dep. Variable:            asthma_rate   R-squared:                       0.523
+Model:                            OLS   Adj. R-squared:                  0.456
+Method:                 Least Squares   F-statistic:                     7.783
+Date:                Mon, 09 Apr 2018   Prob (F-statistic):           1.15e-14
+Time:                        23:01:21   Log-Likelihood:                -704.72
+No. Observations:                 163   AIC:                             1451.
+Df Residuals:                     142   BIC:                             1516.
+Df Model:                          20
+Covariance Type:            nonrobust
+===================================================================================
+                      coef    std err          t      P>|t|      [0.025      0.975]
+-----------------------------------------------------------------------------------
+const              52.8810     13.341      3.964      0.000      26.508      79.254
+pm10_mean           0.7096      0.193      3.673      0.000       0.328       1.092
+pm25_mean           0.4762      0.906      0.525      0.600      -1.315       2.268
+pm25non_mean       -0.8383      0.519     -1.614      0.109      -1.865       0.188
+pm25spec_mean      -0.0238      0.018     -1.312      0.192      -0.060       0.012
+co_mean            34.8866     21.953      1.589      0.114      -8.510      78.284
+so2_mean            0.4973      5.529      0.090      0.928     -10.432      11.427
+no2_mean           -0.4810      2.357     -0.204      0.839      -5.140       4.178
+ozo_mean          -86.5897    119.261     -0.726      0.469    -322.346     149.166
+nonox_mean          0.3789      1.739      0.218      0.828      -3.058       3.816
+lead_mean        -260.3690    344.093     -0.757      0.450    -940.576     419.838
+haps_mean         -17.3970      7.534     -2.309      0.022     -32.291      -2.503
+vocs_mean           0.8342      0.319      2.612      0.010       0.203       1.465
+smoke_adult         0.8583      0.853      1.006      0.316      -0.828       2.545
+obese_adult        -1.4356      0.473     -3.038      0.003      -2.370      -0.501
+uninsured          -2.3704      0.492     -4.814      0.000      -3.344      -1.397
+pcp                -0.1187      0.064     -1.866      0.064      -0.245       0.007
+high_sch_grad      -0.1864      0.065     -2.875      0.005      -0.314      -0.058
+unemployment        3.8619      0.840      4.598      0.000       2.202       5.522
+income_ineq         5.4272      2.850      1.904      0.059      -0.208      11.062
+air_poll_partic     1.5807      1.316      1.201      0.232      -1.021       4.182
+==============================================================================
+Omnibus:                        2.344   Durbin-Watson:                   2.056
+Prob(Omnibus):                  0.310   Jarque-Bera (JB):                2.306
+Skew:                           0.287   Prob(JB):                        0.316
+Kurtosis:                       2.899   Cond. No.                     3.70e+04
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 3.7e+04. This might indicate that there are
+strong multicollinearity or other numerical problems.
+
+In [24]: run models.py
+Data file found, loading data...
+Index(['pm10_mean', 'pm25_mean', 'pm25non_mean', 'pm25spec_mean', 'co_mean',
+       'so2_mean', 'no2_mean', 'ozo_mean', 'nonox_mean', 'lead_mean',
+       'haps_mean', 'vocs_mean', 'smoke_adult', 'obese_adult', 'uninsured',
+       'pcp', 'high_sch_grad', 'unemployment', 'income_ineq',
+       'air_poll_partic'],
+      dtype='object')
+Check if any y_train zeros: Series([], Name: asthma_rate, dtype: float64)
+Check if any y_test zeros: Series([], Name: asthma_rate, dtype: float64)
+********************
+best params: {'kneighborsregressor__n_neighbors': 4, 'kneighborsregressor__weights': 'distance'}
+best grid: Pipeline(memory=None,
+     steps=[('standardscaler', StandardScaler(copy=True, with_mean=True, with_std=True)), ('kneighborsregressor', KNeighborsRegressor(algorithm='auto', leaf_size=30, metric='minkowski',
+          metric_params=None, n_jobs=1, n_neighbors=4, p=2,
+          weights='distance'))])
+X_test-y_test Score:  0.426645905563
+^^^^^^^^^^^^^^^^^^^^
+Model Performance Indicators
+Model: Pipeline(memory=None,
+     steps=[('standardscaler', StandardScaler(copy=True, with_mean=True, with_std=True)), ('kneighborsregressor', KNeighborsRegressor(algorithm='auto', leaf_size=30, metric='minkowski',
+          metric_params=None, n_jobs=1, n_neighbors=4, p=2,
+          weights='distance'))])
+MAE: 13.605
+MAPE: 126.326
+Accuracy = -26.326%
+RMSE (test): 19.2672586787
+RMSE (train): 0.0
+Overfit
+                            OLS Regression Results
+==============================================================================
+Dep. Variable:            asthma_rate   R-squared:                       0.523
+Model:                            OLS   Adj. R-squared:                  0.456
+Method:                 Least Squares   F-statistic:                     7.783
+Date:                Mon, 09 Apr 2018   Prob (F-statistic):           1.15e-14
+Time:                        23:02:17   Log-Likelihood:                -704.72
+No. Observations:                 163   AIC:                             1451.
+Df Residuals:                     142   BIC:                             1516.
+Df Model:                          20
+Covariance Type:            nonrobust
+===================================================================================
+                      coef    std err          t      P>|t|      [0.025      0.975]
+-----------------------------------------------------------------------------------
+const              52.8810     13.341      3.964      0.000      26.508      79.254
+pm10_mean           0.7096      0.193      3.673      0.000       0.328       1.092
+pm25_mean           0.4762      0.906      0.525      0.600      -1.315       2.268
+pm25non_mean       -0.8383      0.519     -1.614      0.109      -1.865       0.188
+pm25spec_mean      -0.0238      0.018     -1.312      0.192      -0.060       0.012
+co_mean            34.8866     21.953      1.589      0.114      -8.510      78.284
+so2_mean            0.4973      5.529      0.090      0.928     -10.432      11.427
+no2_mean           -0.4810      2.357     -0.204      0.839      -5.140       4.178
+ozo_mean          -86.5897    119.261     -0.726      0.469    -322.346     149.166
+nonox_mean          0.3789      1.739      0.218      0.828      -3.058       3.816
+lead_mean        -260.3690    344.093     -0.757      0.450    -940.576     419.838
+haps_mean         -17.3970      7.534     -2.309      0.022     -32.291      -2.503
+vocs_mean           0.8342      0.319      2.612      0.010       0.203       1.465
+smoke_adult         0.8583      0.853      1.006      0.316      -0.828       2.545
+obese_adult        -1.4356      0.473     -3.038      0.003      -2.370      -0.501
+uninsured          -2.3704      0.492     -4.814      0.000      -3.344      -1.397
+pcp                -0.1187      0.064     -1.866      0.064      -0.245       0.007
+high_sch_grad      -0.1864      0.065     -2.875      0.005      -0.314      -0.058
+unemployment        3.8619      0.840      4.598      0.000       2.202       5.522
+income_ineq         5.4272      2.850      1.904      0.059      -0.208      11.062
+air_poll_partic     1.5807      1.316      1.201      0.232      -1.021       4.182
+==============================================================================
+Omnibus:                        2.344   Durbin-Watson:                   2.056
+Prob(Omnibus):                  0.310   Jarque-Bera (JB):                2.306
+Skew:                           0.287   Prob(JB):                        0.316
+Kurtosis:                       2.899   Cond. No.                     3.70e+04
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 3.7e+04. This might indicate that there are
+strong multicollinearity or other numerical problems.
+
+In [25]: run models.py
+Data file found, loading data...
+Index(['pm10_mean', 'pm25_mean', 'pm25non_mean', 'pm25spec_mean', 'co_mean',
+       'so2_mean', 'no2_mean', 'ozo_mean', 'nonox_mean', 'lead_mean',
+       'haps_mean', 'vocs_mean', 'smoke_adult', 'obese_adult', 'uninsured',
+       'pcp', 'high_sch_grad', 'unemployment', 'income_ineq',
+       'air_poll_partic'],
+      dtype='object')
+Check if any y_train zeros: Series([], Name: asthma_rate, dtype: float64)
+Check if any y_test zeros: Series([], Name: asthma_rate, dtype: float64)
+********************
+best params: {'gradientboostingregressor__learning_rate': 0.1, 'gradientboostingregressor__loss': 'ls', 'gradientboostingregressor__max_depth': 3, 'gradientboostingregressor__min_samples_split': 10, 'gradientboostingregressor__n_estimators': 100}
+best grid: Pipeline(memory=None,
+     steps=[('standardscaler', StandardScaler(copy=True, with_mean=True, with_std=True)), ('gradientboostingregressor', GradientBoostingRegressor(alpha=0.9, criterion='friedman_mse', init=None,
+             learning_rate=0.1, loss='ls', max_depth=3, max_features=None,
+             max_leaf_nodes=None, mi...s=100, presort='auto', random_state=None,
+             subsample=1.0, verbose=0, warm_start=False))])
+X_test-y_test Score:  0.362715956032
+^^^^^^^^^^^^^^^^^^^^
+Model Performance Indicators
+Model: Pipeline(memory=None,
+     steps=[('standardscaler', StandardScaler(copy=True, with_mean=True, with_std=True)), ('gradientboostingregressor', GradientBoostingRegressor(alpha=0.9, criterion='friedman_mse', init=None,
+             learning_rate=0.1, loss='ls', max_depth=3, max_features=None,
+             max_leaf_nodes=None, mi...s=100, presort='auto', random_state=None,
+             subsample=1.0, verbose=0, warm_start=False))])
+MAE: 13.839
+MAPE: 133.983
+Accuracy = -33.983%
+RMSE (test): 20.3130431717
+RMSE (train): 3.93850919761
+Overfit
+                            OLS Regression Results
+==============================================================================
+Dep. Variable:            asthma_rate   R-squared:                       0.523
+Model:                            OLS   Adj. R-squared:                  0.456
+Method:                 Least Squares   F-statistic:                     7.783
+Date:                Mon, 09 Apr 2018   Prob (F-statistic):           1.15e-14
+Time:                        23:06:42   Log-Likelihood:                -704.72
+No. Observations:                 163   AIC:                             1451.
+Df Residuals:                     142   BIC:                             1516.
+Df Model:                          20
+Covariance Type:            nonrobust
+===================================================================================
+                      coef    std err          t      P>|t|      [0.025      0.975]
+-----------------------------------------------------------------------------------
+const              52.8810     13.341      3.964      0.000      26.508      79.254
+pm10_mean           0.7096      0.193      3.673      0.000       0.328       1.092
+pm25_mean           0.4762      0.906      0.525      0.600      -1.315       2.268
+pm25non_mean       -0.8383      0.519     -1.614      0.109      -1.865       0.188
+pm25spec_mean      -0.0238      0.018     -1.312      0.192      -0.060       0.012
+co_mean            34.8866     21.953      1.589      0.114      -8.510      78.284
+so2_mean            0.4973      5.529      0.090      0.928     -10.432      11.427
+no2_mean           -0.4810      2.357     -0.204      0.839      -5.140       4.178
+ozo_mean          -86.5897    119.261     -0.726      0.469    -322.346     149.166
+nonox_mean          0.3789      1.739      0.218      0.828      -3.058       3.816
+lead_mean        -260.3690    344.093     -0.757      0.450    -940.576     419.838
+haps_mean         -17.3970      7.534     -2.309      0.022     -32.291      -2.503
+vocs_mean           0.8342      0.319      2.612      0.010       0.203       1.465
+smoke_adult         0.8583      0.853      1.006      0.316      -0.828       2.545
+obese_adult        -1.4356      0.473     -3.038      0.003      -2.370      -0.501
+uninsured          -2.3704      0.492     -4.814      0.000      -3.344      -1.397
+pcp                -0.1187      0.064     -1.866      0.064      -0.245       0.007
+high_sch_grad      -0.1864      0.065     -2.875      0.005      -0.314      -0.058
+unemployment        3.8619      0.840      4.598      0.000       2.202       5.522
+income_ineq         5.4272      2.850      1.904      0.059      -0.208      11.062
+air_poll_partic     1.5807      1.316      1.201      0.232      -1.021       4.182
+==============================================================================
+Omnibus:                        2.344   Durbin-Watson:                   2.056
+Prob(Omnibus):                  0.310   Jarque-Bera (JB):                2.306
+Skew:                           0.287   Prob(JB):                        0.316
+Kurtosis:                       2.899   Cond. No.                     3.70e+04
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 3.7e+04. This might indicate that there are
+strong multicollinearity or other numerical problems.
+
+In [26]: run models.py
+Data file found, loading data...
+Index(['pm10_mean', 'pm25_mean', 'pm25non_mean', 'pm25spec_mean', 'co_mean',
+       'so2_mean', 'no2_mean', 'ozo_mean', 'nonox_mean', 'lead_mean',
+       'haps_mean', 'vocs_mean', 'smoke_adult', 'obese_adult', 'uninsured',
+       'pcp', 'high_sch_grad', 'unemployment', 'income_ineq',
+       'air_poll_partic'],
+      dtype='object')
+Check if any y_train zeros: Series([], Name: asthma_rate, dtype: float64)
+Check if any y_test zeros: Series([], Name: asthma_rate, dtype: float64)
+^C---------------------------------------------------------------------------
+KeyboardInterrupt                         Traceback (most recent call last)
+~/workspace/dsi/capstone/capstone_repo/src/models.py in <module>()
+    219     # data.to_csv(csv_file_path, index=False)
+    220
+--> 221     all_regress(data)
+
+~/workspace/dsi/capstone/capstone_repo/src/models.py in all_regress(data)
+    134         clf = GridSearchCV(pipeline, hyperparameters, cv=3) # cv=3 is same as cv=None (default)
+    135
+--> 136         clf.fit(X_train, y_train)
+    137
+    138         # evaluate models with test data
+
+~/anaconda3/lib/python3.6/site-packages/sklearn/model_selection/_search.py in fit(self, X, y, groups, **fit_params)
+    637                                   error_score=self.error_score)
+    638           for parameters, (train, test) in product(candidate_params,
+--> 639                                                    cv.split(X, y, groups)))
+    640
+    641         # if one choose to see train score, "out" will contain train score info
+
+~/anaconda3/lib/python3.6/site-packages/sklearn/externals/joblib/parallel.py in __call__(self, iterable)
+    777             # was dispatched. In particular this covers the edge
+    778             # case of Parallel used with an exhausted iterator.
+--> 779             while self.dispatch_one_batch(iterator):
+    780                 self._iterating = True
+    781             else:
+
+~/anaconda3/lib/python3.6/site-packages/sklearn/externals/joblib/parallel.py in dispatch_one_batch(self, iterator)
+    623                 return False
+    624             else:
+--> 625                 self._dispatch(tasks)
+    626                 return True
+    627
+
+~/anaconda3/lib/python3.6/site-packages/sklearn/externals/joblib/parallel.py in _dispatch(self, batch)
+    586         dispatch_timestamp = time.time()
+    587         cb = BatchCompletionCallBack(dispatch_timestamp, len(batch), self)
+--> 588         job = self._backend.apply_async(batch, callback=cb)
+    589         self._jobs.append(job)
+    590
+
+~/anaconda3/lib/python3.6/site-packages/sklearn/externals/joblib/_parallel_backends.py in apply_async(self, func, callback)
+    109     def apply_async(self, func, callback=None):
+    110         """Schedule a func to be run"""
+--> 111         result = ImmediateResult(func)
+    112         if callback:
+    113             callback(result)
+
+~/anaconda3/lib/python3.6/site-packages/sklearn/externals/joblib/_parallel_backends.py in __init__(self, batch)
+    330         # Don't delay the application, to avoid keeping the input
+    331         # arguments in memory
+--> 332         self.results = batch()
+    333
+    334     def get(self):
+
+~/anaconda3/lib/python3.6/site-packages/sklearn/externals/joblib/parallel.py in __call__(self)
+    129
+    130     def __call__(self):
+--> 131         return [func(*args, **kwargs) for func, args, kwargs in self.items]
+    132
+    133     def __len__(self):
+
+~/anaconda3/lib/python3.6/site-packages/sklearn/externals/joblib/parallel.py in <listcomp>(.0)
+    129
+    130     def __call__(self):
+--> 131         return [func(*args, **kwargs) for func, args, kwargs in self.items]
+    132
+    133     def __len__(self):
+
+~/anaconda3/lib/python3.6/site-packages/sklearn/model_selection/_validation.py in _fit_and_score(estimator, X, y, scorer, train, test, verbose, parameters, fit_params, return_train_score, return_parameters, return_n_test_samples, return_times, error_score)
+    456             estimator.fit(X_train, **fit_params)
+    457         else:
+--> 458             estimator.fit(X_train, y_train, **fit_params)
+    459
+    460     except Exception as e:
+
+~/anaconda3/lib/python3.6/site-packages/sklearn/pipeline.py in fit(self, X, y, **fit_params)
+    248         Xt, fit_params = self._fit(X, y, **fit_params)
+    249         if self._final_estimator is not None:
+--> 250             self._final_estimator.fit(Xt, y, **fit_params)
+    251         return self
+    252
+
+~/anaconda3/lib/python3.6/site-packages/sklearn/ensemble/forest.py in fit(self, X, y, sample_weight)
+    314             for i in range(n_more_estimators):
+    315                 tree = self._make_estimator(append=False,
+--> 316                                             random_state=random_state)
+    317                 trees.append(tree)
+    318
+
+~/anaconda3/lib/python3.6/site-packages/sklearn/ensemble/base.py in _make_estimator(self, append, random_state)
+    123         sub-estimators.
+    124         """
+--> 125         estimator = clone(self.base_estimator_)
+    126         estimator.set_params(**dict((p, getattr(self, p))
+    127                                     for p in self.estimator_params))
+
+~/anaconda3/lib/python3.6/site-packages/sklearn/base.py in clone(estimator, safe)
+     61     for name, param in six.iteritems(new_object_params):
+     62         new_object_params[name] = clone(param, safe=False)
+---> 63     new_object = klass(**new_object_params)
+     64     params_set = new_object.get_params(deep=False)
+     65
+
+~/anaconda3/lib/python3.6/site-packages/sklearn/tree/tree.py in __init__(self, criterion, splitter, max_depth, min_samples_split, min_samples_leaf, min_weight_fraction_leaf, max_features, random_state, max_leaf_nodes, min_impurity_decrease, min_impurity_split, presort)
+   1055             0.07..., 0.29..., 0.33..., -1.42..., -1.77...])
+   1056     """
+-> 1057     def __init__(self,
+   1058                  criterion="mse",
+   1059                  splitter="best",
+
+KeyboardInterrupt:
+
+In [27]: run models.py
+Data file found, loading data...
+Index(['pm10_mean', 'pm25_mean', 'pm25non_mean', 'pm25spec_mean', 'co_mean',
+       'so2_mean', 'no2_mean', 'ozo_mean', 'nonox_mean', 'lead_mean',
+       'haps_mean', 'vocs_mean', 'smoke_adult', 'obese_adult', 'uninsured',
+       'pcp', 'high_sch_grad', 'unemployment', 'income_ineq',
+       'air_poll_partic'],
+      dtype='object')
+Check if any y_train zeros: Series([], Name: asthma_rate, dtype: float64)
+Check if any y_test zeros: Series([], Name: asthma_rate, dtype: float64)
+^C---------------------------------------------------------------------------
+KeyboardInterrupt                         Traceback (most recent call last)
+~/workspace/dsi/capstone/capstone_repo/src/models.py in <module>()
+    219     # data.to_csv(csv_file_path, index=False)
+    220
+--> 221     all_regress(data)
+
+~/workspace/dsi/capstone/capstone_repo/src/models.py in all_regress(data)
+    134         clf = GridSearchCV(pipeline, hyperparameters, cv=3) # cv=3 is same as cv=None (default)
+    135
+--> 136         clf.fit(X_train, y_train)
+    137
+    138         # evaluate models with test data
+
+~/anaconda3/lib/python3.6/site-packages/sklearn/model_selection/_search.py in fit(self, X, y, groups, **fit_params)
+    637                                   error_score=self.error_score)
+    638           for parameters, (train, test) in product(candidate_params,
+--> 639                                                    cv.split(X, y, groups)))
+    640
+    641         # if one choose to see train score, "out" will contain train score info
+
+~/anaconda3/lib/python3.6/site-packages/sklearn/externals/joblib/parallel.py in __call__(self, iterable)
+    777             # was dispatched. In particular this covers the edge
+    778             # case of Parallel used with an exhausted iterator.
+--> 779             while self.dispatch_one_batch(iterator):
+    780                 self._iterating = True
+    781             else:
+
+~/anaconda3/lib/python3.6/site-packages/sklearn/externals/joblib/parallel.py in dispatch_one_batch(self, iterator)
+    623                 return False
+    624             else:
+--> 625                 self._dispatch(tasks)
+    626                 return True
+    627
+
+~/anaconda3/lib/python3.6/site-packages/sklearn/externals/joblib/parallel.py in _dispatch(self, batch)
+    586         dispatch_timestamp = time.time()
+    587         cb = BatchCompletionCallBack(dispatch_timestamp, len(batch), self)
+--> 588         job = self._backend.apply_async(batch, callback=cb)
+    589         self._jobs.append(job)
+    590
+
+~/anaconda3/lib/python3.6/site-packages/sklearn/externals/joblib/_parallel_backends.py in apply_async(self, func, callback)
+    109     def apply_async(self, func, callback=None):
+    110         """Schedule a func to be run"""
+--> 111         result = ImmediateResult(func)
+    112         if callback:
+    113             callback(result)
+
+~/anaconda3/lib/python3.6/site-packages/sklearn/externals/joblib/_parallel_backends.py in __init__(self, batch)
+    330         # Don't delay the application, to avoid keeping the input
+    331         # arguments in memory
+--> 332         self.results = batch()
+    333
+    334     def get(self):
+
+~/anaconda3/lib/python3.6/site-packages/sklearn/externals/joblib/parallel.py in __call__(self)
+    129
+    130     def __call__(self):
+--> 131         return [func(*args, **kwargs) for func, args, kwargs in self.items]
+    132
+    133     def __len__(self):
+
+~/anaconda3/lib/python3.6/site-packages/sklearn/externals/joblib/parallel.py in <listcomp>(.0)
+    129
+    130     def __call__(self):
+--> 131         return [func(*args, **kwargs) for func, args, kwargs in self.items]
+    132
+    133     def __len__(self):
+
+~/anaconda3/lib/python3.6/site-packages/sklearn/model_selection/_validation.py in _fit_and_score(estimator, X, y, scorer, train, test, verbose, parameters, fit_params, return_train_score, return_parameters, return_n_test_samples, return_times, error_score)
+    456             estimator.fit(X_train, **fit_params)
+    457         else:
+--> 458             estimator.fit(X_train, y_train, **fit_params)
+    459
+    460     except Exception as e:
+
+~/anaconda3/lib/python3.6/site-packages/sklearn/pipeline.py in fit(self, X, y, **fit_params)
+    248         Xt, fit_params = self._fit(X, y, **fit_params)
+    249         if self._final_estimator is not None:
+--> 250             self._final_estimator.fit(Xt, y, **fit_params)
+    251         return self
+    252
+
+~/anaconda3/lib/python3.6/site-packages/sklearn/ensemble/forest.py in fit(self, X, y, sample_weight)
+    314             for i in range(n_more_estimators):
+    315                 tree = self._make_estimator(append=False,
+--> 316                                             random_state=random_state)
+    317                 trees.append(tree)
+    318
+
+~/anaconda3/lib/python3.6/site-packages/sklearn/ensemble/base.py in _make_estimator(self, append, random_state)
+    123         sub-estimators.
+    124         """
+--> 125         estimator = clone(self.base_estimator_)
+    126         estimator.set_params(**dict((p, getattr(self, p))
+    127                                     for p in self.estimator_params))
+
+~/anaconda3/lib/python3.6/site-packages/sklearn/base.py in clone(estimator, safe)
+     58                             % (repr(estimator), type(estimator)))
+     59     klass = estimator.__class__
+---> 60     new_object_params = estimator.get_params(deep=False)
+     61     for name, param in six.iteritems(new_object_params):
+     62         new_object_params[name] = clone(param, safe=False)
+
+~/anaconda3/lib/python3.6/site-packages/sklearn/base.py in get_params(self, deep)
+    239                     continue
+    240             finally:
+--> 241                 warnings.filters.pop(0)
+    242
+    243             # XXX: should we rather test if instance of estimator?
+
+KeyboardInterrupt:
+
+In [28]: run models.py
+Data file found, loading data...
+Index(['pm10_mean', 'pm25_mean', 'pm25non_mean', 'pm25spec_mean', 'co_mean',
+       'so2_mean', 'no2_mean', 'ozo_mean', 'nonox_mean', 'lead_mean',
+       'haps_mean', 'vocs_mean', 'smoke_adult', 'obese_adult', 'uninsured',
+       'pcp', 'high_sch_grad', 'unemployment', 'income_ineq',
+       'air_poll_partic'],
+      dtype='object')
+Check if any y_train zeros: Series([], Name: asthma_rate, dtype: float64)
+Check if any y_test zeros: Series([], Name: asthma_rate, dtype: float64)
+^C---------------------------------------------------------------------------
+KeyboardInterrupt                         Traceback (most recent call last)
+~/workspace/dsi/capstone/capstone_repo/src/models.py in <module>()
+    219     # data.to_csv(csv_file_path, index=False)
+    220
+--> 221     all_regress(data)
+
+~/workspace/dsi/capstone/capstone_repo/src/models.py in all_regress(data)
+    134         clf = GridSearchCV(pipeline, hyperparameters, cv=3) # cv=3 is same as cv=None (default)
+    135
+--> 136         clf.fit(X_train, y_train)
+    137
+    138         # evaluate models with test data
+
+~/anaconda3/lib/python3.6/site-packages/sklearn/model_selection/_search.py in fit(self, X, y, groups, **fit_params)
+    637                                   error_score=self.error_score)
+    638           for parameters, (train, test) in product(candidate_params,
+--> 639                                                    cv.split(X, y, groups)))
+    640
+    641         # if one choose to see train score, "out" will contain train score info
+
+~/anaconda3/lib/python3.6/site-packages/sklearn/externals/joblib/parallel.py in __call__(self, iterable)
+    777             # was dispatched. In particular this covers the edge
+    778             # case of Parallel used with an exhausted iterator.
+--> 779             while self.dispatch_one_batch(iterator):
+    780                 self._iterating = True
+    781             else:
+
+~/anaconda3/lib/python3.6/site-packages/sklearn/externals/joblib/parallel.py in dispatch_one_batch(self, iterator)
+    623                 return False
+    624             else:
+--> 625                 self._dispatch(tasks)
+    626                 return True
+    627
+
+~/anaconda3/lib/python3.6/site-packages/sklearn/externals/joblib/parallel.py in _dispatch(self, batch)
+    586         dispatch_timestamp = time.time()
+    587         cb = BatchCompletionCallBack(dispatch_timestamp, len(batch), self)
+--> 588         job = self._backend.apply_async(batch, callback=cb)
+    589         self._jobs.append(job)
+    590
+
+~/anaconda3/lib/python3.6/site-packages/sklearn/externals/joblib/_parallel_backends.py in apply_async(self, func, callback)
+    109     def apply_async(self, func, callback=None):
+    110         """Schedule a func to be run"""
+--> 111         result = ImmediateResult(func)
+    112         if callback:
+    113             callback(result)
+
+~/anaconda3/lib/python3.6/site-packages/sklearn/externals/joblib/_parallel_backends.py in __init__(self, batch)
+    330         # Don't delay the application, to avoid keeping the input
+    331         # arguments in memory
+--> 332         self.results = batch()
+    333
+    334     def get(self):
+
+~/anaconda3/lib/python3.6/site-packages/sklearn/externals/joblib/parallel.py in __call__(self)
+    129
+    130     def __call__(self):
+--> 131         return [func(*args, **kwargs) for func, args, kwargs in self.items]
+    132
+    133     def __len__(self):
+
+~/anaconda3/lib/python3.6/site-packages/sklearn/externals/joblib/parallel.py in <listcomp>(.0)
+    129
+    130     def __call__(self):
+--> 131         return [func(*args, **kwargs) for func, args, kwargs in self.items]
+    132
+    133     def __len__(self):
+
+~/anaconda3/lib/python3.6/site-packages/sklearn/model_selection/_validation.py in _fit_and_score(estimator, X, y, scorer, train, test, verbose, parameters, fit_params, return_train_score, return_parameters, return_n_test_samples, return_times, error_score)
+    456             estimator.fit(X_train, **fit_params)
+    457         else:
+--> 458             estimator.fit(X_train, y_train, **fit_params)
+    459
+    460     except Exception as e:
+
+~/anaconda3/lib/python3.6/site-packages/sklearn/pipeline.py in fit(self, X, y, **fit_params)
+    248         Xt, fit_params = self._fit(X, y, **fit_params)
+    249         if self._final_estimator is not None:
+--> 250             self._final_estimator.fit(Xt, y, **fit_params)
+    251         return self
+    252
+
+~/anaconda3/lib/python3.6/site-packages/sklearn/ensemble/forest.py in fit(self, X, y, sample_weight)
+    314             for i in range(n_more_estimators):
+    315                 tree = self._make_estimator(append=False,
+--> 316                                             random_state=random_state)
+    317                 trees.append(tree)
+    318
+
+~/anaconda3/lib/python3.6/site-packages/sklearn/ensemble/base.py in _make_estimator(self, append, random_state)
+    128
+    129         if random_state is not None:
+--> 130             _set_random_states(estimator, random_state)
+    131
+    132         if append:
+
+~/anaconda3/lib/python3.6/site-packages/sklearn/ensemble/base.py in _set_random_states(estimator, random_state)
+     50     random_state = check_random_state(random_state)
+     51     to_set = {}
+---> 52     for key in sorted(estimator.get_params(deep=True)):
+     53         if key == 'random_state' or key.endswith('__random_state'):
+     54             to_set[key] = random_state.randint(MAX_RAND_SEED)
+
+~/anaconda3/lib/python3.6/site-packages/sklearn/base.py in get_params(self, deep)
+    226         """
+    227         out = dict()
+--> 228         for key in self._get_param_names():
+    229             # We need deprecation warnings to always be on in order to
+    230             # catch deprecated param values.
+
+~/anaconda3/lib/python3.6/site-packages/sklearn/base.py in _get_param_names(cls)
+    196         # introspect the constructor arguments to find the model parameters
+    197         # to represent
+--> 198         init_signature = signature(init)
+    199         # Consider the constructor parameters excluding 'self'
+    200         parameters = [p for p in init_signature.parameters.values()
+
+~/anaconda3/lib/python3.6/inspect.py in signature(obj, follow_wrapped)
+   3034 def signature(obj, *, follow_wrapped=True):
+   3035     """Get a signature object for the passed callable."""
+-> 3036     return Signature.from_callable(obj, follow_wrapped=follow_wrapped)
+   3037
+   3038
+
+~/anaconda3/lib/python3.6/inspect.py in from_callable(cls, obj, follow_wrapped)
+   2784         """Constructs Signature for the given callable object."""
+   2785         return _signature_from_callable(obj, sigcls=cls,
+-> 2786                                         follow_wrapper_chains=follow_wrapped)
+   2787
+   2788     @property
+
+~/anaconda3/lib/python3.6/inspect.py in _signature_from_callable(obj, follow_wrapper_chains, skip_bound_arg, sigcls)
+   2259         # If it's a pure Python function, or an object that is duck type
+   2260         # of a Python function (Cython functions, for instance), then:
+-> 2261         return _signature_from_function(sigcls, obj)
+   2262
+   2263     if _signature_is_builtin(obj):
+
+~/anaconda3/lib/python3.6/inspect.py in _signature_from_function(cls, func)
+   2171     return cls(parameters,
+   2172                return_annotation=annotations.get('return', _empty),
+-> 2173                __validate_parameters__=is_duck_function)
+   2174
+   2175
+
+~/anaconda3/lib/python3.6/inspect.py in __init__(self, parameters, return_annotation, __validate_parameters__)
+   2757             else:
+   2758                 params = OrderedDict(((param.name, param)
+-> 2759                                                 for param in parameters))
+   2760
+   2761         self._parameters = types.MappingProxyType(params)
+
+~/anaconda3/lib/python3.6/inspect.py in <genexpr>(.0)
+   2757             else:
+   2758                 params = OrderedDict(((param.name, param)
+-> 2759                                                 for param in parameters))
+   2760
+   2761         self._parameters = types.MappingProxyType(params)
+
+KeyboardInterrupt:
+
+In [29]: run models.py
+Data file found, loading data...
+Index(['pm10_mean', 'pm25_mean', 'pm25non_mean', 'pm25spec_mean', 'co_mean',
+       'so2_mean', 'no2_mean', 'ozo_mean', 'nonox_mean', 'lead_mean',
+       'haps_mean', 'vocs_mean', 'smoke_adult', 'obese_adult', 'uninsured',
+       'pcp', 'high_sch_grad', 'unemployment', 'income_ineq',
+       'air_poll_partic'],
+      dtype='object')
+Check if any y_train zeros: Series([], Name: asthma_rate, dtype: float64)
+Check if any y_test zeros: Series([], Name: asthma_rate, dtype: float64)
+********************
+best params: {'kneighborsregressor__n_neighbors': 4, 'kneighborsregressor__weights': 'distance'}
+best grid: Pipeline(memory=None,
+     steps=[('standardscaler', StandardScaler(copy=True, with_mean=True, with_std=True)), ('kneighborsregressor', KNeighborsRegressor(algorithm='auto', leaf_size=30, metric='minkowski',
+          metric_params=None, n_jobs=1, n_neighbors=4, p=2,
+          weights='distance'))])
+X_test-y_test Score:  0.426645905563
+^^^^^^^^^^^^^^^^^^^^
+Model Performance Indicators
+Model: Pipeline(memory=None,
+     steps=[('standardscaler', StandardScaler(copy=True, with_mean=True, with_std=True)), ('kneighborsregressor', KNeighborsRegressor(algorithm='auto', leaf_size=30, metric='minkowski',
+          metric_params=None, n_jobs=1, n_neighbors=4, p=2,
+          weights='distance'))])
+MAE: 13.605
+MAPE: 126.326
+Accuracy = -26.326%
+RMSE (test): 19.2672586787
+RMSE (train): 0.0
+Overfit
+                            OLS Regression Results
+==============================================================================
+Dep. Variable:            asthma_rate   R-squared:                       0.523
+Model:                            OLS   Adj. R-squared:                  0.456
+Method:                 Least Squares   F-statistic:                     7.783
+Date:                Tue, 10 Apr 2018   Prob (F-statistic):           1.15e-14
+Time:                        07:23:46   Log-Likelihood:                -704.72
+No. Observations:                 163   AIC:                             1451.
+Df Residuals:                     142   BIC:                             1516.
+Df Model:                          20
+Covariance Type:            nonrobust
+===================================================================================
+                      coef    std err          t      P>|t|      [0.025      0.975]
+-----------------------------------------------------------------------------------
+const              52.8810     13.341      3.964      0.000      26.508      79.254
+pm10_mean           0.7096      0.193      3.673      0.000       0.328       1.092
+pm25_mean           0.4762      0.906      0.525      0.600      -1.315       2.268
+pm25non_mean       -0.8383      0.519     -1.614      0.109      -1.865       0.188
+pm25spec_mean      -0.0238      0.018     -1.312      0.192      -0.060       0.012
+co_mean            34.8866     21.953      1.589      0.114      -8.510      78.284
+so2_mean            0.4973      5.529      0.090      0.928     -10.432      11.427
+no2_mean           -0.4810      2.357     -0.204      0.839      -5.140       4.178
+ozo_mean          -86.5897    119.261     -0.726      0.469    -322.346     149.166
+nonox_mean          0.3789      1.739      0.218      0.828      -3.058       3.816
+lead_mean        -260.3690    344.093     -0.757      0.450    -940.576     419.838
+haps_mean         -17.3970      7.534     -2.309      0.022     -32.291      -2.503
+vocs_mean           0.8342      0.319      2.612      0.010       0.203       1.465
+smoke_adult         0.8583      0.853      1.006      0.316      -0.828       2.545
+obese_adult        -1.4356      0.473     -3.038      0.003      -2.370      -0.501
+uninsured          -2.3704      0.492     -4.814      0.000      -3.344      -1.397
+pcp                -0.1187      0.064     -1.866      0.064      -0.245       0.007
+high_sch_grad      -0.1864      0.065     -2.875      0.005      -0.314      -0.058
+unemployment        3.8619      0.840      4.598      0.000       2.202       5.522
+income_ineq         5.4272      2.850      1.904      0.059      -0.208      11.062
+air_poll_partic     1.5807      1.316      1.201      0.232      -1.021       4.182
+==============================================================================
+Omnibus:                        2.344   Durbin-Watson:                   2.056
+Prob(Omnibus):                  0.310   Jarque-Bera (JB):                2.306
+Skew:                           0.287   Prob(JB):                        0.316
+Kurtosis:                       2.899   Cond. No.                     3.70e+04
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 3.7e+04. This might indicate that there are
+strong multicollinearity or other numerical problems.
+
+In [30]: run models.py
+Data file found, loading data...
+Index(['pm10_mean', 'pm25_mean', 'pm25non_mean', 'pm25spec_mean', 'co_mean',
+       'so2_mean', 'no2_mean', 'ozo_mean', 'nonox_mean', 'lead_mean',
+       'haps_mean', 'vocs_mean', 'smoke_adult', 'obese_adult', 'uninsured',
+       'pcp', 'high_sch_grad', 'unemployment', 'income_ineq',
+       'air_poll_partic'],
+      dtype='object')
+Check if any y_train zeros: Series([], Name: asthma_rate, dtype: float64)
+Check if any y_test zeros: Series([], Name: asthma_rate, dtype: float64)
+********************
+best params: {'randomforestregressor__bootstrap': False, 'randomforestregressor__max_depth': None, 'randomforestregressor__max_features': 'sqrt', 'randomforestregressor__min_samples_leaf': 1, 'randomforestregressor__min_samples_split': 2, 'randomforestregressor__n_estimators': 10}
+best grid: Pipeline(memory=None,
+     steps=[('standardscaler', StandardScaler(copy=True, with_mean=True, with_std=True)), ('randomforestregressor', RandomForestRegressor(bootstrap=False, criterion='mse', max_depth=None,
+           max_features='sqrt', max_leaf_nodes=None,
+           min_impurity_decrease=0.0, min_impurity_split=None,
+           min_samples_leaf=1, min_samples_split=2,
+           min_weight_fraction_leaf=0.0, n_estimators=10, n_jobs=1,
+           oob_score=False, random_state=None, verbose=0, warm_start=False))])
+X_test-y_test Score:  0.532195103455
+^^^^^^^^^^^^^^^^^^^^
+Model Performance Indicators
+Model: Pipeline(memory=None,
+     steps=[('standardscaler', StandardScaler(copy=True, with_mean=True, with_std=True)), ('randomforestregressor', RandomForestRegressor(bootstrap=False, criterion='mse', max_depth=None,
+           max_features='sqrt', max_leaf_nodes=None,
+           min_impurity_decrease=0.0, min_impurity_split=None,
+           min_samples_leaf=1, min_samples_split=2,
+           min_weight_fraction_leaf=0.0, n_estimators=10, n_jobs=1,
+           oob_score=False, random_state=None, verbose=0, warm_start=False))])
+MAE: 12.518
+MAPE: 121.889
+Accuracy = -21.889%
+RMSE (test): 17.4036704362
+RMSE (train): 5.83683371934e-15
+Overfit
+                            OLS Regression Results
+==============================================================================
+Dep. Variable:            asthma_rate   R-squared:                       0.523
+Model:                            OLS   Adj. R-squared:                  0.456
+Method:                 Least Squares   F-statistic:                     7.783
+Date:                Tue, 10 Apr 2018   Prob (F-statistic):           1.15e-14
+Time:                        07:24:54   Log-Likelihood:                -704.72
+No. Observations:                 163   AIC:                             1451.
+Df Residuals:                     142   BIC:                             1516.
+Df Model:                          20
+Covariance Type:            nonrobust
+===================================================================================
+                      coef    std err          t      P>|t|      [0.025      0.975]
+-----------------------------------------------------------------------------------
+const              52.8810     13.341      3.964      0.000      26.508      79.254
+pm10_mean           0.7096      0.193      3.673      0.000       0.328       1.092
+pm25_mean           0.4762      0.906      0.525      0.600      -1.315       2.268
+pm25non_mean       -0.8383      0.519     -1.614      0.109      -1.865       0.188
+pm25spec_mean      -0.0238      0.018     -1.312      0.192      -0.060       0.012
+co_mean            34.8866     21.953      1.589      0.114      -8.510      78.284
+so2_mean            0.4973      5.529      0.090      0.928     -10.432      11.427
+no2_mean           -0.4810      2.357     -0.204      0.839      -5.140       4.178
+ozo_mean          -86.5897    119.261     -0.726      0.469    -322.346     149.166
+nonox_mean          0.3789      1.739      0.218      0.828      -3.058       3.816
+lead_mean        -260.3690    344.093     -0.757      0.450    -940.576     419.838
+haps_mean         -17.3970      7.534     -2.309      0.022     -32.291      -2.503
+vocs_mean           0.8342      0.319      2.612      0.010       0.203       1.465
+smoke_adult         0.8583      0.853      1.006      0.316      -0.828       2.545
+obese_adult        -1.4356      0.473     -3.038      0.003      -2.370      -0.501
+uninsured          -2.3704      0.492     -4.814      0.000      -3.344      -1.397
+pcp                -0.1187      0.064     -1.866      0.064      -0.245       0.007
+high_sch_grad      -0.1864      0.065     -2.875      0.005      -0.314      -0.058
+unemployment        3.8619      0.840      4.598      0.000       2.202       5.522
+income_ineq         5.4272      2.850      1.904      0.059      -0.208      11.062
+air_poll_partic     1.5807      1.316      1.201      0.232      -1.021       4.182
+==============================================================================
+Omnibus:                        2.344   Durbin-Watson:                   2.056
+Prob(Omnibus):                  0.310   Jarque-Bera (JB):                2.306
+Skew:                           0.287   Prob(JB):                        0.316
+Kurtosis:                       2.899   Cond. No.                     3.70e+04
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 3.7e+04. This might indicate that there are
+strong multicollinearity or other numerical problems.
+
+In [31]: run models.py
+Data file found, loading data...
+Index(['pm10_mean', 'pm25_mean', 'pm25non_mean', 'pm25spec_mean', 'co_mean',
+       'so2_mean', 'no2_mean', 'ozo_mean', 'nonox_mean', 'lead_mean',
+       'haps_mean', 'vocs_mean', 'smoke_adult', 'obese_adult', 'uninsured',
+       'pcp', 'high_sch_grad', 'unemployment', 'income_ineq',
+       'air_poll_partic'],
+      dtype='object')
+Check if any y_train zeros: Series([], Name: asthma_rate, dtype: float64)
+Check if any y_test zeros: Series([], Name: asthma_rate, dtype: float64)
+********************
+best params: {'randomforestregressor__bootstrap': False, 'randomforestregressor__max_depth': None, 'randomforestregressor__max_features': 'sqrt', 'randomforestregressor__min_samples_leaf': 1, 'randomforestregressor__min_samples_split': 2, 'randomforestregressor__n_estimators': 100}
+best grid: Pipeline(memory=None,
+     steps=[('standardscaler', StandardScaler(copy=True, with_mean=True, with_std=True)), ('randomforestregressor', RandomForestRegressor(bootstrap=False, criterion='mse', max_depth=None,
+           max_features='sqrt', max_leaf_nodes=None,
+           min_impurity_decrease=0.0, min_impurity_split=None,
+           min_samples_leaf=1, min_samples_split=2,
+           min_weight_fraction_leaf=0.0, n_estimators=100, n_jobs=1,
+           oob_score=False, random_state=None, verbose=0, warm_start=False))])
+X_test-y_test Score:  0.551612317174
+^^^^^^^^^^^^^^^^^^^^
+Model Performance Indicators
+Model: Pipeline(memory=None,
+     steps=[('standardscaler', StandardScaler(copy=True, with_mean=True, with_std=True)), ('randomforestregressor', RandomForestRegressor(bootstrap=False, criterion='mse', max_depth=None,
+           max_features='sqrt', max_leaf_nodes=None,
+           min_impurity_decrease=0.0, min_impurity_split=None,
+           min_samples_leaf=1, min_samples_split=2,
+           min_weight_fraction_leaf=0.0, n_estimators=100, n_jobs=1,
+           oob_score=False, random_state=None, verbose=0, warm_start=False))])
+MAE: 12.333
+MAPE: 115.701
+Accuracy = -15.701%
+RMSE (test): 17.0386548708
+RMSE (train): 6.07137801811e-14
+Overfit
+                            OLS Regression Results
+==============================================================================
+Dep. Variable:            asthma_rate   R-squared:                       0.523
+Model:                            OLS   Adj. R-squared:                  0.456
+Method:                 Least Squares   F-statistic:                     7.783
+Date:                Tue, 10 Apr 2018   Prob (F-statistic):           1.15e-14
+Time:                        07:26:04   Log-Likelihood:                -704.72
+No. Observations:                 163   AIC:                             1451.
+Df Residuals:                     142   BIC:                             1516.
+Df Model:                          20
+Covariance Type:            nonrobust
+===================================================================================
+                      coef    std err          t      P>|t|      [0.025      0.975]
+-----------------------------------------------------------------------------------
+const              52.8810     13.341      3.964      0.000      26.508      79.254
+pm10_mean           0.7096      0.193      3.673      0.000       0.328       1.092
+pm25_mean           0.4762      0.906      0.525      0.600      -1.315       2.268
+pm25non_mean       -0.8383      0.519     -1.614      0.109      -1.865       0.188
+pm25spec_mean      -0.0238      0.018     -1.312      0.192      -0.060       0.012
+co_mean            34.8866     21.953      1.589      0.114      -8.510      78.284
+so2_mean            0.4973      5.529      0.090      0.928     -10.432      11.427
+no2_mean           -0.4810      2.357     -0.204      0.839      -5.140       4.178
+ozo_mean          -86.5897    119.261     -0.726      0.469    -322.346     149.166
+nonox_mean          0.3789      1.739      0.218      0.828      -3.058       3.816
+lead_mean        -260.3690    344.093     -0.757      0.450    -940.576     419.838
+haps_mean         -17.3970      7.534     -2.309      0.022     -32.291      -2.503
+vocs_mean           0.8342      0.319      2.612      0.010       0.203       1.465
+smoke_adult         0.8583      0.853      1.006      0.316      -0.828       2.545
+obese_adult        -1.4356      0.473     -3.038      0.003      -2.370      -0.501
+uninsured          -2.3704      0.492     -4.814      0.000      -3.344      -1.397
+pcp                -0.1187      0.064     -1.866      0.064      -0.245       0.007
+high_sch_grad      -0.1864      0.065     -2.875      0.005      -0.314      -0.058
+unemployment        3.8619      0.840      4.598      0.000       2.202       5.522
+income_ineq         5.4272      2.850      1.904      0.059      -0.208      11.062
+air_poll_partic     1.5807      1.316      1.201      0.232      -1.021       4.182
+==============================================================================
+Omnibus:                        2.344   Durbin-Watson:                   2.056
+Prob(Omnibus):                  0.310   Jarque-Bera (JB):                2.306
+Skew:                           0.287   Prob(JB):                        0.316
+Kurtosis:                       2.899   Cond. No.                     3.70e+04
+==============================================================================
+
+Warnings:
+[1] Standard Errors assume that the covariance matrix of the errors is correctly specified.
+[2] The condition number is large, 3.7e+04. This might indicate that there are
+strong multicollinearity or other numerical problems.
+
+In [32]:

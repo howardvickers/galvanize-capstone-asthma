@@ -30,8 +30,6 @@ def test_predict():
     X_train, X_test, y_train, y_test = sd(data)
     counties_train = X_train['county']
     counties_test = X_test['county']
-    # states_train = X_train['state']
-    # states_test = X_test['state']
     X_test, y_test = rcs(X_test, y_test)
     ypred = train_predict(X_test)
 
@@ -222,7 +220,6 @@ def county():
                                     new_y = pred,
                                 )
 
-    # return flask.render_template('county.html')
     return flask.render_template('county.html',
                                     # these are for the 'Public Policy and Asthma' chart
                                     county = input_county.title(),
@@ -234,7 +231,6 @@ def county():
                                     y = y,
                                     # table_dict = table_dict
                                     )
-
 
 @app.route('/predictions', methods =['GET','POST'])
 def predictions():
@@ -255,7 +251,8 @@ def predictions():
     ypred = np.round(ypred, 2)
     v_list = []
     for i in range(num_results):
-        temp_list = [uninsured_tst[0][i], unemployment_tst[0][i], obesity_tst[0][i], smokers_tst[0][i], particulates_tst[0][i], y_tst[0][i], ypred[i]]
+        temp_list = [uninsured_tst[0][i], unemployment_tst[0][i], obesity_tst[0][i],
+        smokers_tst[0][i], particulates_tst[0][i], y_tst[0][i], ypred[i]]
         v_list.append(temp_list)
     table_dict = dict(zip(county_tst[0], v_list))
 

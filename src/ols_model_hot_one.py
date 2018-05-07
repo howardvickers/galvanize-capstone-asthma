@@ -46,6 +46,7 @@ def eval_model(model, X_train, y_train, X_test, y_test):
         print('Overfit')
     else:
         print('Underfit')
+
     return accuracy
 
 
@@ -70,62 +71,26 @@ def train_model():
        'haps_mean', 'vocs_mean', 'pcp', 'high_sch_grad', 'income_ineq', 'co', 'ca', 'smoke_adult']
     data = data.drop(drop_columns, axis=1)
 
-
-
     X_train, X_test, y_train, y_test = split_data(data)
     X_train, y_train = remove_county_state(X_train, y_train)
     X_test, y_test = remove_county_state(X_test, y_test)
 
     X_train = sm.add_constant(X_train)
-    # X_train = np.asarray(X_train)
-    # y_train = np.asarray(y_train)
-    # print(X_train)
-
-
 
     model = sm.OLS(y_train, X_train, missing='drop')
     results = model.fit()
+    print(type(results.summary()))
+    print(results.summary().as_html())
     print(results.summary())
 
-
-
-    # # data preprocessing (removing mean and scaling to unit variance with StandardScaler)
-    # pipeline = make_pipeline(StandardScaler(),
-    #                          GBR())
-    #
-    # # set hyperparameters
-    # hyperparameters = { 'gradientboostingregressor__n_estimators' :     [100, 600, 700, 800],
-    #                     'gradientboostingregressor__max_depth':         [3, 4, 5, 10, 20],
-    #                     'gradientboostingregressor__min_samples_split': [3, 4, 5, 10, 20],
-    #                     'gradientboostingregressor__learning_rate':     [0.01, 0.05, 0.1],
-    #                     'gradientboostingregressor__loss':              ['ls'],
-    #                     }
-    #
-    #
-    # # tune model via pipeline
-    # clf = GridSearchCV(pipeline, hyperparameters, cv=3)
-    #
-    # clf.fit(X_train, y_train)
-    #
-    # pred = clf.predict(X_test)
-    # print('feature importances:', clf.feature_importances_)
-    # print ('r2 score:',r2_score(y_test, pred))
-    # print ('mse:',mean_squared_error(y_test, pred))
-    # print('*'*20)
-    # print('best params:',clf.best_params_)
-    # print('best grid:', clf.best_estimator_)
-    # print('^'*20)
-    # eval_model(clf.best_estimator_, X_train, y_train, X_test, y_test)
-    # print('#'*20)
-    # print('score', clf.score)
-    # return clf
+    return results.summary().as_html()
 
 def show_columns():
     data = get_data()
     X_train, X_test, y_train, y_test = split_data(data)
     X_train, y_train = remove_county_state(X_train, y_train)
-    return X_train.columns
 
+    return X_train.columns
 
 def get_data():
     csv_file_path = '../data/the_data_file.csv'

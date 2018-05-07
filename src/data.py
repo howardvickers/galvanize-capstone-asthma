@@ -1,10 +1,6 @@
 import numpy as np
 import pandas as pd
 
-# import urllib2
-# from urllib.request import urlopen
-
-
 # source data: https://data.chhs.ca.gov/dataset/asthma-ed-visit-rates-lghc-indicator-07
 
 # ****************** CREATE VARIABLES ******************
@@ -48,14 +44,10 @@ def all_socio_econ_data():
     xls = pd.ExcelFile('../data/2016CountyHealthRankingsData.xls')
     df = pd.read_excel(xls, 'Ranked Measure Data') # select tab with data
 
-
     csv_file_path = '../data/newcsv.csv'
-    df = data.to_csv(csv_file_path)
+    df = df.to_csv(csv_file_path)
     df = pd.read_csv(csv_file_path)
     df = df.drop('Unnamed: 0', axis=1)
-
-
-
 
     df = df.iloc[:, [1,2,27,31,63,68,95,105,116,135]] # get: state, county, adult smoking, adult obesity, uninsured, PCP (doctors) rate, high school graduation, unemployment, income inequality, air pollution,
     df.columns = ['state', 'county','smoke_adult', 'obese_adult', 'uninsured', 'pcp', 'high_sch_grad', 'unemployment', 'income_ineq', 'air_poll_partic']
@@ -72,7 +64,6 @@ def all_socio_econ_data():
     fips = fips.drop(['state'], axis=1)
     socio_econ_fips = df_soc_econ.merge(fips, how="left", on="county")
     socio_econ_fips = socio_econ_fips.drop(['county'], axis=1)
-
 
     return df_soc_econ, socio_econ_fips # this is all the socio-economic data in one dataframe
 
@@ -222,6 +213,14 @@ def get_each_state_data(state):
     print('get_each_state_data:', df.columns)
     return df # this is all the data for this state
 
+
+def add_states_one_hot_cols(data):
+    """takes data, adds a one-hot-encode column for each state and returns data"""
+    for state, abrev in states_codes.items():
+        data[abrev] = data.state == state.lower()
+
+    return data
+
 def join_data():
     list_of_each_states_data = []
     for state in choose_states():
@@ -231,8 +230,10 @@ def join_data():
     df = df.reset_index()
     df = df.drop(['index'], axis=1)
     print('join_data:', df.columns)
+    df = add_states_one_hot_cols(df)
 
     return df # this is all the data stacked for the chosen states
+
 
 if __name__ == '__main__':
     join_data()

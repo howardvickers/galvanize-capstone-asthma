@@ -1,44 +1,22 @@
 import numpy as np
 import pandas as pd
-import os
-
 import matplotlib.pyplot as plt
 
-from modclass import train_model as tm
-from modclass import show_columns
+from get_feat_imps import get_feat_imps
+from data_processing import nice_column_names
+from data_processing import show_columns
 
-def chart_feature_importances():
-    model = tm()
-    feat_imps = model.feature_importances_
+def get_imps_names():
+    _, feat_imps, cols = get_feat_imps()
 
-    # from data import column_names as cols
-    col_dict = { 'air_poll_partic': 'Particulate Air Pollution',
-                 'asthma_rate': 'Asthma Rate',
-                 'co_mean': 'CO - Pollutant',
-                 'county': 'County',
-                 'haps_mean': 'HAPS - Pollutant',
-                 'high_sch_grad': 'High School Grads',
-                 'income_ineq': 'Income Inequality',
-                 'lead_mean': 'Lead - Pollutant',
-                 'no2_mean': 'NO2 - Pollutant',
-                 'nonox_mean': 'NONOxNOy - Pollutant',
-                 'obese_adult': 'Obesity (Adult)',
-                 'ozo_mean': 'Ozone - Pollutant',
-                 'pcp': 'PCP',
-                 'pm10_mean': 'PM10 - Pollutant',
-                 'pm25_mean': 'PM2.5 Pollutant',
-                 'pm25non_mean': 'PM2.5 non FRM Pollutant',
-                 'pm25spec_mean': 'PM2.5 Spec - Pollutant',
-                 'smoke_adult': 'Smokers (Adult)',
-                 'so2_mean': 'SO2 - Pollutant',
-                 'state': 'State',
-                 'unemployment': 'Unemployment',
-                 'uninsured': 'Uninsured Rate',
-                 'vocs_mean': 'VOCS - Pollutant'}
+    col_dict = nice_column_names()
+    X_train_dot_columns = cols
+    something = [col_dict.get(x, x) for x in X_train_dot_columns]
+    imps, names = zip(*sorted(zip(feat_imps, [col_dict.get(x) for x in X_train_dot_columns])))
+    return imps, names
 
-    X_train_dot_columns = show_columns()
-
-    imps, names = zip(*sorted(zip(feat_imps, [col_dict.get(x, x) for x in X_train_dot_columns])))
+def create_feat_imp_chart():
+    imps, names = get_imps_names()
 
     plt.style.use('bmh')
     plt.barh(range(len(names)), imps, align='center')
@@ -49,4 +27,4 @@ def chart_feature_importances():
     plt.savefig('static/images/feat_imps.png')
 
 if __name__ == '__main__':
-    chart_feature_importances()
+    create_feat_imp_chart()

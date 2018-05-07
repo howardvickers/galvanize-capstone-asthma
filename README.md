@@ -70,7 +70,7 @@ The code is structured as follows:
 * [get_feat_imps.py](https://github.com/howardvickers/galvanize-capstone-asthma/blob/master/src/get_feat_imps.py) runs the random forest model to generate the feature importances for the feature importances chart.
 * [comparison.py](https://github.com/howardvickers/galvanize-capstone-asthma/blob/master/src/comparison.py) allows a comparison of models and their results.
 * [get_results.py](https://github.com/howardvickers/galvanize-capstone-asthma/blob/master/src/get_results.py) processes data from the web app and returns results for representation as html in the web app.
-* [chart.py](https://github.com/howardvickers/galvanize-capstone-asthma/blob/master/src/chart.py) generates the feature importances chart.
+* [charts.py](https://github.com/howardvickers/galvanize-capstone-asthma/blob/master/src/charts.py) generates the feature importances chart.
 * [state_color_map.py](https://github.com/howardvickers/galvanize-capstone-asthma/blob/master/src/state_color_map.py) generates the state map-chart according to predictions based on policy changes input via the web app.
 * [app.py](https://github.com/howardvickers/galvanize-capstone-asthma/blob/master/src/app.py) serves the HTML and related files for the web app, drawing upon the above data and model files.
 
